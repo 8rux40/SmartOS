@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             UserSeeder::class,
             PecasSeeder::class,
-            CelularSeeder::class
+            CelularSeeder::class,
+            ClienteSeeder::class
         ]);
     }
 }
