@@ -19,7 +19,14 @@ class CreateOrdemServicosTable extends Migration
             $table->bigInteger('cliente_id')->unsigned();
 
             $table->timestamps();
-            $table->integer('status');
+            /**
+             * 1 - Orçamento pendente
+             * 2 - Aguardando OS
+             * 3 - Aberta
+             * 4 - Concluída
+             * 5 - Cancelada
+             */
+            $table->integer('status'); 
             $table->integer('horas_trabalhadas');
             $table->string('termo_garantia');
             $table->longText('descricao_problema');
