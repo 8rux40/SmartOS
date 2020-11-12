@@ -65907,8 +65907,8 @@ if (document.getElementById('example')) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\projetos\SmartOS\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\projetos\SmartOS\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Projetos\SmartOS\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Projetos\SmartOS\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
