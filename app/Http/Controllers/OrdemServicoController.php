@@ -22,74 +22,6 @@ class OrdemServicoController extends Controller
         $this->middleware('auth');
     }
 
-    public function getOrcamentoAll(Request $request){
-        return response()->json(auth('api')->user());
-    }
-
-    public function solicitarOrcamento(Request $request){
-        $user =  User::find(auth()->user()->id);
-        if (!$user->can('gerenciar orcamento')){
-            return response()->json([
-                'success' => false,
-                'message' => 'Você não possui permissão para realizar essa ação.',
-                'route' => route('orcamento.create')
-            ]);
-        } else {
-            $validator = Validator::make(
-                $request->all(), [
-                    'descricao_problema' => 'required|string',
-                    'celular_imei' => 'nullable|string',
-                    'celular_imei2' => 'nullable|string',
-                    'celular_marca' => 'required|string',
-                    'celular_modelo' => 'required|string',
-                    'cliente_nome' => 'required|string',
-                    'cliente_cpf' => 'required|string|unique:clientes',
-                    'cliente_numero_tel' => 'nullable|string',
-                    'cliente_numero_cel' => 'nullable|string',
-                    'cliente_endereco' => 'required|string',
-                    'cliente_email' => 'nullable|string|email'
-                ]
-            );
-    
-            if ($validator->fails()) {
-                return response()->json([
-                    'errors'=>$validator->errors()->toArray(),
-                    'data'=>$request->all()
-                ])->setStatusCode(201);
-            }
-    
-            $cliente = new Cliente([
-                'nome' => $request->input('cliente_nome'),
-                'cpf' => $request->input('cliente_cpf'),
-                'numero_cel' => $request->input('cliente_numero_cel'),
-                'numero_tel' => $request->input('cliente_numero_tel'),
-                'endereco' => $request->input('cliente_endereco'),
-                'email' => $request->input('cliente_emaile')
-            ]);
-    
-            $celular = new Celular([
-                'imei' => $request->input('celular_imei'),
-                'imei2' => $request->input('celular_imei2'),
-                'marca' => $request->input('celular_marca'),
-                'modelo' => $request->input('celular_modelo')
-            ]);
-    
-            $orcamento = new OrdemServico([
-                'descricao_problema' => $request->input('descricao_problema'),
-                'status' => OrdemServico::ORCAMENTO_PENDENTE,
-            ]);
-            $orcamento->celular()->save($celular);
-            $orcamento->cliente()->save($cliente);
-            $orcamento->save();
-    
-            return response()->json([
-                'success' => true,
-                'message' => 'Orçamento solicitado com sucesso.',
-                'route' => route('orcamento.info',$orcamento->id)
-            ]);
-        } 
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -97,7 +29,7 @@ class OrdemServicoController extends Controller
      */
     public function index()
     {
-        //
+        return view('ordemservico.index');
     }
 
     /**
