@@ -9,6 +9,13 @@ class OrdemServico extends Model
 {
     use HasFactory;
     protected $table = 'ordens_de_servico';
+
+    public const ORCAMENTO_PENDENTE = 1;
+    public const ORCAMENTO_INFORMADO = 2;
+    public const ABERTA = 3;
+    public const CONCLUIDA = 4;
+    public const CANCELADA = 5;
+
     public function cliente(){
         return $this->belongsTo(Cliente::class);
     }

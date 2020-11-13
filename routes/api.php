@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OrdemServicoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +30,8 @@ Route::prefix('auth')->group(function(){
         
 });
 
-Route::get('pecas', [App\Http\Controllers\Api\PecaController::class, 'index'])->middleware('auth:api');
+//Route::get('pecas', [App\Http\Controllers\Api\PecaController::class, 'index'])->middleware('auth:api');
+
+Route::prefix('orcamento')->group(function(){
+    Route::get('/all', [OrdemServicoController::class, 'getOrcamentoAll'])->name('orcamento.all');
+});
