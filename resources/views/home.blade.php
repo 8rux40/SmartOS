@@ -15,8 +15,7 @@
                     @endif
 
                     {{ __('You are logged in!') }}
-                    <div id="example"></div>
-                    <script src="{{ asset('js/app.js') }}"></script>
+                
                 </div>
             </div>
         </div>
