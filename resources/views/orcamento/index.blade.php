@@ -4,11 +4,8 @@
 <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <h3><i class="fas fa-coins"></i> Orçamentos</li> </h3> 
-      </div>
-      <div class="col-md-3">
-        <button type="button" class="btn btn-outline-dark">Solicitar orçamento</button>
-      </div>
+        <h3><i class="fas fa-coins text-success"></i> Orçamentos</li> </h3> 
+      </div>      
     </div>
   <div class="mt-2"></div>
     <div class="row">
