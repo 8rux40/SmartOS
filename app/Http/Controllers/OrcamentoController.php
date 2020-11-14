@@ -73,7 +73,7 @@ class OrcamentoController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Orçamento solicitado com sucesso.',
-                'route' => route('orcamento.info',$orcamento->id)
+                'route' => route('orcamento.show',$orcamento->id)
             ]);
         } 
     }

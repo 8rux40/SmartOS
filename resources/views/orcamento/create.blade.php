@@ -122,11 +122,11 @@
                 if (result.value) {
                     $(location).attr('href',response.route);
                 } else {
-                    limparFormulario()
+                    //limparFormulario()
                 }
             })
         } else {
-            mostrarErros(response.errors);
+            //mostrarErros(response.errors);
         }
       }
     })

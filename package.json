@@ -25,6 +25,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.14.0",
         "jquery-mask-plugin": "^1.14.16",
-        "moment": "^2.27.0"
+        "moment": "^2.27.0",
+        "sweetalert2": "^9.10.12"
     }
 }
