@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'SmartOS') }}
@@ -30,6 +30,29 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+                
+                {{-- Orçamento --}}
+                <div class="collapse navbar-collapse" id="collapsibleNavId">
+                  <ul class="navbar-nav ml-left">
+                    <li class="nav-item dropdown">
+                      <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                          Orçamento
+                      </a>
+                      <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="{{ route('orcamento.index') }}">
+                              Consultar orçamento
+                          </a>
+                          <a class="dropdown-item" href="{{ route('orcamento.create') }}">
+                              Solicitar orçamento
+                          </a>
+      
+                          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                              @csrf
+                          </form>
+                      </div>
+                  </li>
+                </ul>         
+              </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
