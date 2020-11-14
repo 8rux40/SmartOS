@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PecasSeeder::class,
             CelularSeeder::class,
-            ClienteSeeder::class
+            ClienteSeeder::class,
+            OrcamentoSeeder::class
         ]);
     }
 }

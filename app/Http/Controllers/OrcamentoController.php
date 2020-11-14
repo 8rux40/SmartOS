@@ -98,8 +98,9 @@ class OrcamentoController extends Controller
      */
     public function index()
     {
-        $user =  User::find(auth()->user()->id);
-        if (!$user->can('consultar orcamento')){
+        $user = User::find(auth()->user()->id);
+        //return response()->json(['user'=>$user,'tem_permissao'=>$user->can('consultar orcamento')]);
+        if (!$user->can('consultar orcamento') && !$user->can('gerenciar orcamento')){
             return response()->json([
                 'success' => false,
                 'message' => 'Você não possui permissão para realizar essa ação.',

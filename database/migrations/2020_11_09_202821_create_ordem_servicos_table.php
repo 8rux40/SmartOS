@@ -27,15 +27,15 @@ class CreateOrdemServicosTable extends Migration
              * 5 - Cancelada
              */
             $table->integer('status'); 
-            $table->integer('horas_trabalhadas');
-            $table->string('termo_garantia');
+            $table->integer('horas_trabalhadas')->nullable();
+            $table->string('termo_garantia')->nullable();
             $table->longText('descricao_problema');
-            $table->longText('descricao_servico_executado');
-            $table->float('valor_total');
-            $table->float('valor_orcamento');
-            $table->float('valor_hora');
-            $table->date('data_abertura');
-            $table->date('data_fechamento');
+            $table->longText('descricao_servico_executado')->nullable();
+            $table->float('valor_total')->nullable();
+            $table->float('valor_orcamento')->nullable();
+            $table->float('valor_hora')->nullable();
+            $table->date('data_abertura')->nullable();
+            $table->date('data_fechamento')->nullable();
 
             $table->foreign('celular_id')->references('id')->on('celulares');
             $table->foreign('cliente_id')->references('id')->on('clientes');
