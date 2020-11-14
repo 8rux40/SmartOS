@@ -25,9 +25,9 @@ class PecasSeeder extends Seeder
 
         DB::table('pecas')->insert([
             'titulo' => 'Tela',
-            'descricao' => 'Para Iphone 6',
+            'descricao' => 'Para Iphone X',
             'preco' => '349.90',
-            'quantidade_pecas' => '100',
+            'quantidade_pecas' => '378.9',
             'codigo' => '0641TEL'
         ]);
 
