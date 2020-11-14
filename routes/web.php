@@ -16,11 +16,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('orcamento')->group(function(){
     Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
-    Route::get('/create', [OrcamentoController::class, 'create'])->name('orcamento.create');
+    Route::get('/create/{cliente_id}/{celular_id}', [OrcamentoController::class, 'create'])->name('orcamento.create');
     Route::get('/show/{id}', [OrcamentoController::class, 'show'])->name('orcamento.show');
-    Route::post('/solicitar', [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
-
     Route::get('/getAll', [OrcamentoController::class, 'getAll'])->name('orcamento.getAll');
+    
+    Route::post('/solicitar', [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
 });
 
 Route::prefix('peca')->group(function(){

@@ -47,9 +47,6 @@
                                 <a class="dropdown-item" href="{{ route('orcamento.index') }}">
                                     Gerenciar orçamento
                                 </a>
-                                <a class="dropdown-item" href="{{ route('orcamento.create') }}">
-                                    Solicitar orçamento
-                                </a>
                             </div>
                         </li>
                     </ul>         
