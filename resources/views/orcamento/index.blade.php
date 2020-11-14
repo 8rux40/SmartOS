@@ -61,5 +61,7 @@
 
     // jQuery
     $.getJSON(url, function(data){ console.log(data) })
+
+    
 </script>
 @endpush

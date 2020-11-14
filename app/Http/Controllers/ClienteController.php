@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -30,6 +31,12 @@ class ClienteController extends Controller
             return redirect('home');
         }
         return view('cliente.index');
+    }
+
+    public function getAll(Request $request){
+        return response()->json(
+            Cliente::all()
+        );
     }
 
     /**
