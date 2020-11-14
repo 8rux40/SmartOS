@@ -48,17 +48,18 @@
     method: 'get'
   }
 
-  const url = "https://localhost:8000/orcamento/getAll";
+  const url = "{{ route('orcamento.getAll') }}";
 
   fetch(url, config)
     .then(function(response){
       console.log(response)
     })
 
-
-
     .catch(function(err) {
       console.log(err)
     })
+
+    // jQuery
+    $.getJSON(url, function(data){ console.log(data) })
 </script>
 @endpush
