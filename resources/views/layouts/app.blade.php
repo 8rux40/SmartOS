@@ -40,7 +40,7 @@
                       </a>
                       <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="{{ route('orcamento.index') }}">
-                              Consultar orçamento
+                              Gerenciar orçamento
                           </a>
                           <a class="dropdown-item" href="{{ route('orcamento.create') }}">
                               Solicitar orçamento
