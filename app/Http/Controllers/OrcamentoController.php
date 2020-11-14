@@ -44,7 +44,7 @@ class OrcamentoController extends Controller
                     'celular_marca' => 'required|string',
                     'celular_modelo' => 'required|string',
                     'cliente_nome' => 'required|string',
-                    'cliente_cpf' => 'required|string|unique:clientes',
+                    'cpf' => 'required|string|unique:clientes',
                     'cliente_numero_tel' => 'nullable|string',
                     'cliente_numero_cel' => 'nullable|string',
                     'cliente_endereco' => 'required|string',
@@ -61,11 +61,11 @@ class OrcamentoController extends Controller
     
             $cliente = new Cliente([
                 'nome' => $request->input('cliente_nome'),
-                'cpf' => $request->input('cliente_cpf'),
+                'cpf' => $request->input('cpf'),
                 'numero_cel' => $request->input('cliente_numero_cel'),
                 'numero_tel' => $request->input('cliente_numero_tel'),
                 'endereco' => $request->input('cliente_endereco'),
-                'email' => $request->input('cliente_emaile')
+                'email' => $request->input('cliente_email')
             ]);
     
             $celular = new Celular([
@@ -79,8 +79,8 @@ class OrcamentoController extends Controller
                 'descricao_problema' => $request->input('descricao_problema'),
                 'status' => OrdemServico::ORCAMENTO_PENDENTE,
             ]);
-            $orcamento->celular()->save($celular);
-            $orcamento->cliente()->save($cliente);
+            $orcamento->celular()->associate($celular);
+            $orcamento->cliente()->associate($cliente);
             $orcamento->save();
     
             return response()->json([
@@ -137,7 +137,7 @@ class OrcamentoController extends Controller
     public function show($id)
     {
         $user =  User::find(auth()->user()->id);
-        if (!$user->can('consultar orcamento')){
+        if (!$user->can('consultar orcamento') && !$user->can('gerenciar orcamento')){
             return redirect('orcamento.index');
         } else {
             $orcamento = OrdemServico::find($id);

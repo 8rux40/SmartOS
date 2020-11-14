@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <h3><i class="fas fa-coins text-success"></i> Orçamentos</li> </h3> 
+        <h3><i class="fas fa-users text-primary"></i> Clientes</li> </h3> 
       </div>      
     </div>
   <div class="mt-2"></div>
@@ -48,17 +48,18 @@
     method: 'get'
   }
 
-  const url = "{{ route('orcamento.getAll') }}";
+  const url = "{{ route('cliente.getAll') }}";
 
   fetch(url, config)
     .then(function(response){
       console.log(response)
     })
 
-
-
     .catch(function(err) {
       console.log(err)
     })
+
+    // jQuery
+    $.getJSON(url, function(data){ console.log(data) })
 </script>
 @endpush

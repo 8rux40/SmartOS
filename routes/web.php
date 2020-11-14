@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\OrcamentoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
