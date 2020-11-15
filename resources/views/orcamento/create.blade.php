@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    
 <div class="container">
   <form action="{{ route('orcamento.solicitar') }}" method="post" id="solicitarOrcamento">
   @csrf

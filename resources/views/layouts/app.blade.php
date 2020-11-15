@@ -38,6 +38,12 @@
                                 Cliente
                             </a>
                         </li>
+                        {{-- Celular --}}
+                        <li class="nav-item ">
+                            <a class="nav-link text-light" href="#" role="button" >
+                                Celular
+                            </a>
+                        </li>
                         {{-- Orçamento --}}
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

@@ -57,20 +57,6 @@
 
 @push('javascript')
 <script>
-<<<<<<< HEAD
-  const config =  {
-    method: 'get'
-  }
-
-  const url = "https://localhost:8000/orcamento/getAll";
-
-  fetch(url, config)
-    .then(function(response){
-      console.log(response)
-    })
-    .catch(function(err) {
-      console.log(err)
-=======
   $(document).ready(function(){
     carregaValores()
   })
@@ -120,7 +106,6 @@
           `;
         $('table#orcamentos tbody').append(row);
       }
->>>>>>> a8f01d512b0b230defabcffee1dcb72b2ba75d5d
     })
   }
 </script>
