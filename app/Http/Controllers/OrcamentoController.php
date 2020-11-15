@@ -65,7 +65,7 @@ class OrcamentoController extends Controller
                 'numero_cel' => $request->input('cliente_numero_cel'),
                 'numero_tel' => $request->input('cliente_numero_tel'),
                 'endereco' => $request->input('cliente_endereco'),
-                'email' => $request->input('cliente_emaile')
+                'email' => $request->input('cliente_email')
             ]);
     
             $celular = new Celular([

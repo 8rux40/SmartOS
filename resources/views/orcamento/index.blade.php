@@ -44,7 +44,7 @@
 
 @push('javascript')
 <script>
-  const config = {
+  const config =  {
     method: 'get'
   }
 
@@ -54,9 +54,6 @@
     .then(function(response){
       console.log(response)
     })
-
-
-
     .catch(function(err) {
       console.log(err)
     })
