@@ -4,7 +4,7 @@ mix.scripts([
         'node_modules/jquery/dist/jquery.js',
         'node_modules/jquery-mask-plugin/dist/jquery.mask.js',
         'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-        // 'node_modules/sweetalert2/dist/sweetalert2.all.js',
+        'node_modules/sweetalert2/dist/sweetalert2.all.js',
         'node_modules/moment/min/moment-with-locales.min.js',
         // 'node_modules/pdfmake/build/pdfmake.js',
         // 'node_modules/datatables.net/js/jquery.dataTables.js',

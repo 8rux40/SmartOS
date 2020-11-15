@@ -8,8 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Celular extends Model
 {
     use HasFactory;
+
     protected $table = 'celulares';
+    protected $fillable = [
+        'imei', 'imei2', 'marca', 'modelo'
+    ];
+
     public function ordensServico(){
-        return $this->belongsToMany(OrdemServico::class);
+        return $this->hasMany(OrdemServico::class);
     }
 }

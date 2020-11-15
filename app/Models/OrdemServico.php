@@ -8,7 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class OrdemServico extends Model
 {
     use HasFactory;
+
     protected $table = 'ordens_de_servico';
+    protected $fillable = [
+        'status',
+        'horas_trabalhadas',
+        'termo_garantia',
+        'descricao_problema',
+        'descricao_servico_executado',
+        'valor_total',
+        'valor_orcamento',
+        'valor_hora',
+        'data_abertura',
+        'data_fechamento',
+    ];
 
     public const ORCAMENTO_PENDENTE = 1;
     public const ORCAMENTO_INFORMADO = 2;
@@ -23,7 +36,7 @@ class OrdemServico extends Model
         return $this->hasMany(FotoCelular::class);
     }
     public function celular(){
-        return $this->hasOne(Celular::class);
+        return $this->belongsTo(Celular::class);
     }
     public function pecasUtilizadas(){
         return $this->hasMany(PecaUtilizada::class);
