@@ -59,8 +59,21 @@ class OrcamentoController extends Controller
                 ])->setStatusCode(201);
             }
     
-            $cliente = Cliente::find($request->input('cliente_id'));
-            $celular = Celular::find($request->input('celular_id'));
+            $cliente = new Cliente([
+                'nome' => $request->input('cliente_nome'),
+                'cpf' => $request->input('cliente_cpf'),
+                'numero_cel' => $request->input('cliente_numero_cel'),
+                'numero_tel' => $request->input('cliente_numero_tel'),
+                'endereco' => $request->input('cliente_endereco'),
+                'email' => $request->input('cliente_email')
+            ]);
+    
+            $celular = new Celular([
+                'imei' => $request->input('celular_imei'),
+                'imei2' => $request->input('celular_imei2'),
+                'marca' => $request->input('celular_marca'),
+                'modelo' => $request->input('celular_modelo')
+            ]);
     
             $orcamento = new OrdemServico([
                 'descricao_problema' => $request->input('descricao_problema'),
