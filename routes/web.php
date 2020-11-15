@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\OrcamentoController;
+use App\Http\Controllers\CelularController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrdemServicoController;
@@ -37,6 +38,11 @@ Route::prefix('orcamento')->group(function(){
 
 Route::prefix('peca')->group(function(){
     Route::get('/', function(){ return view('peca.index'); });
+});
+
+Route::prefix('celular')->group(function(){
+    Route::get('/', [CelularController::class, 'create'])->name('celular.index');
+    Route::get('/create', [CelularController::class, 'create'])->name('celular.create');
 });
 
 Route::prefix('cliente')->group(function(){

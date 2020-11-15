@@ -40,7 +40,7 @@
                         </li>
                         {{-- Celular --}}
                         <li class="nav-item ">
-                            <a class="nav-link text-light" href="#" role="button" >
+                            <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
                                 Celular
                             </a>
                         </li>
