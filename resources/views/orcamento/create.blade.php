@@ -114,8 +114,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#888',
-                confirmButtonText: 'Ver veículo cadastrado',
-                cancelButtonText: 'Cadastrar outro veículo'
+                confirmButtonText: 'Ver orçamento cadastrado',
+                cancelButtonText: 'Cadastrar outro orçamento'
             }).then((result) => {
                 if (result.value) {
                     $(location).attr('href',response.route);
