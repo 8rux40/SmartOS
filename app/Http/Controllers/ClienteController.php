@@ -26,10 +26,10 @@ class ClienteController extends Controller
      */
     public function index()
     {
+        // Verifica se usuário tem permissões de acesso
         $user = User::find(auth()->user()->id);
-        if (!$user->can('consultar orcamento') && !$user->can('gerenciar orcamento')){
-            return redirect('home');
-        }
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+        
         return view('cliente.index');
     }
 
@@ -69,7 +69,15 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return redirect('home');
+
+        // Verifica se o cliente existe
+        $cliente = Cliente::find($id);
+        if(!isset($cliente)) redirect('cliente.index');
+        
+        return view('cliente.info', compact('cliente'));
     }
 
     /**

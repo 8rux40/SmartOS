@@ -51,7 +51,6 @@ Route::prefix('cliente')->group(function(){
     Route::get('/', [ClienteController::class, 'index'])->name('cliente.index');
     Route::get('/create', [ClienteController::class, 'create'])->name('cliente.create');
     Route::get('/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');
-    Route::get('/info/{id}', [ClienteController::class, 'info'])->name('cliente.info');
     Route::get('/edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
 
     Route::get('/getAll', [ClienteController::class, 'getAll'])->name('cliente.getAll');

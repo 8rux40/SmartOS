@@ -98,7 +98,15 @@
             </div>
         </nav>
 
+        <div class="flex-center position-ref full-height">
+            <div class="content">
+                <div class="title">
+                    @yield('message')
+                </div>
+            </div>
+        </div>
         <main class="py-4">
+            
             @yield('content')
         </main>
 

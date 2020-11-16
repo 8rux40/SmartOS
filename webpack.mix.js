@@ -15,6 +15,7 @@ mix.scripts([
         // 'node_modules/datatables.net-colreorder-bs4/js/colReorder.bootstrap4.js',
         // 'node_modules/datatables.net-select/js/dataTables.select.js',
         // 'node_modules/datatables.net-select-bs4/js/select.bootstrap4.js',
+        'node_modules/gsap/dist/gsap.js'
     ], 'public/js/app.js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();
