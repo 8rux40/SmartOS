@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\PecaController;
+use App\Http\Controllers\PecaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\CelularController;
