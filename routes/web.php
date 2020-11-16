@@ -24,6 +24,7 @@ Route::prefix('ordemservico')->group(function(){
     Route::get('/getAll', [OrdemServicoController::class, 'getAll'])->name('ordemservico.getAll');
     
     Route::put('/update', [OrdemServicoController::class, 'update'])->name('ordemservico.update');
+    Route::delete('/delete', [OrdemServicoController::class, 'delete'])->name('ordemservico.delete');
 });
 
 Route::prefix('orcamento')->group(function(){
@@ -38,7 +39,7 @@ Route::prefix('orcamento')->group(function(){
 });
 
 Route::prefix('peca')->group(function(){
-    Route::get('/', function(){ return view('peca.index'); });
+    Route::get('/', [PecaController::class, 'index'])->name('peca.index');
     Route::get('/create', [PecaController::class, 'create'])->name('celular.create'); 
     Route::get('/getAll', [PecaController::class, 'getAll'])->name('celular.getAll');
 
