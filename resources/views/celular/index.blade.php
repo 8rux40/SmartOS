@@ -17,7 +17,7 @@
                 <th scope="col">Primeiro Imei</th>
                 <th scope="col">Segundo Imei</th>
                 <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>
+                <th scope="col">Modelo</th>                
                 <th scope="col"></th>
               </tr>
             </thead>
@@ -31,42 +31,42 @@
 @endsection
 
 @push('javascript')
-<!-- <script>
+<script>
   $(document).ready(function(){
     carregaValores()
   })
 
   function carregaValores(){
-    const url = "{{ route('cliente.getAll') }}";
+    const url = "{{ route('celular.getAll') }}";
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
-        data.forEach(cliente => {
-          console.log(cliente)
+        data.forEach(celular => {
+          console.log(celular)
           row = '<tr>';
-          row += '<td>'+ cliente.nome +'</td>';
-          row += '<td>'+ cliente.numero_tel +'</td>';
-          row += '<td>'+ cliente.numero_cel +'</td>';
-          row += '<td>'+ cliente.email +'</td>';
-          row += `<td class="text-center">
+          row += '<td>'+ celular.imei +'</td>';
+          row += '<td>'+ celular.imei2 +'</td>';
+          row += '<td>'+ celular.marca +'</td>';
+          row += '<td>'+ celular.modelo +'</td>';
+          /* row += `<td class="text-center">
                       <a href="{{route('cliente.info',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                       <a href="{{route('cliente.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                       <a href="excluircliente(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                   </td>`.replaceAll(':id',cliente.id,)
-          row += '</tr>';
-          $('table#clientes tbody').append(row);
+          row += '</tr>'; !-->*/
+          $('table#celulares tbody').append(row);
         });
       } else {
         const row = 
           `
             <tr>
               <td colspan="13" class="text-center mx-auto">
-                  <p style="padding-top:0.8rem;">Não existem clientes cadastrados.</p>
+                  <p style="padding-top:0.8rem;">Não existem celulares cadastrados.</p>
               </td>
             </tr>
           `;
-        $('table#clientes tbody').append(row);
+        $('table#celulares tbody').append(row);
       }
     })
-  } !-->
+  }
 </script>
 @endpush

@@ -42,7 +42,9 @@ Route::prefix('peca')->group(function(){
 
 Route::prefix('celular')->group(function(){
     Route::get('/', [CelularController::class, 'index'])->name('celular.index');
-    Route::get('/create', [CelularController::class, 'create'])->name('celular.create');
+    Route::get('/create', [CelularController::class, 'create'])->name('celular.create'); 
+    Route::get('/getAll', [CelularController::class, 'getAll'])->name('celular.getAll');
+
 });
 
 Route::prefix('cliente')->group(function(){
