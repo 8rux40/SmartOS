@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Celular;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CelularController extends Controller
@@ -16,17 +18,21 @@ class CelularController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function create()
-    {
-        return view('celular.create');
+    public function getAll(Request $request){
+        return response()->json(
+            Celular::all()
+        );
     }
 
-    public function index() {
+    public function create()
+    {
+        return view('celular.create');        
+    }
+
+    public function index()
+    {
         return view('celular.index');
-    }    
+    }
+
+  
 }
