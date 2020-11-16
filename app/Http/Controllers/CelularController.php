@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Celular;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CelularController extends Controller
@@ -31,7 +32,11 @@ class CelularController extends Controller
      */
     public function index()
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+        
+        return redirect('celular.index');
     }
 
     /**
@@ -41,7 +46,11 @@ class CelularController extends Controller
      */
     public function create()
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+
+        return view('celular.create');
     }
 
     /**
@@ -63,7 +72,15 @@ class CelularController extends Controller
      */
     public function show($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+
+        // Verifica se celular existe
+        $celular = Celular::find($id);
+        if (!isset($celular)) return abort(404);
+
+        return view('celular.info', compact('celular'));
     }
 
     /**
@@ -74,7 +91,15 @@ class CelularController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+
+        // Verifica se celular existe
+        $celular = Celular::find($id);
+        if (!isset($celular)) return abort(404);
+
+        return view('celular.edit', compact('celular'));
     }
 
     /**
