@@ -36,7 +36,7 @@ class CelularController extends Controller
         $user = User::find(auth()->user()->id);
         if (!$user->can('gerenciar orcamento')) return abort(403);
         
-        return redirect('celular.index');
+        return view('celular.index');
     }
 
     /**
