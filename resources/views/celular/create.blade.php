@@ -2,31 +2,31 @@
 
 @section('content')
 <div class="container">
-  <form action="{{ route('celular.create') }}" method="post" id="create">
+  <form action="{{ route('celular.create') }}" method="post" id="formCreateCelular">
   @csrf   
     <div class="row">
       <div class="col-md">
         <div class="form-group">
           <label for="InputImei1">Primeiro Imei do celular</label>
-          <input disabled="disabled" type="text" class="form-control" id="InputImei1" name="celular_imei">
+          <input  type="text" class="form-control" id="InputImei1" name="celular_imei">
         </div>
       </div> 
       <div class="col-md">
         <div class="form-group">
           <label for="InputImei2">Segundo Imei do celular</label>
-          <input disabled="disabled" type="text" class="form-control" id="InputImei2" name="celular_imei2">
+          <input  type="text" class="form-control" id="InputImei2" name="celular_imei2">
         </div>
       </div> 
       <div class="col">
         <div class="form-group">
           <label for="MarcaCelular">Marca do celular</label>
-          <input disabled="disabled" type="text" class="form-control" id="MarcaCelular" required="true" name="celular_marca">
+          <input  type="text" class="form-control" id="MarcaCelular" required="true" name="celular_marca">
         </div>
       </div>
       <div class="col">
         <div class="form-group">
           <label for="ModeloCelular">Modelo do celular</label>
-          <input disabled="disabled" type="text" class="form-control" id="ModeloCelular" required="true"  name="celular_modelo">
+          <input type="text" class="form-control" id="ModeloCelular" required="true"  name="celular_modelo">
         </div>
       </div>
     </div>
@@ -41,6 +41,39 @@
 
 @push('javascript')
 <script>
- 
+ $('#formCreateCelular').submit(function(e){
+  e.preventDefault();
+   var serializedData = $(this).serialize();
+
+  $.ajax({
+    url: "{{ route('celular.store') }}",
+    method: 'post',
+    dataType: 'json',
+    data: serializedData,
+    success: function (response) {
+      console.log(response)
+      if(response.success) {
+        Swal.fire({
+          title: 'Sucesso!',
+                text: response.message,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#888',
+                confirmButtonText: 'Ver cliente cadastrado',
+                cancelButtonText: 'Cadastrar outro cliente'
+        }).then((result) => {
+          if(result.value) {
+            $(location).attr('href', response.route);
+          } else {
+            //limparFormulario()
+          }
+        })
+      } else {
+        //mostrarErros(response.errors);
+      }
+    }
+  });
+ });
 </script>
 @endpush
