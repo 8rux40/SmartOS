@@ -29,40 +29,35 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
-                <div class="collapse navbar-collapse" id="collapsibleNavId">
-                    <ul class="navbar-nav ml-left">
-                        {{-- Cliente --}}
-                        <li class="nav-item ">
-                            <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
-                                Cliente
-                            </a>
-                        </li>
-                        {{-- Celular --}}
-                        <li class="nav-item ">
-                            <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
-                                Celular
-                            </a>
-                        </li>
-                        {{-- Orçamento --}}
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Orçamento
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('orcamento.index') }}">
-                                    Gerenciar orçamento
-                                </a>
-                            </div>
-                        </li>
-                    </ul>         
-                </div>
-
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        @guest 
+                        @else 
+                            {{-- Cliente --}}
+                            <li class="nav-item ">
+                                <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
+                                    Cliente
+                                </a>
+                            </li>
+                            {{-- Celular --}}
+                            <li class="nav-item ">
+                                <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
+                                    Celular
+                                </a>
+                            </li>
+                            {{-- Orçamento --}}
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Orçamento
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('orcamento.index') }}">
+                                        Gerenciar orçamento
+                                    </a>
+                                </div>
+                            </li>
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -71,15 +66,15 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link text-light" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
                             
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
