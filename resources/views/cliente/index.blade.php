@@ -4,7 +4,8 @@
 <div class="container">
     <div class="row">
       <div class="col-md-9">
-        <h3><i class="fas fa-users text-primary"></i> Clientes</li> </h3> 
+        <h3><i class="fas fa-users text-primary"></i> Clientes</li>
+        <a href="{{ route('cliente.create') }}" class="btn btn-md bg-success text-light float-lg-right">Novo</a> </h3> 
       </div>      
     </div>
   <div class="mt-2"></div>

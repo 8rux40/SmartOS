@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\PecaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\OrcamentoController;
 use App\Http\Controllers\CelularController;
@@ -38,6 +39,12 @@ Route::prefix('orcamento')->group(function(){
 
 Route::prefix('peca')->group(function(){
     Route::get('/', function(){ return view('peca.index'); });
+    Route::get('/create', [PecaController::class, 'create'])->name('celular.create'); 
+    Route::get('/getAll', [PecaController::class, 'getAll'])->name('celular.getAll');
+
+    Route::post('/store', [PecaController::class, 'store'])->name('celular.store');
+    Route::put('/update', [PecaController::class, 'update'])->name('celular.update');
+    Route::delete('/delete', [PecaController::class, 'delete'])->name('celular.delete');
 });
 
 Route::prefix('celular')->group(function(){
@@ -45,6 +52,9 @@ Route::prefix('celular')->group(function(){
     Route::get('/create', [CelularController::class, 'create'])->name('celular.create'); 
     Route::get('/getAll', [CelularController::class, 'getAll'])->name('celular.getAll');
 
+    Route::post('/store', [CelularController::class, 'store'])->name('celular.store');
+    Route::put('/update', [CelularController::class, 'update'])->name('celular.update');
+    Route::delete('/delete', [CelularController::class, 'delete'])->name('celular.delete');
 });
 
 Route::prefix('cliente')->group(function(){
@@ -52,6 +62,9 @@ Route::prefix('cliente')->group(function(){
     Route::get('/create', [ClienteController::class, 'create'])->name('cliente.create');
     Route::get('/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');
     Route::get('/edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
-
     Route::get('/getAll', [ClienteController::class, 'getAll'])->name('cliente.getAll');
+
+    Route::post('/store', [ClienteController::class, 'store'])->name('cliente.store');
+    Route::put('/update', [ClienteController::class, 'update'])->name('cliente.update');
+    Route::delete('/delete', [ClienteController::class, 'delete'])->name('cliente.delete');
 });
