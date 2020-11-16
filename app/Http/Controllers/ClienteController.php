@@ -34,6 +34,10 @@ class ClienteController extends Controller
     }
 
     public function getAll(Request $request){
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+        
         return response()->json(
             Cliente::all()
         );

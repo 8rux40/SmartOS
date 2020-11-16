@@ -27,7 +27,6 @@ body {
   /* display: flex; */
   align-items: center;
   justify-content: center;
-  font-family:"Nunito Sans";
   color: var(--blue);
   /* font-size: 1em; */
 }
