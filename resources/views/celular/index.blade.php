@@ -17,11 +17,12 @@
           <table class="table table-striped" id="celulares">
             <thead class="thead-dark">
               <tr>
+                <th scope="col">Proprietário</th>
                 <th scope="col">Primeiro Imei</th>
                 <th scope="col">Segundo Imei</th>
                 <th scope="col">Marca</th>
-                <th scope="col">Modelo</th>                
-                <th scope="col"></th>
+                <th scope="col">Modelo</th>       
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -46,11 +47,13 @@
         data.forEach(celular => {
           console.log(celular)
           row = '<tr>';
+          row += '<td>'+ celular.cliente.nome +'</td>';
           row += '<td>'+ celular.imei +'</td>';
           row += '<td>'+ celular.imei2 +'</td>';
           row += '<td>'+ celular.marca +'</td>';
           row += '<td>'+ celular.modelo +'</td>';
-          row += `<td class="text-center">                      
+          row += `<td class="text-center"> 
+                      <a href="{{route('cliente.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>                     
                       <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>                      
                   </td>`.replaceAll(':id',celular.id,)
           row += '</tr>';
