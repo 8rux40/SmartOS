@@ -134,7 +134,7 @@ class ClienteController extends Controller
 
         // Verifica se o cliente existe
         $cliente = Cliente::find($id);
-        if(!isset($cliente)) redirect('cliente.index');
+        if(!isset($cliente)) return abort(404);
         
         return view('cliente.info', compact('cliente'));
     }
