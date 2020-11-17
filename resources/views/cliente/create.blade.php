@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <form action="{{ route('cliente.create') }}" method="post" id="cadastrarCliente">
+  <form id="cadastrarCliente" method="post">
   @csrf   
     <div class="row">
         <div class="col-md-5">
@@ -50,7 +50,6 @@
           <button type="submit" class="btn btn-primary">Cadastrar cliente</button>
       </div>            
     </div>
-    </div>
   </form>
 </div>
 @endsection
@@ -65,7 +64,7 @@
     disabled.attr('disabled', 'disabled');
 
     $.ajax({
-      url: "{{ route('cliente.create') }}",
+      url: "{{ route('cliente.store') }}",
       method: 'post',
       dataType: 'json',
       data: serializedData,

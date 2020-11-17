@@ -18,7 +18,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('ordemservico')->group(function(){
     Route::get('/', [OrdemServicoController::class, 'index'])->name('ordemservico.index');
-    Route::get('/create/{orcamento_id}', [OrcamentoController::class, 'create'])->name('ordemservico.create');
+    Route::get('/create/{orcamento_id}', [OrdemServicoController::class, 'create'])->name('ordemservico.create');
     Route::get('/show/{id}', [OrdemServicoController::class, 'show'])->name('ordemservico.show');
     Route::get('/edit/{id}', [OrdemServicoController::class, 'edit'])->name('ordemservico.edit');
     Route::get('/getAll', [OrdemServicoController::class, 'getAll'])->name('ordemservico.getAll');
@@ -40,12 +40,12 @@ Route::prefix('orcamento')->group(function(){
 
 Route::prefix('peca')->group(function(){
     Route::get('/', [PecaController::class, 'index'])->name('peca.index');
-    Route::get('/create', [PecaController::class, 'create'])->name('celular.create'); 
-    Route::get('/getAll', [PecaController::class, 'getAll'])->name('celular.getAll');
+    Route::get('/create', [PecaController::class, 'create'])->name('peca.create'); 
+    Route::get('/getAll', [PecaController::class, 'getAll'])->name('peca.getAll');
 
-    Route::post('/store', [PecaController::class, 'store'])->name('celular.store');
-    Route::put('/update/{id}', [PecaController::class, 'update'])->name('celular.update');
-    Route::delete('/delete', [PecaController::class, 'delete'])->name('celular.delete');
+    Route::post('/store', [PecaController::class, 'store'])->name('peca.store');
+    Route::put('/update/{id}', [PecaController::class, 'update'])->name('peca.update');
+    Route::delete('/delete', [PecaController::class, 'delete'])->name('peca.delete');
 });
 
 Route::prefix('celular')->group(function(){
