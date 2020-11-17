@@ -3,11 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-12">
         <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
-      </div>
-      <div class="col-md-3">
-        <a href="{{ route('celular.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a>     
       </div>
     </div>
   <div class="mt-2"></div>
@@ -49,13 +46,15 @@
           row = '<tr>';
           row += '<td>'+ celular.cliente.nome +'</td>';
           row += '<td>'+ celular.imei +'</td>';
-          row += '<td>'+ celular.imei2 +'</td>';
+          row += '<td>'+ ((celular.imei2 !== null && celular.imei2 !== undefined) ? celular.imei2 : '--') +'</td>';
           row += '<td>'+ celular.marca +'</td>';
           row += '<td>'+ celular.modelo +'</td>';
           row += `<td class="text-center"> 
-                      <a href="{{route('cliente.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>                     
-                      <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>                      
-                  </td>`.replaceAll(':id',celular.id,)
+                      <a href="{{route('orcamento.create',':id_celular')}}" class="btn btn-sm btn-warning" title="Solicitar orçamento"><li class="fa fa-coins text-light"></li></a>
+                      <a href="{{route('cliente.show',':id_cliente')}}" class="btn btn-sm btn-primary" title="Detalhes do proprietário"><li class="fa fa-user"></li></a>                     
+                      <a href="{{route('celular.edit',':id_celular')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>                      
+                      <a onclick="excluir(:id_celular)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>                      
+                  </td>`.replaceAll(':id_cliente', celular.cliente.id).replaceAll(':id_celular',celular.id,)
           row += '</tr>';
           $('table#celulares tbody').append(row);
         });
@@ -69,6 +68,40 @@
             </tr>
           `;
         $('table#celulares tbody').append(row);
+      }
+    })
+  }
+
+  function excluir(id){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Não será possível reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "{{ route('celular.delete') }}",
+          method: 'delete',
+          dataType: 'json',
+          data: {
+            id: id
+          },
+          success: function(response){
+            if(response.success){
+              Swal.fire(
+              {
+                title: 'Excluido!',
+              text: response.message,
+              icon: 'success'
+              }
+            )
+            }
+          }
+        })
       }
     })
   }

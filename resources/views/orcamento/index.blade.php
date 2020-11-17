@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-9">
-      <h3><i class="fas fa-coins text-success"></i> Orçamentos pendentes</li> </h3> 
+      <h3><i class="fas fa-coins text-primary"></i> Orçamentos pendentes</li> </h3> 
     </div>      
   </div>
   <div class="mt-2"></div>
@@ -29,7 +29,7 @@
     <br><br>
     <div class="row">
       <div class="col-md-9">
-        <h3><i class="fas fa-coins text-success"></i> Orçamentos informados</li> </h3> 
+        <h3><i class="fas fa-coins text-primary"></i> Orçamentos informados</li> </h3> 
       </div>      
     </div>
     <div class="mt-2"></div>
@@ -86,7 +86,7 @@
             row += '<td>'+ orcamento.valor_orcamento +'</td>';
             row += `<td class="text-center">
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
-                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Ver Detalhes"><li class="fa fa-plus"></li></a>
+                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Criar Ordem de Serviço"><li class="fa fa-plus"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                         <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                     </td>`.replaceAll(':id',orcamento.id,)

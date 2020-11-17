@@ -88,8 +88,8 @@ class ClienteController extends Controller
             $request->all(), [
                 'nome' => 'required|string',
                 'cpf' => 'string|unique:clientes|required',
-                'numero_tel' => 'string',
-                'numero_cel' => 'string',
+                'numero_tel' => 'string|nullable',
+                'numero_cel' => 'string|nullable',
                 'email' => 'required|string|email',
                 'endereco' => 'string',
             ]
@@ -134,7 +134,7 @@ class ClienteController extends Controller
 
         // Verifica se o cliente existe
         $cliente = Cliente::find($id);
-        if(!isset($cliente)) redirect('cliente.index');
+        if(!isset($cliente)) return abort(404);
         
         return view('cliente.info', compact('cliente'));
     }

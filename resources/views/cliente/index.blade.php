@@ -55,7 +55,7 @@
           row += `<td class="text-center">
                       <a href="{{route('cliente.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                       <a href="{{route('cliente.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                      <a href="excluircliente(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                      <a onclick="excluir(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                   </td>`.replaceAll(':id',cliente.id,)
           row += '</tr>';
           $('table#clientes tbody').append(row);
@@ -70,6 +70,40 @@
             </tr>
           `;
         $('table#clientes tbody').append(row);
+      }
+    })
+  }
+
+  function excluir(id){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Não será possível reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "{{ route('cliente.delete') }}",
+          method: 'delete',
+          dataType: 'json',
+          data: {
+            id: id
+          },
+          success: function(response){
+            if(response.success){
+              Swal.fire(
+              {
+                title: 'Excluido!',
+              text: response.message,
+              icon: 'success'
+              }
+            )
+            }
+          }
+        })
       }
     })
   }

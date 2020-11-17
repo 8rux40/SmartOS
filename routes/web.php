@@ -29,7 +29,7 @@ Route::prefix('ordemservico')->group(function(){
 
 Route::prefix('orcamento')->group(function(){
     Route::get('/', [OrcamentoController::class, 'index'])->name('orcamento.index');
-    Route::get('/create/{cliente_id}/{celular_id}', [OrcamentoController::class, 'create'])->name('orcamento.create');
+    Route::get('/create/{celular_id}', [OrcamentoController::class, 'create'])->name('orcamento.create');
     Route::get('/show/{id}', [OrcamentoController::class, 'show'])->name('orcamento.show');
     Route::get('/edit/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
     Route::get('/getAll', [OrcamentoController::class, 'getAll'])->name('orcamento.getAll');
@@ -50,7 +50,7 @@ Route::prefix('peca')->group(function(){
 
 Route::prefix('celular')->group(function(){
     Route::get('/', [CelularController::class, 'index'])->name('celular.index');
-    Route::get('/create', [CelularController::class, 'create'])->name('celular.create'); 
+    Route::get('/create/{id}', [CelularController::class, 'create'])->name('celular.create'); 
     Route::get('/show/{id}', [CelularController::class, 'show'])->name('celular.show');
     Route::get('/getAll', [CelularController::class, 'getAll'])->name('celular.getAll');
     Route::get('/edit/{id}', [CelularController::class, 'edit'])->name('celular.edit');
