@@ -33,7 +33,7 @@
     </div>
     <div class="row">
       <div class="col-md-2">
-          <button type="submit" class="btn btn-primary">Cadastrar celular</button>
+          <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>&nbsp;Salvar</button>
       </div>            
     </div>
   </form>

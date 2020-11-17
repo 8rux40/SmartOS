@@ -42,7 +42,7 @@
 <br>
         <div class="row mt-3">
             <div class="col-md-9">
-                <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
+                <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares do cliente</li> </h3>         
             </div>
             <div class="col-md-3">
                 <a href="{{ route('celular.create', $cliente->id) }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a>     

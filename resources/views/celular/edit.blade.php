@@ -32,8 +32,8 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-2">
-          <button type="submit" class="btn btn-primary">Editar celular</button>
+      <div class="col-md-2 float-right">
+          <button type="submit" class="btn btn-success"><i class="fas fa-check"></i>&nbsp;Salvar alterações</button>
       </div>            
     </div>
   </form>
@@ -58,16 +58,11 @@
           title: 'Celular editado com sucesso!',
                 text: response.message,
                 icon: 'success',
-                showCancelButton: true,
                 confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#888',
-                confirmButtonText: 'Ver celular editado',
-                cancelButtonText: 'Cadastrar outro celular'
+                confirmButtonText: 'Voltar ao Cliente',
         }).then((result) => {
           if(result.value) {
-            $(location).attr('href', response.route);
-          } else {
-            //limparFormulario()
+            $(location).attr('href', "{{ route('cliente.show', $celular->cliente_id) }}");
           }
         })
       } else {
