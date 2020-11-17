@@ -14,6 +14,10 @@ class Celular extends Model
         'imei', 'imei2', 'marca', 'modelo'
     ];
 
+    public function cliente(){
+        return $this->belongsTo(Cliente::class);
+    }
+
     public function ordensServico(){
         return $this->hasMany(OrdemServico::class);
     }
