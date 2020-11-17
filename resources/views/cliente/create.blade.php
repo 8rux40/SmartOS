@@ -2,10 +2,17 @@
 
 @section('content')
 <div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h3><i class="fas fa-user text-primary"></i> Novo cliente</li> </h3>         
+        </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
   <form id="cadastrarCliente" method="post">
   @csrf   
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="form-group">
                 <label for="NomeCliente">Nome</label>
                 <input  type="text" class="form-control" id="NomeCliente" required="true" name="nome">                
@@ -31,14 +38,14 @@
       </div>                       
     </div>
     <div class="row"> 
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="form-group">
                 <label for="EmailCliente">Email</label>
                 <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email">
                 <small id="emailHelp" class="form-text text-muted">Nós nunca iremos compartilhar o seu e-mail.</small>         
           </div>
         </div>      
-        <div class="col-md-6">
+        <div class="col-md-8">
           <div class="form-group">
               <label for="EnderecoCliente">Endereço</label>
               <input  type="text" class="form-control" id="EnderecoCliente" required="true" name="endereco">
@@ -46,12 +53,15 @@
         </div>                   
     </div>
     <div class="row">
-      <div class="col-md-2">
-          <button type="submit" class="btn btn-primary">Cadastrar cliente</button>
+      <div class="col-md-12">
+          <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Salvar</button>
       </div>            
     </div>
   </form>
 </div>
+</div>
+</div>
+
 @endsection
 
 @push('javascript')
