@@ -87,7 +87,7 @@ class ClienteController extends Controller
         $validator = Validator::make(
             $request->all(), [
                 'nome' => 'required|string',
-                'cpf' => 'string|unique:required|clientes',
+                'cpf' => 'string|unique:clientes|required',
                 'numero_tel' => 'string',
                 'numero_cel' => 'string',
                 'email' => 'required|string|email',
@@ -103,16 +103,21 @@ class ClienteController extends Controller
         }
 
         $cliente = new Cliente([
-            'nome' => $request->input('cliente_nome'),
-            'cpf' => $request->input('cliente_cpf'),
-            'numero_cel' => $request->input('cliente_numero_cel'),
-            'numero_tel' => $request->input('cliente_numero_tel'),
-            'endereco' => $request->input('cliente_endereco'),
-            'email' => $request->input('cliente_email')
+            'nome' => $request->input('nome'),
+            'cpf' => $request->input('cpf'),
+            'numero_cel' => $request->input('numero_cel'),
+            'numero_tel' => $request->input('numero_tel'),
+            'endereco' => $request->input('endereco'),
+            'email' => $request->input('email')
         ]);
 
         $cliente->save();
         
+        return response()->json([
+            'success' => true,
+            'message' => 'Cliente cadastrado com sucesso.',
+            'route' => route('cliente.show',$cliente->id)
+        ]);
     }
 
     /**
