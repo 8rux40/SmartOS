@@ -7,8 +7,8 @@
         <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
       </div>
       <div class="col-md-3">
-        <a href="{{ route('celular.create') }}" class="btn btn-primary">Cadastrar Celular</a>
-      </div>      
+        <a href="{{ route('celular.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a>     
+      </div>
     </div>
   <div class="mt-2"></div>
     <div class="row">

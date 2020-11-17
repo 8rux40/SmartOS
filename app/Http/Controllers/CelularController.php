@@ -21,7 +21,7 @@ class CelularController extends Controller
 
     public function getAll(Request $request){
         return response()->json(
-            Celular::all()
+            Celular::with('cliente')->get()
         );
     }
 
