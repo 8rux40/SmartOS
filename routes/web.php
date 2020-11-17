@@ -53,7 +53,7 @@ Route::prefix('celular')->group(function(){
     Route::get('/create', [CelularController::class, 'create'])->name('celular.create'); 
     Route::get('/getAll', [CelularController::class, 'getAll'])->name('celular.getAll');
     Route::get('/edit/{id}', [CelularController::class, 'edit'])->name('celular.edit');
-
+    
     Route::post('/store', [CelularController::class, 'store'])->name('celular.store');
     Route::put('/update/{id}', [CelularController::class, 'update'])->name('celular.update');
     Route::delete('/delete', [CelularController::class, 'delete'])->name('celular.delete');
