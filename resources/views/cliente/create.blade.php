@@ -41,7 +41,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label for="EmailCliente">Email</label>
-                <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email">
+                <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email" required>
                 <small id="emailHelp" class="form-text text-muted">Nós nunca iremos compartilhar o seu e-mail.</small>         
           </div>
         </div>      
