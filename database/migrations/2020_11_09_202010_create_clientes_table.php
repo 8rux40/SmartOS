@@ -18,8 +18,8 @@ class CreateClientesTable extends Migration
             $table->timestamps();
             $table->string('nome');
             $table->string('cpf');
-            $table->string('numero_cel');
-            $table->string('numero_tel');
+            $table->string('numero_cel')->nullable();
+            $table->string('numero_tel')->nullable();
             $table->string('endereco');
             $table->string('email');
         });
