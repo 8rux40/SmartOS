@@ -3,11 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12 barra-titulo">
-                Dados do Cliente
+            <div class="col-md-9">
+                <h3><i class="fas fa-users text-primary"></i> Dados do cliente</li> </h3>         
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-1">
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label for="" class="label-info-cliente">Nome:</label>
                 <span class="dados-info-cliente">Aroldo</span>
@@ -35,9 +35,12 @@
                 <span class="dados-info-cliente">Rua do rodolfo, 123</span>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 barra-titulo">
-                Celulares do cliente
+        <div class="row mt-3">
+            <div class="col-md-9">
+                <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
+            </div>
+            <div class="col-md-3">
+                <a href="{{ route('celular.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a>     
             </div>
             <div class="col-md-12 mt-2">
                 <div class="responsive-table">
