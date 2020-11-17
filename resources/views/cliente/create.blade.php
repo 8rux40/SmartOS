@@ -84,7 +84,7 @@
                 if (result.value) {
                     $(location).attr('href',response.route);
                 } else {
-                    //limparFormulario()
+                    limparFormulario()
                 }
             })
         } else {
@@ -93,5 +93,9 @@
       }
     })
   })
+
+  function limparFormulario(){
+      $('input').val('')
+  }
 </script>
 @endpush
