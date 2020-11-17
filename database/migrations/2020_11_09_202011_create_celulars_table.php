@@ -19,7 +19,7 @@ class CreateCelularsTable extends Migration
 
             $table->timestamps();
             $table->string('imei');
-            $table->string('imei2');
+            $table->string('imei2')->nullable();
             $table->string('marca');
             $table->string('modelo');
 

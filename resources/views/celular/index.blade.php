@@ -46,7 +46,7 @@
           row = '<tr>';
           row += '<td>'+ celular.cliente.nome +'</td>';
           row += '<td>'+ celular.imei +'</td>';
-          row += '<td>'+ celular.imei2 +'</td>';
+          row += '<td>'+ ((celular.imei2 !== null && celular.imei2 !== undefined) ? celular.imei2 : '--') +'</td>';
           row += '<td>'+ celular.marca +'</td>';
           row += '<td>'+ celular.modelo +'</td>';
           row += `<td class="text-center"> 
