@@ -7,8 +7,8 @@
         <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
       </div>
       <div class="col-md-3">
-        <a href="{{ route('celular.create') }}" class="btn btn-primary">Cadastrar Celular</a>
-      </div>      
+        <a href="{{ route('celular.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a>     
+      </div>
     </div>
   <div class="mt-2"></div>
     <div class="row">
@@ -50,8 +50,7 @@
           row += '<td>'+ celular.imei2 +'</td>';
           row += '<td>'+ celular.marca +'</td>';
           row += '<td>'+ celular.modelo +'</td>';
-          /* row += `<td class="text-center">
-                      <a href="{{route('cliente.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+          row += `<td class="text-center">                      
                       <a href="{{route('cliente.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                       <a href="excluircliente(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                   </td>`.replaceAll(':id',cliente.id,)

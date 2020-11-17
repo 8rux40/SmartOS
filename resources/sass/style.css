@@ -3,3 +3,29 @@ th {
     color: white !important;
     border-color: orange !important;
 }
+
+.barra-titulo {
+    background-color: orange;
+    text-align: center;
+    line-height: 50px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.grupo-dados-info-cliente {
+    margin: 10px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.label-info-cliente {
+    font-weight: bold !important;
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.dados-info-cliente {
+    font-size: 16px;
+    color: gray !important;
+}

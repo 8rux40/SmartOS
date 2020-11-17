@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-  <form action="{{ route('cliente.create') }}" method="post" id="create">
+  <form action="{{ route('cliente.create') }}" method="post" id="cadastrarCliente">
   @csrf   
     <div class="row">
         <div class="col-md-5">
@@ -57,6 +57,42 @@
 
 @push('javascript')
 <script>
- 
+   $('#cadastrarCliente').submit(function(e){
+    e.preventDefault()
+    // Temporariamente destrancando TODOS os campos para enviar os dados
+    var disabled = $(this).find(':input:disabled').removeAttr('disabled');
+    var serializedData = $(this).serialize();
+    disabled.attr('disabled', 'disabled');
+
+    $.ajax({
+      url: "{{ route('cliente.create') }}",
+      method: 'post',
+      dataType: 'json',
+      data: serializedData,
+      success: function (response) {
+        console.log(response)
+        if (response.success) {
+            Swal.fire({
+                title: 'Sucesso!',
+                text: response.message,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#888',
+                confirmButtonText: 'Ver cliente cadastrado',
+                cancelButtonText: 'Cadastrar outro cliente'
+            }).then((result) => {
+                if (result.value) {
+                    $(location).attr('href',response.route);
+                } else {
+                    //limparFormulario()
+                }
+            })
+        } else {
+            //mostrarErros(response.errors);
+        }
+      }
+    })
+  })
 </script>
 @endpush
