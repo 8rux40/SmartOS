@@ -83,8 +83,8 @@
                     row += `<td class="text-center">                      
                                 <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                                 <a href="" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
-                            </td>`
-                    row += '</tr>'; 
+                            </td>`.replaceAll(":id", celular.id); 
+                    row += '</tr>'
           $('table#celulares tbody').append(row);
         });
       } else {
