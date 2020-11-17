@@ -11,19 +11,25 @@
 .grupo-dados-info-cliente {
     margin: 10px 0px;
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: baseline;
 }
 
 .label-info-cliente {
-    font-weight: bold !important;
+    /* font-weight: bold !important; */
     margin-right: 5px;
-    font-size: 20px;
+    font-size: 16px;
+    color: #444;
+    background: #eee;
+    padding: 2px 8px 2px 8px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
 }
 
 .dados-info-cliente {
+    font-weight: bold !important;
     font-size: 16px;
-    color: gray !important;
+    color: #333 !important;
 }@charset "UTF-8";
 
 /*!

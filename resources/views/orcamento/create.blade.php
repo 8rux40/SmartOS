@@ -78,7 +78,7 @@
       <div class="col-md-7">
           <div class="form-group">
               <label for="DescricaoProblema">Descrição do problema do celular</label>
-              <textarea class="form-control" id="DescricaoProblema" rows="4" require name="descricao_problema"></textarea>
+              <textarea class="form-control" id="DescricaoProblema" rows="4" required name="descricao_problema"></textarea>
           </div>
       </div>
   </div> 

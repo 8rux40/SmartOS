@@ -7,34 +7,39 @@
                 <h3><i class="fas fa-users text-primary"></i> Dados do cliente</li> </h3>         
             </div>
         </div>
-        <div class="row mt-1">
-            <div class="col-md-4 grupo-dados-info-cliente">
-                <label for="" class="label-info-cliente">Nome:</label>
-                <span class="dados-info-cliente">{{ $cliente->nome }}</span>
+        <div class="card">
+          <div class="card-body">
+            <div class="row mt-1">
+                <div class="col-md-4 grupo-dados-info-cliente">
+                    <label for="" class="label-info-cliente">Nome:</label>
+                    <span class="dados-info-cliente">{{ $cliente->nome }}</span>
+                </div>
+                <div class="col-md-4 grupo-dados-info-cliente">
+                    <label class="label-info-cliente" for="">CPF:</label>
+                    <span class="dados-info-cliente">{{ $cliente->cpf }}</span>
+                </div>
+                <div class="col-md-4 grupo-dados-info-cliente">
+                    <label class="label-info-cliente" for="">Número de telefone:</label>
+                    <span class="dados-info-cliente">{{ $cliente->numero_tel }}</span>
+                </div>
             </div>
-            <div class="col-md-4 grupo-dados-info-cliente">
-                <label class="label-info-cliente" for="">CPF:</label>
-                <span class="dados-info-cliente">{{ $cliente->cpf }}</span>
+            <div class="row">
+                <div class="col-md-4 grupo-dados-info-cliente">
+                    <label class="label-info-cliente" for="">Número de celular:</label>
+                    <span class="dados-info-cliente">{{ $cliente->numero_cel }}</span>
+                </div>
+                <div class="col-md-4 grupo-dados-info-cliente">
+                    <label class="label-info-cliente" for="">Email:</label>
+                    <span class="dados-info-cliente">{{ $cliente->email }}</span>
+                </div>
+                <div class="col-md-4 grupo-dados-info-cliente">
+                    <label class="label-info-cliente" for="">Endereço:</label>
+                    <span class="dados-info-cliente">{{ $cliente->endereco }}</span>
+                </div>
             </div>
-            <div class="col-md-4 grupo-dados-info-cliente">
-                <label class="label-info-cliente" for="">Numero de telefone:</label>
-                <span class="dados-info-cliente">{{ $cliente->numero_tel }}</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 grupo-dados-info-cliente">
-                <label class="label-info-cliente" for="">Numero celular:</label>
-                <span class="dados-info-cliente">{{ $cliente->numero_cel }}</span>
-            </div>
-            <div class="col-md-4 grupo-dados-info-cliente">
-                <label class="label-info-cliente" for="">Email:</label>
-                <span class="dados-info-cliente">{{ $cliente->email }}</span>
-            </div>
-            <div class="col-md-4 grupo-dados-info-cliente">
-                <label class="label-info-cliente" for="">Endereco:</label>
-                <span class="dados-info-cliente">{{ $cliente->endereco }}</span>
-            </div>
-        </div>
+          </div>
+      </div>
+<br>
         <div class="row mt-3">
             <div class="col-md-9">
                 <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
