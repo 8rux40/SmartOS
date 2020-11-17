@@ -81,6 +81,7 @@
                     row += '<td>'+ celular.marca +'</td>';
                     row += '<td>'+ celular.modelo +'</td>';
                     row += `<td class="text-center">                      
+                                <a href="{{route('orcamento.create',':id')}}" class="btn btn-sm btn-warning" title="Solicitar orçamento"><li class="fa fa-coins text-light"></li></a>
                                 <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                                 <a onclick="excluir(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                             </td>`.replaceAll(":id", celular.id); 

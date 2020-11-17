@@ -38,6 +38,8 @@ class OrcamentoController extends Controller
         } else {
             $validator = Validator::make(
                 $request->all(), [
+                    'cliente_id' => 'required|integer',
+                    'celular_id' => 'required|integer',
                     'descricao_problema' => 'required|string',
                     'celular_imei' => 'nullable|string',
                     'celular_imei2' => 'nullable|string',
@@ -59,21 +61,21 @@ class OrcamentoController extends Controller
                 ])->setStatusCode(201);
             }
     
-            $cliente = new Cliente([
-                'nome' => $request->input('cliente_nome'),
-                'cpf' => $request->input('cliente_cpf'),
-                'numero_cel' => $request->input('cliente_numero_cel'),
-                'numero_tel' => $request->input('cliente_numero_tel'),
-                'endereco' => $request->input('cliente_endereco'),
-                'email' => $request->input('cliente_email')
-            ]);
-    
-            $celular = new Celular([
-                'imei' => $request->input('celular_imei'),
-                'imei2' => $request->input('celular_imei2'),
-                'marca' => $request->input('celular_marca'),
-                'modelo' => $request->input('celular_modelo')
-            ]);
+            $cliente = Cliente::find($request->input('cliente_id'));
+            if (!isset($cliente)) 
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Não foi possível identificar o cliente!',
+                    'route' => route('cliente.show', $request->input('cliente_id'))
+                ]);
+
+            $celular = Celular::find($request->input('celular_id'));
+            if (!isset($celular)) 
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Não foi possível identificar o celular!',
+                    'route' => route('celular.show', $request->input('celular'))
+                ]);
     
             $orcamento = new OrdemServico([
                 'descricao_problema' => $request->input('descricao_problema'),
@@ -86,7 +88,7 @@ class OrcamentoController extends Controller
             return response()->json([
                 'success' => true,
                 'message' => 'Orçamento solicitado com sucesso.',
-                'route' => route('orcamento.show',$orcamento->id)
+                'route' => route('orcamento.show', $orcamento->id)
             ]);
         } 
     }
@@ -111,19 +113,17 @@ class OrcamentoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($cliente_id, $celular_id)
+    public function create($celular_id)
     {
         //Verifica se o usuário possui permissão de acesso
         $user =  User::find(auth()->user()->id);
         if (!$user->can('gerenciar orcamento')) return redirect('orcamento.index');
 
-        //Verifica se o cliente existe
-        $cliente = Cliente::find($cliente_id);
-        if(!isset($cliente)) return redirect('orcamento.index');
-
         //Verifica se o celular existe
-        $celular = Celular::find($cliente_id);
-        if(!isset($celular)) return redirect('orcamento.index');
+        $celular = Celular::with('cliente')->find($celular_id);
+        if(!isset($celular)) return abort(404);
+
+        $cliente = $celular->cliente;
 
         return view('orcamento.create', compact(['cliente','celular']));
     }

@@ -50,10 +50,11 @@
           row += '<td>'+ celular.marca +'</td>';
           row += '<td>'+ celular.modelo +'</td>';
           row += `<td class="text-center"> 
-                      <a href="{{route('cliente.show',':id_cliente')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-user"></li></a>                     
-                      <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>                      
-                      <a onclick="excluir(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>                      
-                  </td>`.replaceAll(':id_cliente', celular.cliente.id).replaceAll(':id',celular.id,)
+                      <a href="{{route('orcamento.create',':id_celular')}}" class="btn btn-sm btn-warning" title="Solicitar orçamento"><li class="fa fa-coins text-light"></li></a>
+                      <a href="{{route('cliente.show',':id_cliente')}}" class="btn btn-sm btn-primary" title="Detalhes do proprietário"><li class="fa fa-user"></li></a>                     
+                      <a href="{{route('celular.edit',':id_celular')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>                      
+                      <a onclick="excluir(:id_celular)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>                      
+                  </td>`.replaceAll(':id_cliente', celular.cliente.id).replaceAll(':id_celular',celular.id,)
           row += '</tr>';
           $('table#celulares tbody').append(row);
         });
