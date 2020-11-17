@@ -14,6 +14,10 @@ class Cliente extends Model
         'nome', 'cpf', 'numero_tel', 'numero_cel', 'endereco', 'email'
     ];
 
+    public function celulares(){
+        return $this->hasMany(Celular::class);
+    }
+
     public function ordensServico(){
         return $this->hasMany(OrdemServico::class);
     }

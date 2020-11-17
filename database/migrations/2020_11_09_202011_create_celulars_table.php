@@ -15,11 +15,15 @@ class CreateCelularsTable extends Migration
     {
         Schema::create('celulares', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('cliente_id')->unsigned();
+
             $table->timestamps();
             $table->string('imei');
             $table->string('imei2');
             $table->string('marca');
             $table->string('modelo');
+
+            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 
