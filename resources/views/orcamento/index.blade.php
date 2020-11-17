@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-9">
-      <h3><i class="fas fa-coins text-success"></i> Orçamentos pendentes</li> </h3> 
+      <h3><i class="fas fa-coins text-primary"></i> Orçamentos pendentes</li> </h3> 
     </div>      
   </div>
   <div class="mt-2"></div>
@@ -29,7 +29,7 @@
     <br><br>
     <div class="row">
       <div class="col-md-9">
-        <h3><i class="fas fa-coins text-success"></i> Orçamentos informados</li> </h3> 
+        <h3><i class="fas fa-coins text-primary"></i> Orçamentos informados</li> </h3> 
       </div>      
     </div>
     <div class="mt-2"></div>
