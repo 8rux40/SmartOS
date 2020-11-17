@@ -98,8 +98,15 @@ class ClienteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {      
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+    
+        // Verifica se cliente existe
+        $cliente = cliente::find($id);
+        if (!isset($cliente)) return abort(404);    
+            return view('cliente.edit', compact('cliente'));        
     }
 
     /**
