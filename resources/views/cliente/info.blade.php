@@ -10,29 +10,29 @@
         <div class="row mt-1">
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label for="" class="label-info-cliente">Nome:</label>
-                <span class="dados-info-cliente">Aroldo</span>
+                <span class="dados-info-cliente">{{ $cliente->nome }}</span>
             </div>
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label class="label-info-cliente" for="">CPF:</label>
-                <span class="dados-info-cliente">100100010</span>
+                <span class="dados-info-cliente">{{ $cliente->cpf }}</span>
             </div>
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label class="label-info-cliente" for="">Numero de telefone:</label>
-                <span class="dados-info-cliente">000000000</span>
+                <span class="dados-info-cliente">{{ $cliente->numero_tel }}</span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label class="label-info-cliente" for="">Numero celular:</label>
-                <span class="dados-info-cliente">000000000</span>
+                <span class="dados-info-cliente">{{ $cliente->numero_cel }}</span>
             </div>
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label class="label-info-cliente" for="">Email:</label>
-                <span class="dados-info-cliente">eraldo@gmail.com</span>
+                <span class="dados-info-cliente">{{ $cliente->email }}</span>
             </div>
             <div class="col-md-4 grupo-dados-info-cliente">
                 <label class="label-info-cliente" for="">Endereco:</label>
-                <span class="dados-info-cliente">Rua do rodolfo, 123</span>
+                <span class="dados-info-cliente">{{ $cliente->endereco }}</span>
             </div>
         </div>
         <div class="row mt-3">
@@ -83,13 +83,13 @@
 @push('javascript')
   <script>
       $(document).ready(function(){
-          carregaValores()
+        carregaValores()
       })
 
-      function carregaValores() {
-          const url = "";
-          $.getJSON(url, function(data){
-            if (Array.isArray(data) && data.length) {
+      function carregaValores(){
+        const url = "{{ route('cliente.getCelulares', $cliente->id) }}";
+        $.getJSON(url, function (data){
+            if (Array.isArray(data) && data.length){
                 data.forEach(celular => {
                     console.log(celular)
                     row = '<tr>';
@@ -97,21 +97,25 @@
                     row += '<td>'+ celular.imei2 +'</td>';
                     row += '<td>'+ celular.marca +'</td>';
                     row += '<td>'+ celular.modelo +'</td>';
-
-                    $('table#celulares tbody').append(row);
-                })
-            } else {
-                const row = 
-                     `
-                      <tr>
-                       <td colspan="13" class="text-center mx-auto">
-                        <p style="padding-top:0.8rem;">Não existem celulares cadastrados.</p>
-                       </td>
-                      </tr>
-                    `;
-                $('table#celulares tbody').append(row);
-              }   
-          })
+                    row += `<td class="text-center">                      
+                                <a href="{{route('cliente.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
+                                <a href="excluircliente(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                            </td>`.replaceAll(':id',cliente.id,)
+                    row += '</tr>'; 
+          $('table#celulares tbody').append(row);
+        });
+      } else {
+        const row = 
+          `
+            <tr>
+              <td colspan="13" class="text-center mx-auto">
+                  <p style="padding-top:0.8rem;">Não existem celulares cadastrados.</p>
+              </td>
+            </tr>
+          `;
+        $('table#celulares tbody').append(row);
       }
+    })
+  }
   </script>  
 @endpush
