@@ -2,31 +2,32 @@
 
 @section('content')
 <div class="container">
-  <form action="{{ route('celular.create') }}" method="post" id="formCreateCelular">
+  <form method="post" id="formCreateCelular">
   @csrf   
+  <input type="hidden" name="cliente_id" value="{{ $cliente->id }}">
     <div class="row">
       <div class="col-md">
         <div class="form-group">
           <label for="InputImei1">Primeiro Imei do celular</label>
-          <input  type="text" class="form-control" id="InputImei1" name="celular_imei">
+          <input  type="text" class="form-control" id="InputImei1" name="imei">
         </div>
       </div> 
       <div class="col-md">
         <div class="form-group">
           <label for="InputImei2">Segundo Imei do celular</label>
-          <input  type="text" class="form-control" id="InputImei2" name="celular_imei2">
+          <input  type="text" class="form-control" id="InputImei2" name="imei2">
         </div>
       </div> 
       <div class="col">
         <div class="form-group">
           <label for="MarcaCelular">Marca do celular</label>
-          <input  type="text" class="form-control" id="MarcaCelular" required="true" name="celular_marca">
+          <input  type="text" class="form-control" id="MarcaCelular" required="true" name="marca">
         </div>
       </div>
       <div class="col">
         <div class="form-group">
           <label for="ModeloCelular">Modelo do celular</label>
-          <input type="text" class="form-control" id="ModeloCelular" required="true"  name="celular_modelo">
+          <input type="text" class="form-control" id="ModeloCelular" required="true"  name="modelo">
         </div>
       </div>
     </div>

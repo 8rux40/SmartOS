@@ -11,7 +11,7 @@ class Celular extends Model
 
     protected $table = 'celulares';
     protected $fillable = [
-        'imei', 'imei2', 'marca', 'modelo'
+        'imei', 'imei2', 'marca', 'modelo', 'cliente_id'
     ];
 
     public function cliente(){

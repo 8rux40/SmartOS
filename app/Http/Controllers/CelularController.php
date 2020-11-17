@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Celular;
+use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CelularController extends Controller
 {
@@ -44,13 +46,16 @@ class CelularController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($cliente_id)
     {
         // Verifica se usuário tem permissões de acesso
         $user = User::find(auth()->user()->id);
         if (!$user->can('gerenciar orcamento')) return abort(403);
 
-        return view('celular.create');
+        $cliente = Cliente::find($cliente_id);
+        if (!isset($cliente)) return abort(404);
+
+        return view('celular.create', compact('cliente'));
     }
 
     /**
@@ -61,7 +66,45 @@ class CelularController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+
+        $cliente = Cliente::find($request->input('cliente_id'));
+        if (!isset($cliente)) return abort(404);
+
+        $validator = Validator::make(
+            $request->all(), [
+                'cliente_id' => 'integer|required',
+                'imei' => 'string|required|unique:celulares',
+                'imei2' => 'string|nullable|unique:celulares',
+                'marca' => 'string|required',
+                'modelo' => 'string|required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $celular = new Celular([
+            'cliente_id' => $request->input('cliente_id'),
+            'imei' => $request->input('imei'),
+            'imei2' => $request->input('imei2'),
+            'marca' => $request->input('marca'),
+            'modelo' => $request->input('modelo'),
+        ]);
+
+        $celular->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Celular cadastrado para '. $cliente->nome .'.',
+            'route' => route('cliente.show',$cliente->id)
+        ]);
     }
 
     /**
