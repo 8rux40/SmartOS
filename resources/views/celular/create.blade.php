@@ -108,7 +108,6 @@
           title: 'Sucesso!',
                 text: response.message,
                 icon: 'success',
-                showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Voltar ao cliente',
         }).then((result) => {
