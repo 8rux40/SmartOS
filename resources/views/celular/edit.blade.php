@@ -56,9 +56,6 @@
       <div class="col-md-2">
 <<<<<<< HEAD
           <button type="submit" class="btn btn-primary">Editar celular</button>
-=======
-          <button type="submit" class="btn btn-primary">Cadastrar celular</button>
->>>>>>> 7251066b81880d4a2b5ec48e4b82410d877bbfa6
       </div>            
     </div>
   </form>
@@ -67,43 +64,5 @@
 
 @push('javascript')
 <script>
-<<<<<<< HEAD
- $('#formEditCelular').submit(function(e){
-  e.preventDefault();
-   var serializedData = $(this).serialize();
-
-  $.ajax({
-    url: "{{ route('celular.update', $celular->id) }}",
-    method: 'put',
-    dataType: 'json',
-    data: serializedData,
-    success: function (response) {
-      console.log(response)
-      if(response.success) {
-        Swal.fire({
-          title: 'Celular editado com sucesso!',
-                text: response.message,
-                icon: 'success',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#888',
-                confirmButtonText: 'Ver celular cadastrado',
-                cancelButtonText: 'Cadastrar outro celular'
-        }).then((result) => {
-          if(result.value) {
-            $(location).attr('href', response.route);
-          } else {
-            //limparFormulario()
-          }
-        })
-      } else {
-        //mostrarErros(response.errors);
-      }
-    }
-  });
- });
-=======
-
->>>>>>> 7251066b81880d4a2b5ec48e4b82410d877bbfa6
 </script>
 @endpush
