@@ -3,11 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-12">
         <h3><i class="fas fa-mobile-alt text-primary"></i> Celulares</li> </h3>         
-      </div>
-      <div class="col-md-3">
-        <a href="{{ route('celular.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a>     
       </div>
     </div>
   <div class="mt-2"></div>
@@ -53,8 +50,9 @@
           row += '<td>'+ celular.marca +'</td>';
           row += '<td>'+ celular.modelo +'</td>';
           row += `<td class="text-center"> 
-                      <a href="{{route('cliente.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>                     
+                      <a href="{{route('cliente.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-user"></li></a>                     
                       <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>                      
+                      <a onclick="excluir(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>                      
                   </td>`.replaceAll(':id',celular.id,)
           row += '</tr>';
           $('table#celulares tbody').append(row);
@@ -69,6 +67,40 @@
             </tr>
           `;
         $('table#celulares tbody').append(row);
+      }
+    })
+  }
+
+  function excluir(id){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Não será possível reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "{{ route('celular.delete') }}",
+          method: 'delete',
+          dataType: 'json',
+          data: {
+            id: id
+          },
+          success: function(response){
+            if(response.success){
+              Swal.fire(
+              {
+                title: 'Excluido!',
+              text: response.message,
+              icon: 'success'
+              }
+            )
+            }
+          }
+        })
       }
     })
   }
