@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Celular;
 use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClienteController extends Controller
 {
@@ -43,6 +45,19 @@ class ClienteController extends Controller
         );
     }
 
+    public function getCelulares($id){
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')) return abort(403);
+
+        $cliente = Cliente::find($id);
+        if (!isset($cliente)) return abort(404);
+
+        return response()->json(
+            Celular::where('cliente_id', $id)->get()
+        );
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -69,6 +84,34 @@ class ClienteController extends Controller
         $user = User::find(auth()->user()->id);
         if (!$user->can('gerenciar orcamento')) return abort(403);
 
+        $validator = Validator::make(
+            $request->all(), [
+                'nome' => 'required|string',
+                'cpf' => 'string|unique:required|clientes',
+                'numero_tel' => 'string',
+                'numero_cel' => 'string',
+                'email' => 'required|string|email',
+                'endereco' => 'string',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $cliente = new Cliente([
+            'nome' => $request->input('cliente_nome'),
+            'cpf' => $request->input('cliente_cpf'),
+            'numero_cel' => $request->input('cliente_numero_cel'),
+            'numero_tel' => $request->input('cliente_numero_tel'),
+            'endereco' => $request->input('cliente_endereco'),
+            'email' => $request->input('cliente_email')
+        ]);
+
+        $cliente->save();
         
     }
 

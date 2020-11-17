@@ -8,7 +8,7 @@
         <div class="col-md-5">
             <div class="form-group">
                 <label for="NomeCliente">Nome</label>
-                <input  type="text" class="form-control" id="NomeCliente" required="true" name="cliente_nome">                
+                <input  type="text" class="form-control" id="NomeCliente" required="true" name="nome">                
             </div>
         </div>
         <div class="col-md-2">
@@ -20,13 +20,13 @@
       <div class="col-md-2">
           <div class="form-group">
               <label for="TelefoneCliente">Número de telefone</label>
-              <input  type="text" class="form-control" id="TelefoneCliente" name="cliente_numero_tel">
+              <input  type="text" class="form-control" id="TelefoneCliente" name="numero_tel">
           </div>
       </div>
       <div class="col-md-2">
           <div class="form-group">
               <label for="CelularCliente">Número de celular</label>
-              <input  type="text" class="form-control" id="CelularCliente" name="cliente_numero_cel">
+              <input  type="text" class="form-control" id="CelularCliente" name="numero_cel">
           </div>
       </div>                       
     </div>
@@ -34,14 +34,14 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="EmailCliente">Email</label>
-                <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="cliente_email">
+                <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email">
                 <small id="emailHelp" class="form-text text-muted">Nós nunca iremos compartilhar o seu e-mail.</small>         
           </div>
         </div>      
         <div class="col-md-6">
           <div class="form-group">
               <label for="EnderecoCliente">Endereço</label>
-              <input  type="text" class="form-control" id="EnderecoCliente" required="true" name="cliente_endereco">
+              <input  type="text" class="form-control" id="EnderecoCliente" required="true" name="endereco">
           </div>
         </div>                   
     </div>

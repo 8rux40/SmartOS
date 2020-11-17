@@ -65,6 +65,7 @@ Route::prefix('cliente')->group(function(){
     Route::get('/show/{id}', [ClienteController::class, 'show'])->name('cliente.show');
     Route::get('/edit/{id}', [ClienteController::class, 'edit'])->name('cliente.edit');
     Route::get('/getAll', [ClienteController::class, 'getAll'])->name('cliente.getAll');
+    Route::get('/getCelulares/{id}', [ClienteController::class, 'getCelulares'])->name('cliente.getCelulares');
 
     Route::post('/store', [ClienteController::class, 'store'])->name('cliente.store');
     Route::put('/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
