@@ -50,28 +50,11 @@
                                 <th scope="col">Primeiro Imei</th>
                                 <th scope="col">Segundo Imei</th>
                                 <th scope="col">Marca</th>
-                                <th scope="col">Modelo</th>                
+                                <th scope="col">Modelo</th> 
+                                <th scope="col"></th>               
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>0000000000</td>
-                                <td>0000000000</td>
-                                <td>LG</td>
-                                <td>LG5x</td>
-                            </tr>
-                            <tr>
-                                <td>0000000000</td>
-                                <td>0000000000</td>
-                                <td>Motorla</td>
-                                <td>moto G</td>
-                            </tr>
-                            <tr>
-                                <td>0000000000</td>
-                                <td>0000000000</td>
-                                <td>Xiaomi</td>
-                                <td>Redmi5</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -98,9 +81,9 @@
                     row += '<td>'+ celular.marca +'</td>';
                     row += '<td>'+ celular.modelo +'</td>';
                     row += `<td class="text-center">                      
-                                <a href="{{route('cliente.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                                <a href="excluircliente(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
-                            </td>`.replaceAll(':id',cliente.id,)
+                                <a href="{{route('celular.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
+                                <a href="" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                            </td>`
                     row += '</tr>'; 
           $('table#celulares tbody').append(row);
         });
