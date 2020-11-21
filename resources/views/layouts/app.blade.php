@@ -57,6 +57,17 @@
                                     </a>
                                 </div>
                             </li>
+                            {{-- Peca --}}
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Peça
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('peca.index') }}">
+                                        Gerenciar peça
+                                    </a>
+                                </div>
+                            </li>
                         @endguest
                     </ul>
 
