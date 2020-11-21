@@ -39,8 +39,8 @@ class PecaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        return view('peca.create');
     }
 
     /**

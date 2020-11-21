@@ -1,11 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h3><i class="fas fa-tools text-primary"></i>Peças</li> </h3> 
+            <h3><i class="fas fa-tools text-primary"></i> Peças </li> </h3> 
         </div>      
     </div>
     <div class="mt-2"></div>
