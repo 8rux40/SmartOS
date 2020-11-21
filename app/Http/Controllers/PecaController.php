@@ -16,9 +16,9 @@ class PecaController extends Controller
         $this->middleware('auth');
     }
 
-    public function getAll()
-    {
-        //
+    public function getAll(Request $request){
+        // Verifica se usuário tem permissões de acesso          
+
     }
 
     /**
@@ -28,7 +28,9 @@ class PecaController extends Controller
      */
     public function index()
     {
-        //
+        // Verifica se usuário tem permissões de acesso     
+        
+        return view('peca.index');
     }
 
     /**
