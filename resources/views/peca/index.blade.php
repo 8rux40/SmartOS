@@ -5,6 +5,9 @@
     <div class="row">
         <div class="col-md-9">
             <h3><i class="fas fa-tools text-primary"></i> Peças </li> </h3> 
+        </div>
+        <div class="col-md-3">
+            <a href="{{ route('peca.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Nova peça</a>
         </div>      
     </div>
     <div class="mt-2"></div>

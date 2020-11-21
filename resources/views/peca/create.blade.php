@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-9">
             <h3><i class="fas fa-tools text-primary"></i> Nova peça </li> </h3>         
-        </div>
+        </div>        
     </div>            
         <div class="card">
             <div class="card-body">
