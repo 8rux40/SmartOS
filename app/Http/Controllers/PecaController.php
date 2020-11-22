@@ -62,7 +62,13 @@ class PecaController extends Controller
      */
     public function show($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso       
+        
+        // Verifica se a peça existe
+        $peca = Peca::find($id);
+        if(!isset($peca)) return abort(404);
+                
+        return view('peca.info', compact('peca'));
     }
 
     /**
