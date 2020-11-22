@@ -18,8 +18,8 @@ class PecaController extends Controller
 
     public function getAll(Request $request){
         // Verifica se usuário tem permissões de acesso          
-
-    }
+        
+    } 
 
     /**
      * Display a listing of the resource.
@@ -73,7 +73,14 @@ class PecaController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        
+
+        // Verifica se peca existe
+        $peca = Peca::find($id);
+        if (!isset($peca)) return abort(404);
+
+        return view('peca.edit', compact('peca'));
     }
 
     /**

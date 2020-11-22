@@ -18,7 +18,7 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary">Pesquisar peça</button>
+                <button type="submit" class="btn btn-primary">Pesquisar peça</button>
                 </div>
             </form>   
         </div>  
@@ -53,6 +53,7 @@
 @endsection
 
 @push('javascript')
-
+<script>
+ 
 </script>
 @endpush
