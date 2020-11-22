@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Peca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PecaController extends Controller
 {
@@ -51,7 +53,19 @@ class PecaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Verifica se usuário tem permissões de
+
+        $validator = Validator::make(
+            $request->all(), [
+                'nome' => 'required|string',
+                'cpf' => 'string|unique:clientes|required',
+                'numero_tel' => 'string|nullable',
+                'numero_cel' => 'string|nullable',
+                'email' => 'required|string|email',
+                'endereco' => 'string',
+            ]
+        );
+
     }
 
     /**

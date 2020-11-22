@@ -15,25 +15,25 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="TituloPeca">Título</label>
-                            <input type="text" class="form-control" id="TituloPeca" required="true">
+                            <input type="text" class="form-control" id="TituloPeca" required name="titulo">
                         </div>
                     </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="CodigoPeca">Código</label>
-                        <input type="text" class="form-control" id="CodigoPeca" required="true">
+                        <input type="text" class="form-control" id="CodigoPeca" required name="codico">
                     </div>
                 </div> 
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="PrecoPeca">Preço</label>
-                        <input type="text" class="form-control" id="PrecoPeca">
+                        <input type="number" step="0.01" class="form-control" id="PrecoPeca" name="preco">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="QuantidadePeca">Quantidade</label>
-                        <input type="text" class="form-control" id="QuantidadePeca">
+                        <input type="number" class="form-control" id="QuantidadePeca" required name="quantidade_pecas">
                     </div>
                 </div> 
                 </div> 
@@ -41,7 +41,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="DescricaoPeca">Descrição da peça</label>
-                            <textarea class="form-control" id="DescricaoPeca" rows="4" required name="descricao_peca"></textarea>
+                            <textarea class="form-control" id="DescricaoPeca" rows="4" required name="descricao"></textarea>
                         </div>
                     </div>
                 </div>  
