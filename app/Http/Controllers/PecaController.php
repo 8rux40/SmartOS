@@ -57,15 +57,34 @@ class PecaController extends Controller
 
         $validator = Validator::make(
             $request->all(), [
-                'nome' => 'required|string',
-                'cpf' => 'string|unique:clientes|required',
-                'numero_tel' => 'string|nullable',
-                'numero_cel' => 'string|nullable',
-                'email' => 'required|string|email',
-                'endereco' => 'string',
+                'titulo' => 'required|string',
+                'codigo' => 'string|unique:pecas|required',
+                'preco' => 'required|numeric|min:0',
+                'quantidade_pecas' => 'required|numeric|min:0',
+                'descricao' => 'required|string'
             ]
         );
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $peca = new Peca();
+        $peca->fill($request->only(['titulo',
+        'codigo',
+        'preco',
+        'quantidade_pecas',
+        'descricao']));
+        $peca->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Peça cadastrada com sucesso.',
+            'route' => route('peca.show',$peca->id)
+        ]);
     }
 
     /**

@@ -21,26 +21,26 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="CodigoPeca">Código</label>
-                        <input type="text" class="form-control" id="CodigoPeca" required name="codico">
+                        <input type="text" class="form-control" id="CodigoPeca" required name="codigo">
                     </div>
                 </div> 
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="PrecoPeca">Preço</label>
-                        <input type="number" step="0.01" class="form-control" id="PrecoPeca" name="preco">
+                        <input type="number" step="0.01" value="0.00" min="0" class="form-control" id="PrecoPeca" name="preco">
                     </div>
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="QuantidadePeca">Quantidade</label>
-                        <input type="number" class="form-control" id="QuantidadePeca" required name="quantidade_pecas">
+                        <label for="QuantidadePeca">Quantidade em estoque</label>
+                        <input type="number" class="form-control" value="0" min="0" id="QuantidadePeca" required name="quantidade_pecas">
                     </div>
                 </div> 
                 </div> 
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="DescricaoPeca">Descrição da peça</label>
+                            <label for="DescricaoPeca">Descrição</label>
                             <textarea class="form-control" id="DescricaoPeca" rows="4" required name="descricao"></textarea>
                         </div>
                     </div>
@@ -58,5 +58,47 @@
 @endsection
 
 @push('javascript')
+<script>
+    $('#formCreatePeca').submit(function(e){
+    e.preventDefault()
+    // Temporariamente destrancando TODOS os campos para enviar os dados
+    var disabled = $(this).find(':input:disabled').removeAttr('disabled');
+    var serializedData = $(this).serialize();
+    disabled.attr('disabled', 'disabled');
 
+    $.ajax({
+      url: "{{ route('peca.store') }}",
+      method: 'post',
+      dataType: 'json',
+      data: serializedData,
+      success: function (response) {
+        console.log(response)
+        if (response.success) {
+            Swal.fire({
+                title: 'Sucesso!',
+                text: response.message,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#888',
+                confirmButtonText: 'Ver peça cadastrada',
+                cancelButtonText: 'Cadastrar outra peça'
+            }).then((result) => {
+                if (result.value) {
+                    $(location).attr('href',response.route);
+                } else {
+                    limparFormulario()
+                }
+            })
+        } else {
+            //mostrarErros(response.errors);
+        }
+      }
+    })
+  })
+
+  function limparFormulario(){
+    location.reload(true)
+  }
+</script>
 @endpush
