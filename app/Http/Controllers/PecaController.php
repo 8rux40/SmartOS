@@ -113,17 +113,6 @@ class PecaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        // Verifica se usuário tem permissões de acesso
-        
-
-        // Verifica se peca existe
-        $peca = Peca::find($id);
-        if (!isset($peca)) return abort(404);
-
-        return view('peca.edit', compact('peca'));
-    }
 
     /**
      * Update the specified resource in storage.
