@@ -40,9 +40,10 @@ Route::prefix('orcamento')->group(function(){
 
 Route::prefix('peca')->group(function(){
     Route::get('/', [PecaController::class, 'index'])->name('peca.index');
-    Route::get('/create', [PecaController::class, 'create'])->name('peca.create'); 
+    Route::get('/create', [PecaController::class, 'create'])->name('peca.create');
+    Route::get('/show/{id}', [PecaController::class, 'show'])->name('peca.show'); 
     Route::get('/getAll', [PecaController::class, 'getAll'])->name('peca.getAll');
-
+    Route::get('/edit/{id}', [PecaController::class, 'edit'])->name('peca.edit');
     Route::post('/store', [PecaController::class, 'store'])->name('peca.store');
     Route::put('/update/{id}', [PecaController::class, 'update'])->name('peca.update');
     Route::delete('/delete', [PecaController::class, 'delete'])->name('peca.delete');

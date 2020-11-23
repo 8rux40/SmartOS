@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Peca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PecaController extends Controller
 {
@@ -16,10 +18,10 @@ class PecaController extends Controller
         $this->middleware('auth');
     }
 
-    public function getAll()
-    {
-        //
-    }
+    public function getAll(Request $request){
+        // Verifica se usuário tem permissões de acesso          
+        
+    } 
 
     /**
      * Display a listing of the resource.
@@ -28,7 +30,9 @@ class PecaController extends Controller
      */
     public function index()
     {
-        //
+        // Verifica se usuário tem permissões de acesso     
+        
+        return view('peca.index');
     }
 
     /**
@@ -37,8 +41,8 @@ class PecaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        return view('peca.create');
     }
 
     /**
@@ -49,7 +53,38 @@ class PecaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Verifica se usuário tem permissões de
+
+        $validator = Validator::make(
+            $request->all(), [
+                'titulo' => 'required|string',
+                'codigo' => 'string|unique:pecas|required',
+                'preco' => 'required|numeric|min:0',
+                'quantidade_pecas' => 'required|numeric|min:0',
+                'descricao' => 'required|string'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $peca = new Peca();
+        $peca->fill($request->only(['titulo',
+        'codigo',
+        'preco',
+        'quantidade_pecas',
+        'descricao']));
+        $peca->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Peça cadastrada com sucesso.',
+            'route' => route('peca.show',$peca->id)
+        ]);
     }
 
     /**
@@ -60,7 +95,13 @@ class PecaController extends Controller
      */
     public function show($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso       
+        
+        // Verifica se a peça existe
+        $peca = Peca::find($id);
+        if(!isset($peca)) return abort(404);
+                
+        return view('peca.info', compact('peca'));
     }
 
     /**
@@ -71,7 +112,14 @@ class PecaController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        
+
+        // Verifica se peca existe
+        $peca = Peca::find($id);
+        if (!isset($peca)) return abort(404);
+
+        return view('peca.edit', compact('peca'));
     }
 
     /**

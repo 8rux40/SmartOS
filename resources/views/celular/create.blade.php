@@ -6,7 +6,7 @@
     <div class="col-md-9">
         <h3><i class="fas fa-mobile-alt text-primary"></i> Novo celular</li> </h3>         
     </div>
-</div>
+  </div>
 <div class="card">
   <div class="card-body">
   <form method="post" id="formCreateCelular">
