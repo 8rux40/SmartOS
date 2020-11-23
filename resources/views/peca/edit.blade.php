@@ -33,7 +33,7 @@
       <div class="col">
         <div class="form-group">
           <label for="QuantidadePeca">Quantidade da peça</label>
-          <input type="text" class="form-control" id="QuantidadePeca" required="true"  name="quantidade" value= "{{$peca->quantidade}}">
+          <input type="text" class="form-control" id="QuantidadePeca" required="true"  name="quantidade" value= "{{$peca->quantidade_pecas}}">
         </div>
       </div>
     </div>
@@ -66,10 +66,10 @@
                 text: response.message,
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Voltar a Peça',
+                confirmButtonText: 'Voltar a página de peças',
         }).then((result) => {
           if(result.value) {
-            $(location).attr('href', "{{ route('peca.show', $peca->peca_id) }}");
+            $(location).attr('href', "{{ route('peca.index') }}");
           }
         })
       } else {
