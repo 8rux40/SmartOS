@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="card">
-      <div class="card-body">
+  <div class="card-body">
   <form action="{{ route('orcamento.solicitar') }}" method="post" id="solicitarOrcamento">
   @csrf
   <input type="hidden" name="cliente_id" value="{{ $cliente->id }}">
