@@ -21,6 +21,9 @@ class PecaController extends Controller
     public function getAll(Request $request){
         // Verifica se usuário tem permissões de acesso          
         
+        return response()->json(
+            Peca::all()
+        );
     } 
 
     /**

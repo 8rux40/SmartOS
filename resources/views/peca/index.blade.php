@@ -33,7 +33,7 @@
                         <th scope="col">Código</th>
                         <th scope="col">Descrição</th>
                         <th scope="col">Preço</th>
-                        <th scope="col">Quantidade</th>       
+                        <th scope="col">Qtde. em Estoque</th>       
                         <th></th>
                     </tr>
                 </thead>
@@ -48,6 +48,76 @@
 
 @push('javascript')
 <script>
- 
-</script>
+    $(document).ready(function(){
+      carregaValores()
+    })
+  
+    function carregaValores(){
+      const url = "{{ route('peca.getAll') }}";
+      $.getJSON(url, function (data){
+        if (Array.isArray(data) && data.length){
+          data.forEach(peca => {
+            console.log(peca)
+            row = '<tr>';
+            row += '<td>'+ peca.codigo +'</td>';
+            row += '<td>'+ peca.titulo +'</td>';
+            row += '<td>'+ peca.descricao +'</td>';
+            row += '<td>'+ peca.preco +'</td>';
+            row += '<td>'+ peca.quantidade_pecas +'</td>';
+            row += `<td class="text-center">
+                        <a href="{{route('peca.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+                        <a href="{{route('peca.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
+                        <a onclick="excluir(:id)" class="btn btn-sm btn-danger" title="Desativar"><li class="fa fa-trash"></li></a>
+                    </td>`.replaceAll(':id',peca.id,)
+            row += '</tr>';
+            $('table#pecas tbody').append(row);
+          });
+        } else {
+          const row = 
+            `
+              <tr>
+                <td colspan="13" class="text-center mx-auto">
+                    <p style="padding-top:0.8rem;">Não existem pecas cadastradas.</p>
+                </td>
+              </tr>
+            `;
+          $('table#pecas tbody').append(row);
+        }
+      })
+    }
+  
+    function excluir(id){
+      Swal.fire({
+        title: 'Tem certeza?',
+        text: "Não será possível reverter essa ação!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, excluir!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+            url: "{{ route('peca.delete') }}",
+            method: 'delete',
+            dataType: 'json',
+            data: {
+              id: id
+            },
+            success: function(response){
+              if(response.success){
+                Swal.fire(
+                {
+                  title: 'Excluido!',
+                text: response.message,
+                icon: 'success'
+                }
+              )
+              }
+            }
+          })
+        }
+      })
+    }
+  </script>
 @endpush
