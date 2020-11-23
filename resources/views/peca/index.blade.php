@@ -64,8 +64,7 @@
             row += '<td>'+ peca.descricao +'</td>';
             row += '<td>'+ peca.preco +'</td>';
             row += '<td>'+ peca.quantidade_pecas +'</td>';
-            row += `<td class="text-center">
-                        <a href="{{route('peca.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+            row += `<td class="text-center">                        
                         <a href="{{route('peca.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                         <a onclick="excluir(:id)" class="btn btn-sm btn-danger" title="Desativar"><li class="fa fa-trash"></li></a>
                     </td>`.replaceAll(':id',peca.id,)
