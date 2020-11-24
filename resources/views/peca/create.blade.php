@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label for="QuantidadePeca">Quantidade em estoque</label>
+                        <label for="QuantidadePeca">Qtde. em estoque</label>
                         <input type="number" class="form-control" value="0" min="0" id="QuantidadePeca" required name="quantidade_pecas">
                     </div>
                 </div> 
