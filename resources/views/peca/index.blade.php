@@ -29,8 +29,8 @@
                 <table class="table table-striped" id="pecas">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Título</th>
                         <th scope="col">Código</th>
+                        <th scope="col">Título</th>
                         <th scope="col">Descrição</th>
                         <th scope="col">Preço</th>
                         <th scope="col">Qtde. em Estoque</th>       

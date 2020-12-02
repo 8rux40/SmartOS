@@ -22,7 +22,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="NomeCliente">Nome do cliente</label>
-                                    <input disabled="disabled" type="text" class="form-control" id="NomeCliente" required="true" name="cliente_nome" value="">
+                                    <input disabled="disabled" type="text" class="form-control" id="NomeCliente" required="true" name="cliente_nome" value= "">
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -116,6 +116,8 @@
     
         
 @endsection
+<script>
 
+</script>
 @push('javascript')
 @endpush
