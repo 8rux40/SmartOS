@@ -61,7 +61,7 @@ class OrdemServicoController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('ordemservico.info');
     }
 
     /**
@@ -72,7 +72,7 @@ class OrdemServicoController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('ordemservico.edit');
     }
 
     /**

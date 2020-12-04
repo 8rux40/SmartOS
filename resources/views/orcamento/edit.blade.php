@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h3><i class="fas fa-coins text-primary"></i> Novo orçamento</li> </h3>         
+            <h3><i class="fas fa-coins text-primary"></i> Editar orçamento</li> </h3>         
         </div>
     </div>
     <div class="card">
