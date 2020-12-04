@@ -11,31 +11,33 @@
   <div class="card-body">
   <form action="{{ route('orcamento.solicitar') }}" method="post" id="solicitarOrcamento">
   @csrf
-  <input type="hidden" name="cliente_id" value="">
-  <input type="hidden" name="celular_id" value="">
   <div class="row">
     <div class="col-md-6">
         <div class="form-group">
             <label for="NomeCliente">Nome do cliente</label>
-            <input disabled="disabled" type="text" class="form-control" id="NomeCliente" required="true" name="cliente_nome" value="">
+            <input disabled="disabled" type="text" class="form-control" id="NomeCliente" required="true" name="cliente_nome" 
+            value="{{ $orcamento->cliente->nome}}">
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label for="CpfCliente">CPF</label>
-            <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
+            <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" 
+            value="{{ $orcamento->cliente->cpf}}">
         </div>
     </div> 
     <div class="col-md-2">
         <div class="form-group">
             <label for="TelefoneCliente">Número de telefone</label>
-            <input disabled="disabled" type="text" class="form-control" id="TelefoneCliente" name="cliente_numero_tel" value="">
+            <input disabled="disabled" type="text" class="form-control" id="TelefoneCliente" name="cliente_numero_tel" 
+            value="{{ $orcamento->cliente->numero_tel}}">
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label for="CelularCliente">Número de celular</label>
-            <input disabled="disabled" type="text" class="form-control" id="CelularCliente" name="cliente_numero_cel" value="">
+            <input disabled="disabled" type="text" class="form-control" id="CelularCliente" name="cliente_numero_cel" 
+            value="{{ $orcamento->cliente->numero_cel}}">
         </div>
     </div>                       
 </div>
@@ -43,13 +45,15 @@
     <div class="col-md-8">
         <div class="form-group">
             <label for="EnderecoCliente">Endereço</label>
-            <input disabled="disabled" type="text" class="form-control" id="EnderecoCliente" required="true" name="cliente_endereco" value="">
+            <input disabled="disabled" type="text" class="form-control" id="EnderecoCliente" required="true" name="cliente_endereco" 
+            value="{{ $orcamento->cliente->endereco}}">
         </div>
     </div>
     <div class="col-md-4">
         <div class="form-group">
             <label for="EmailCliente">Email</label>
-            <input disabled="disabled" type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="cliente_email" value="">         
+            <input disabled="disabled" type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="cliente_email" 
+            value="{{ $orcamento->cliente->email}}">         
         </div>
     </div>
 </div>
@@ -58,25 +62,29 @@
       <div class="col">
           <div class="form-group">
               <label for="MarcaCelular">Marca do celular</label>
-              <input disabled="disabled" type="text" class="form-control" id="MarcaCelular" required="true" name="celular_marca" value="">
+              <input disabled="disabled" type="text" class="form-control" id="MarcaCelular" required="true" name="celular_marca" 
+              value="{{ $orcamento->celular->marca}}">
           </div>
       </div>
       <div class="col">
           <div class="form-group">
               <label for="ModeloCelular">Modelo do celular</label>
-              <input disabled="disabled" type="text" class="form-control" id="ModeloCelular" required="true"  name="celular_modelo" value="">
+              <input disabled="disabled" type="text" class="form-control" id="ModeloCelular" required="true"  name="celular_modelo" 
+              value="{{ $orcamento->celular->modelo}}">
           </div>
       </div>          
       <div class="col-md">
           <div class="form-group">
               <label for="InputImei1">Primeiro Imei do celular</label>
-              <input disabled="disabled" type="text" class="form-control" id="InputImei1" name="celular_imei" value="">
+              <input disabled="disabled" type="text" class="form-control" id="InputImei1" name="celular_imei" 
+              value="{{ $orcamento->celular->imei}}">
           </div>
       </div> 
       <div class="col-md">
           <div class="form-group">
               <label for="InputImei2">Segundo Imei do celular</label>
-              <input disabled="disabled" type="text" class="form-control" id="InputImei2" name="celular_imei2" value="">
+              <input disabled="disabled" type="text" class="form-control" id="InputImei2" name="celular_imei2" 
+              value="{{ $orcamento->celular->imei2}}">
           </div>
       </div> 
     </div>
@@ -85,15 +93,11 @@
       <div class="col-md-12">
           <div class="form-group">
               <label for="DescricaoProblema">Descrição do problema do celular</label>
-              <textarea class="form-control" id="DescricaoProblema" rows="4" required name="descricao_problema"></textarea>
+              <textarea class="form-control" id="DescricaoProblema" rows="4" disabled="disabled" 
+              required name="descricao_problema">{{$orcamento->descricao_problema}}</textarea>
           </div>
       </div>
-  </div> 
-  <div class="row">
-      <div class="col-md-12">
-          <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Solicitar orçamento</button>
-      </div>            
-  </div>             
+  </div>                
   </form>
 </div>
 </div>
