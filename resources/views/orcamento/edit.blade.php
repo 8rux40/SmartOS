@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h3><i class="fas fa-coins text-primary"></i> Novo orçamento</li> </h3>         
+            <h3><i class="fas fa-coins text-primary"></i>Edição orçamento</li> </h3>         
         </div>
     </div>
     <div class="card">
@@ -91,7 +91,7 @@
   </div> 
   <div class="row">
       <div class="col-md-12">
-          <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Solicitar orçamento</button>
+          <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Salvar alterações</button>
       </div>            
   </div>             
   </form>
