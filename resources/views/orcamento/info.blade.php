@@ -109,7 +109,7 @@
   <div class="row d-flex align-items-center">
         <div class="col-md-3 d-flex flex-column justify-content-center">
             <label for="">Valor estimado</label>
-            <input type="text" class="form-control number" id="valor_estimado" required="true" name="valor_estimado" value="">
+            <input type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_estimado" value="">
         </div>         
   </div>                  
   </form>
