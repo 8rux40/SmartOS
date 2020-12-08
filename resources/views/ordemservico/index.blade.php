@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">        
-            <h3><i class="fas fa-concierge-bell text-primary"></i> Ordens de serviço</li> </h3> 
+            <h3><i class="fas fa-clipboard-list text-primary"></i> Ordens de serviço</li> </h3> 
         </div>      
     </div>
     <div class="mt-2"></div>

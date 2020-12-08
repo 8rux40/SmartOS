@@ -37,42 +37,32 @@
                             {{-- Cliente --}}
                             <li class="nav-item ">
                                 <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
-                                    Cliente
+                                    <i class="fas fa-users"></i>&nbsp;Cliente
                                 </a>
                             </li>
                             {{-- Celular --}}
                             <li class="nav-item ">
                                 <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
-                                    Celular
+                                    <i class="fas fa-mobile-alt"></i>&nbsp;Celular
                                 </a>
                             </li>
                             {{-- Orçamento --}}
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Orçamento
+                            <li class="nav-item ">
+                                <a class="nav-link text-light" href="{{ route('orcamento.index') }}">
+                                    <i class="fas fa-coins"></i>&nbsp;Orçamento
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('orcamento.index') }}">
-                                        Gerenciar orçamento
-                                    </a>
-                                </div>
                             </li>
                             {{-- Ordem de servico --}}
                             <li class="nav-item ">
                                 <a class="nav-link text-light" href="{{ route('ordemservico.index') }}" role="button" >
-                                    Ordem de serviço
+                                    <i class="fas fa-clipboard-list"></i>&nbsp;Ordem de serviço
                                 </a>
                             </li>
                             {{-- Peca --}}
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Peça
+                            <li class="nav-item ">
+                                <a class="nav-link text-light" href="{{ route('peca.index') }}">
+                                    <i class="fas fa-tools"></i>&nbsp;Peça
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('peca.index') }}">
-                                        Gerenciar peça
-                                    </a>
-                                </div>
                             </li>
                         @endguest
                     </ul>

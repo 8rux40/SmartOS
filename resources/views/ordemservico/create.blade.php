@@ -5,7 +5,7 @@
 <div class="container">
    <div class="row">
     <div class="col-md-9">
-         <h3><i class="fas fa-coins text-primary"></i>Nova Ordem de Serviço</h3>
+         <h3><i class="fas fa-clipboard-list text-primary"></i>Nova Ordem de Serviço</h3>
     </div>
    </div>
    <div class="card">
