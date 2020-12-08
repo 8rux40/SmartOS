@@ -152,7 +152,7 @@ class ClienteController extends Controller
         if (!$user->can('gerenciar orcamento')) return abort(403);
     
         // Verifica se cliente existe
-        $cliente = cliente::find($id);
+        $cliente = Cliente::find($id);
         if (!isset($cliente)) return abort(404);    
             return view('cliente.edit', compact('cliente'));        
     }
@@ -178,5 +178,12 @@ class ClienteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function delete($id)
+    {
+        $cliente = Cliente::find($id);
+
+        $cliente->delete();
     }
 }

@@ -166,6 +166,10 @@ class PecaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $peca = Peca::find($id);
+
+        $peca->delete();
+
+        return view('peca.index');
     }
 }

@@ -48,7 +48,7 @@ Route::prefix('peca')->group(function(){
     Route::get('/edit/{id}', [PecaController::class, 'edit'])->name('peca.edit');
     Route::post('/store', [PecaController::class, 'store'])->name('peca.store');
     Route::put('/update/{id}', [PecaController::class, 'update'])->name('peca.update');
-    Route::delete('/delete', [PecaController::class, 'delete'])->name('peca.delete');
+    Route::delete('/delete/{id}', [PecaController::class, 'destroy'])->name('peca.delete');
 });
 
 Route::prefix('celular')->group(function(){

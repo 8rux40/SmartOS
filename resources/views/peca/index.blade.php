@@ -85,11 +85,12 @@
       }).then((result) => {
         if (result.isConfirmed) {
           $.ajax({
-            url: "{{ route('peca.delete') }}",
+            url: "{{ route('peca.delete',':id') }}".replaceAll(':id',id),
             method: 'delete',
             dataType: 'json',
             data: {
-              id: id
+              id: id,
+              _token: '{{ csrf_token() }}'
             },
             success: function(response){
               if(response.success){
