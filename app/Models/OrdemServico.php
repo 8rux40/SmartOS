@@ -12,13 +12,13 @@ class OrdemServico extends Model
     protected $table = 'ordens_de_servico';
     protected $fillable = [
         'status',
-        'horas_trabalhadas',
         'termo_garantia',
         'descricao_problema',
+        'descricao_problema_reparador',
         'descricao_servico_executado',
         'valor_total',
         'valor_orcamento',
-        'valor_hora',
+        'valor_servico',
         'data_abertura',
         'data_fechamento',
     ];

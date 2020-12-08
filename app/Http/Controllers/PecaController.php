@@ -120,7 +120,7 @@ class PecaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Verifica se usuário tem permissões de
+        // Verifica se usuário tem permissões de acesso   
         
         // Verifica se peça existe
         $peca = peca::find($id);
