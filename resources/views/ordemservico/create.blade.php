@@ -63,13 +63,9 @@
                 <div class="col-md-4">
                     <label for="">Status</label>
                     <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
+                </div>                
                 <div class="col-md-4">
-                    <label for="">Horas Trabalhadas</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
-                <div class="col-md-4">
-                    <label for="">Termo Garantia</label>
+                    <label for="">Termo de garantia</label>
                     <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
                 </div>
             </div>
