@@ -16,7 +16,7 @@
                             <tr>
                                 <th scope="col">Data</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Descrição do problema informado pelo reparador</th>
+                                <th scope="col">Problema informado pelo reparador</th>
                                 <th scope="col">Valor total</th>
                                 <th scope="col">Valor serviço</th>
                                 <th scope="col">Data de abertura</th>
@@ -57,7 +57,8 @@
                 descricao_status = 'Concluída';
             } else if (status == 5) {
                 descricao_status = 'Cancelada';
-            }                 
+            }  
+                           
                       
             row = '<tr>';
             row += '<td>'+ moment(ordemservico.created_at).format('DD/MM/yyyy') +'</td>';
@@ -66,9 +67,15 @@
             row += '<td>'+ ordemservico.valor_total +'</td>';
             row += '<td>'+ ordemservico.valor_servico +'</td>';
             row += '<td>'+ ordemservico.data_abertura +'</td>';
-            row += '<td>'+ ordemservico.data_fechamento +'</td>';            
+            row += '<td>'+ ordemservico.data_fechamento +'</td>';
+            row += `<td class="text-center d-flex">                       
+                      <a href="{{route('ordemservico.show',':id')}}" class="btn btn-sm btn-primary" title="Detalhes da ordem de serviço"><li class="fa fa-eye"></li></a>                     
+                      <a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-secondary ml-1" title="Editar"><li class="fa fa-edit"></li></a>  
+                      <a onclick="cancelar(:id)" class="btn btn-sm btn-danger ml-1" title="Cancelar"><li class="fas fa-times"></li></a>
+                      </td>`.replaceAll(':id',ordemservico.id,)
             row += '</tr>';
-            $('table#ordensdeservico tbody').append(row);     
+          $('table#ordensdeservico tbody').append(row);           
+                
         });
       } else {
         const row = 
@@ -79,7 +86,7 @@
               </td>
             </tr>
           `;
-        $('table#ordensservicos tbody').append(row);
+        $('table#ordensdeservico tbody').append(row);
       }
     })
   }
