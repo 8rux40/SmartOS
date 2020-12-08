@@ -23,6 +23,12 @@ class OrdemServicoController extends Controller
         $this->middleware('auth');
     }
 
+    public function getAll(Request $request){
+        return response()->json(
+            OrdemServico::where('status', '>',2)->get()
+        );
+    }
+
     /**
      * Display a listing of the resource.
      *
