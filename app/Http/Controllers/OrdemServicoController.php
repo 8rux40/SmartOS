@@ -79,8 +79,12 @@ class OrdemServicoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        return view('ordemservico.info');
+    {   
+
+        // verifica se ordem de servico existe
+        $ordem_servico = OrdemServico::find($id);
+        if(!isset($ordem_servico)) return abotr(404);
+        return view('ordemservico.info', compact('ordem_servico'));
     }
 
     /**
@@ -91,7 +95,10 @@ class OrdemServicoController extends Controller
      */
     public function edit($id)
     {
-        return view('ordemservico.edit');
+        // Verifica se ordem de serviço existe
+        $ordem_servico = OrdemServico::find($id);
+        if (!isset($ordem_servico)) return abort(404);
+        else return view('ordemservico.edit', compact('ordem_servico'));
     }
 
     /**
