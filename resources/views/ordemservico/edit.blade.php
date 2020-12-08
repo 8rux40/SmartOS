@@ -13,41 +13,51 @@
             @csrf 
             <input type="hidden" name="ordemservico_id" value="">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label for="">Data da abertura</label>
-                        <input disabled="disabled" type="date" name="data_abertura" id="DataOrcamento" class="form-control" required value="{{ $ordem_servico->data_abertura }}">
+                        <input type="date" name="data_abertura" id="DataOrcamento" class="form-control" disabled required>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-8">
                     <div class="form-group">
                         <label for="">Cliente</label>
-                        <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="nome" value="{{$ordem_servico->cliente->nome}}">
+                        <input disabled="disabled" type="text" class="form-control" id="CpfCliente" name="cpf" 
+                            value="{{ $ordem_servico->cliente->nome . ' - ' .$ordem_servico->cliente->cpf }}">
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="">Celular</label>
-                        <input disabled="disabled" type="text" class="form-control" id="CelularCliente" required="true" name="numero_cel" value="{{$ordem_servico->cliente->numero_cel}}">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <label for="">Status</label>
-                    <input disabled="disabled" type="text" class="form-control" id="StatusOs" required="true" name="status" value="{{$ordem_servico->status}}">
                 </div>
             </div>
             <div class="row">
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Termo Garantia</label>
-                    <textarea class="form-control" name="termo_garantia" id="TermoGarantia" cols="30" rows="10">{{$ordem_servico->termo_garantia}}</textarea>
+                <div class="col-md">
+                  <div class="form-group">
+                    <label for="InputImei1">Primeiro Imei do celular</label>
+                    <input  type="text" class="form-control" id="InputImei1" disabled name="imei" value= "{{ $ordem_servico->celular->imei }}">
+                  </div>
+                </div> 
+                <div class="col-md">
+                  <div class="form-group">
+                    <label for="InputImei2">Segundo Imei do celular</label>
+                    <input  type="text" class="form-control" id="InputImei2" disabled name="imei2" value= "{{ $ordem_servico->celular->imei2 }}">
+                  </div>
+                </div> 
+                <div class="col">
+                  <div class="form-group">
+                    <label for="MarcaCelular">Marca do celular</label>
+                    <input  type="text" class="form-control" id="MarcaCelular" disabled name="marca" value= "{{$ordem_servico->celular->marca}}">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="ModeloCelular">Modelo do celular</label>
+                    <input type="text" class="form-control" id="ModeloCelular" disabled name="modelo" value= "{{$ordem_servico->celular->modelo}}">
+                  </div>
                 </div>
             </div>
+            <hr>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label for="">Descrição Problema (Atendente)</label>
-                    <textarea class="form-control" name="descricao_problema" id="DescProblema" cols="30" rows="10">{{$ordem_servico->descricao_problema}}</textarea>
+                    <label for="">Descrição Problema (relatado pelo Cliente)</label>
+                    <textarea disabled class="form-control" name="" id="" cols="30" rows="6">{{ $ordem_servico->descricao_problema }} </textarea>
                 </div>
             </div>
             <div class="row mt-2">
@@ -60,6 +70,12 @@
                 <div class="col-md-12">
                     <label for="">Descrição do serviço executado</label>
                     <textarea class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="10">{{$ordem_servico->descricao_servico_executado}}</textarea>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label for="">Termo Garantia</label>
+                    <textarea class="form-control" name="termo_garantia" id="TermoGarantia" cols="30" rows="10">{{$ordem_servico->termo_garantia}}</textarea>
                 </div>
             </div>
             <hr>
@@ -83,22 +99,23 @@
                     
                 </div>
             </div>
+            <hr>
             <div class="row mt-2">
                 <div class="col-md-3">
-                    <label for="">Valor total</label>
-                    <input disabled="disabled" type="text" class="form-control" id="ValorTotal" required="true" name="valor_total" value="{{$ordem_servico->valor_total}}">
+                    <label for="">Valor Orçamento (R$)</label>
+                    <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{$ordem_servico->valor_orcamento}}">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Valor Orçamento</label>
-                    <input disabled="disabled" type="text" class="form-control" id="ValorOrcamento" required="true" name="valor_orcamento" value="{{$ordem_servico->valor_orcamento}}">
+                    <label for="">Valor do Serviço (R$)</label>
+                    <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="0">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Valor Servico</label>
-                    <input disabled="disabled" type="text" class="form-control" id="ValorServico" required="true" name="valor_servico" value="{{$ordem_servico->valor_servico}}">
+                    <label for="">Valor das Peças (R$)</label>
+                    <input type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Data Fechamento</label>
-                    <input disabled="disabled" type="text" class="form-control" id="DataFechamento" required="true" name="data_fechamento" value="{{$ordem_servico->data_fechamento}}">
+                    <label for="">Valor total (R$)</label>
+                    <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="0">
                 </div>
             </div>
             <div class="row mt-2">
