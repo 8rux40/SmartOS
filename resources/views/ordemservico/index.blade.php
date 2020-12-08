@@ -11,9 +11,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="responsive-table">
-                    <table class="table table-striped" id="ordemservico">
+                    <table class="table table-striped" id="ordensdeservico">
                         <thead class="thead-dark">
                             <tr>
+                                <th scope="col">Data</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Descrição do problema informado pelo reparador</th>
                                 <th scope="col">Valor total</th>
@@ -43,17 +44,31 @@
     const url = "{{ route('ordemservico.getAll') }}";
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
-        data.forEach(ordemservico => {          
+        data.forEach(ordemservico => {
+            status = parseInt(ordemservico.status);
+            descricao_status = ''
+            if (status == 1) {
+                descricao_status = 'Orçamento pendente';
+            } else if (status == 2) {
+                descricao_status = 'Aguardando';
+            } else if (status == 3) {
+                descricao_status = 'Aberta';
+            } else if (status == 4) {
+                descricao_status = 'Concluída';
+            } else if (status == 5) {
+                descricao_status = 'Cancelada';
+            }                 
+                      
             row = '<tr>';
-            row += '<td>'+ ordemservico.status+'</td>';
+            row += '<td>'+ moment(ordemservico.created_at).format('DD/MM/yyyy') +'</td>';
+            row += '<td>'+ descricao_status +'</td>';
             row += '<td>'+ ordemservico.descricao_problema_reparador +'</td>';
             row += '<td>'+ ordemservico.valor_total +'</td>';
             row += '<td>'+ ordemservico.valor_servico +'</td>';
             row += '<td>'+ ordemservico.data_abertura +'</td>';
             row += '<td>'+ ordemservico.data_fechamento +'</td>';            
             row += '</tr>';
-            $('table#ordemservico tbody').append(row);
-          } 
+            $('table#ordensdeservico tbody').append(row);     
         });
       } else {
         const row = 
@@ -64,7 +79,7 @@
               </td>
             </tr>
           `;
-        $('table#ordemservico tbody').append(row);
+        $('table#ordensservicos tbody').append(row);
       }
     })
   }
