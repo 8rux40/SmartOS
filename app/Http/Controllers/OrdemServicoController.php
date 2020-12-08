@@ -67,7 +67,8 @@ class OrdemServicoController extends Controller
 
         return response()->json([
             'date' => $request->input('data_abertura'),
-            'date_carbon' => Carbon::parse($request->input('data_abertura'))
+            'date_carbon' => Carbon::parse($request->input('data_abertura')),
+            'teste' => $request->input('teste')
         ]);
     }
 
