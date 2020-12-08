@@ -86,7 +86,7 @@ class PecaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Peça cadastrada com sucesso.',
-            'route' => route('peca.show',$peca->id)
+            'route' => route('peca.edit',$peca->id)
         ]);
     }
 
@@ -96,12 +96,11 @@ class PecaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
     public function edit($id)
     {      
         // Verifica se usuário tem permissões de acesso        
@@ -113,13 +112,6 @@ class PecaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -128,7 +120,42 @@ class PecaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Verifica se usuário tem permissões de
+        
+        // Verifica se peça existe
+        $peca = peca::find($id);
+        if (!isset($peca)) return abort(404); 
+
+        $validator = Validator::make(
+            $request->all(), [
+                'titulo' => 'required|string',
+                'preco' => 'required|numeric|min:0',
+                'quantidade_pecas' => 'required|numeric|min:0',
+                'descricao' => 'required|string'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $peca->fill($request->only([
+            'titulo',
+            'preco',
+            'quantidade_pecas',
+            'descricao'
+        ]));
+
+        $peca->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Peça alterada com sucesso.',
+            'route' => route('peca.edit', $peca->id)
+        ]);
     }
 
     /**

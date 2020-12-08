@@ -15,7 +15,7 @@
       <div class="col-md">
         <div class="form-group">
           <label for="CodigoPeca">Código da peça</label>
-          <input  type="text" class="form-control" id="CodigoPeca" name="codigo" value= "{{ $peca->codigo }}">
+          <input  type="text" disabled class="form-control" id="CodigoPeca" name="codigo" value= "{{ $peca->codigo }}">
         </div>
       </div> 
       <div class="col">
@@ -27,13 +27,13 @@
       <div class="col">
         <div class="form-group">
           <label for="PrecoPeca">Preço da peça</label>
-          <input type="text" class="form-control" id="PrecoPeca" required="true"  name="preco" value= "{{$peca->preco}}">
+          <input type="text" class="form-control number" id="PrecoPeca" required="true"  name="preco" value= "{{$peca->preco}}">
         </div>
       </div>
       <div class="col">
         <div class="form-group">
           <label for="QuantidadePeca">Quantidade da peça</label>
-          <input type="text" class="form-control" id="QuantidadePeca" required="true"  name="quantidade" value= "{{$peca->quantidade_pecas}}">
+          <input type="number" min="0" class="form-control" id="QuantidadePeca" required="true" name="quantidade_pecas" value= "{{$peca->quantidade_pecas}}">
         </div>
       </div>
     </div>
@@ -49,6 +49,12 @@
 
 @push('javascript')
 <script>
+  $('.number').keypress(function(event) {
+    if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+      event.preventDefault();
+    }
+  });
+
  $('#formEditPeca').submit(function(e){
   e.preventDefault();
    var serializedData = $(this).serialize();
@@ -75,14 +81,24 @@
           }
         })
       } else {
-        //mostrarErros(response.errors);
+        mostrarErros(response.errors);
       }
     }
   });
  });
 
- function limparFormulario(){
-    location.reload(true);
-  }
+ function mostrarErros(erros){
+  let errors = '<ul>';
+  $.each(erros, function(index, value){
+    errors += '<li>'+ value +'</li';
+  })
+  errors += '</ul>';
+
+  Swal.fire({
+    title: 'Erro ao editar',
+    html: errors,
+    icon: 'error',
+  })
+ }
 </script>
 @endpush
