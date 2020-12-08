@@ -13,7 +13,7 @@ class OrdemServico extends Model
     protected $fillable = [
         'status',
         'termo_garantia',
-        'descricao_problema',
+        'descricao_problema', 
         'descricao_problema_reparador',
         'descricao_servico_executado',
         'valor_total',

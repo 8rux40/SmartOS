@@ -57,6 +57,12 @@
                                     </a>
                                 </div>
                             </li>
+                            {{-- Ordem de servico --}}
+                            <li class="nav-item ">
+                                <a class="nav-link text-light" href="{{ route('ordemservico.index') }}" role="button" >
+                                    Ordem de serviço
+                                </a>
+                            </li>
                             {{-- Peca --}}
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
