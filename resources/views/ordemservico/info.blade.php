@@ -1,10 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+    $status = [
+        1 => 'Orçamento pendente',
+        2 => 'Aguardando OS',
+        3 => 'Aberta',
+        4 => 'Concluída',
+        5 => 'Cancelada',
+    ];
+@endphp
 <div class="container">
    <div class="row">
     <div class="col-md-9">
-         <h3><i class="fas fa-coins text-primary"></i>Ordem de Serviço</h3>
+         <h3><i class="fas fa-coins text-primary"></i>&nbsp;Ordem de Serviço</h3>
     </div>
    </div>
    <div class="card">
@@ -12,6 +22,13 @@
         <form action="" method="post" id="formOrdemServico">
             @csrf 
             <input type="hidden" name="ordemservico_id" value="">
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <h4 class="bg-dark text-light form-control">
+                        Status: {{ $status[$ordem_servico->status] }}
+                    </h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -53,6 +70,7 @@
                   </div>
                 </div>
             </div>
+            
             <hr>
             <div class="row mt-2">
                 <div class="col-md-12">
