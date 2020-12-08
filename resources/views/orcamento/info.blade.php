@@ -97,7 +97,13 @@
               required name="descricao_problema">{{$orcamento->descricao_problema}}</textarea>
           </div>
       </div>
-  </div>                
+  </div>
+  <div class="row d-flex align-items-center">
+        <div class="col-md-3 d-flex flex-column justify-content-center">
+            <label for="">Valor estimado</label>
+            <input type="text" class="form-control number" id="valor_estimado" required="true" name="valor_estimado" value="">
+        </div>         
+  </div>                  
   </form>
 </div>
 </div>
@@ -105,6 +111,8 @@
 
 @push('javascript')
 <script>
- 
+       $('.number').keypress(function(event) {
+            if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
+       });
 </script>
 @endpush
