@@ -90,6 +90,11 @@ class PecaController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        return view('peca.index');  
+    }
+
     /**
      * Show the form for editing the specified resource.
      *
