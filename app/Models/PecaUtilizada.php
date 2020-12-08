@@ -9,10 +9,13 @@ class PecaUtilizada extends Model
 {
     use HasFactory;
     protected $table = 'pecas_utilizadas';
+    //protected $primarykey = 'peca_utilizada_id';
+    protected $with = ['peca'];
+
     public function ordemServico(){
         return $this->belongsTo(OrdemServico::class);
     }
     public function peca(){
-        return $this->hasOne(Peca::class);
+        return $this->belongsTo(Peca::class);
     }
 }

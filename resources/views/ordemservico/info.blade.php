@@ -75,46 +75,57 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="">Descrição Problema (relatado pelo Cliente)</label>
-                    <textarea disabled class="form-control" name="" id="" cols="30" rows="6">{{ $ordem_servico->descricao_problema }} </textarea>
+                    <textarea disabled class="form-control" name="" id="" cols="30" rows="5">{{ $ordem_servico->descricao_problema }} </textarea>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="">Descrição Problema (Reparador)</label>
-                    <textarea disabled class="form-control" name="descricao_problema_reparador" id="DescProblemaReparador" cols="30" rows="10">{{$ordem_servico->descricao_problema_reparador}}</textarea>
+                    <textarea disabled class="form-control" name="descricao_problema_reparador" id="DescProblemaReparador" cols="30" rows="5">{{$ordem_servico->descricao_problema_reparador}}</textarea>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="">Descrição do serviço executado</label>
-                    <textarea disabled class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="10">{{$ordem_servico->descricao_servico_executado}}</textarea>
+                    <textarea disabled class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="5">{{$ordem_servico->descricao_servico_executado}}</textarea>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label for="">Termo Garantia</label>
+                    <label for="">Termo de garantia</label>
                     <textarea disabled class="form-control" name="termo_garantia" id="TermoGarantia" cols="30" rows="10">{{$ordem_servico->termo_garantia}}</textarea>
                 </div>
             </div>
             <hr>
-            <div class="row mt-2">
-                <div class="col-md-9">
-                    <label for="">Peça</label>
-                    <select disabled name="peca_id[]" id="pecas" class="form-control" >
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="">Qtde. Utilizada</label>
-                    <input disabled type="number" id="qtde_utilizada" class="form-control" min="1" value="1" name="quantidade_utilizada[]">
-                </div>
-                <div class="col-md-1">
-                    <label>&nbsp;</label>
-                    <button disabled type="button" class="form-control btn btn-primary" onclick="adicionarPeca()"><i class="fas fa-plus"></i>&nbsp;</button>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12" id="pecas_utilizadas">
-                    
+            <h4>Peças utilizadas</h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Peça</th>
+                                <th>Qtde. utilizada</th>
+                                <th>Vl. Unitário</th>
+                                <th>Vl. Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (count($ordem_servico->pecasUtilizadas) < 1)
+                                <tr>
+                                    <td colspan="4">Nenhuma peça utilizada</td>
+                                </tr>
+                            @else
+                                @foreach ($ordem_servico->pecasUtilizadas as $peca_utilizada)
+                                    <tr>
+                                        <td>{{ $peca_utilizada->peca->codigo ." - ". $peca_utilizada->peca->titulo}}</td>
+                                        <td>{{ $peca_utilizada->quantidade_utilizada }}</td>
+                                        <td>{{ $peca_utilizada->peca->preco * 1.0 }}</td>
+                                        <td>{{ $peca_utilizada->peca->preco * $peca_utilizada->quantidade_utilizada * 1.0}}</td>
+                                    </tr>
+                                @endforeach  
+                            @endif     
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <hr>

@@ -82,8 +82,8 @@ class OrdemServicoController extends Controller
     {   
 
         // verifica se ordem de servico existe
-        $ordem_servico = OrdemServico::find($id);
-        if(!isset($ordem_servico)) return abotr(404);
+        $ordem_servico = OrdemServico::with(['pecasUtilizadas'])->where('id', $id)->first();
+        if(!isset($ordem_servico)) return abort(404);
         return view('ordemservico.info', compact('ordem_servico'));
     }
 

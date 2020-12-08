@@ -12,6 +12,6 @@ class Peca extends Model
     protected $fillable = ['titulo','codigo','preco','quantidade_pecas','descricao'];
 
     public function pecasUtilizadas(){
-        return $this->belongsToMany(PecaUtilizada::class);
+        return $this->hasMany(PecaUtilizada::class);
     }
 }

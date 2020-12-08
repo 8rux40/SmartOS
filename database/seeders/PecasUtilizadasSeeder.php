@@ -18,17 +18,29 @@ class PecasUtilizadasSeeder extends Seeder
     {
         DB::table('pecas_utilizadas')->insert([
             'peca_id' => 7,
-            'ordem_de_servico_id' => 1,
+            'ordem_servico_id' => 1,
             'quantidade_utilizada' => 1,
             'created_at' => Carbon::now()
         ]);
 
         DB::table('pecas_utilizadas')->insert([
             'peca_id' => 2,
-            'ordem_de_servico_id' => 2,
+            'ordem_servico_id' => 2,
             'quantidade_utilizada' => 1,
             'created_at' => Carbon::now()
-            ]);
+        ]);
+        DB::table('pecas_utilizadas')->insert([
+            'peca_id' => 4,
+            'ordem_servico_id' => 2,
+            'quantidade_utilizada' => 2,
+            'created_at' => Carbon::now()
+        ]);
+        DB::table('pecas_utilizadas')->insert([
+            'peca_id' => 1,
+            'ordem_servico_id' => 2,
+            'quantidade_utilizada' => 1,
+            'created_at' => Carbon::now()
+        ]);
             
     }
 }
