@@ -98,6 +98,14 @@
           </div>
       </div>
   </div>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="form-group">
+              <label for="DescricaoServico">Descrição do serviço a ser executado (Reparador)</label>
+              <textarea class="form-control" id="DescricaoServico" rows="4" required name="descricao_servico"></textarea>
+          </div>
+      </div>
+  </div>
   <div class="row d-flex align-items-center">
         <div class="col-md-3 d-flex flex-column justify-content-center">
             <label for="">Valor estimado</label>
