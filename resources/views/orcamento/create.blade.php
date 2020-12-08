@@ -84,27 +84,26 @@
   <div class="row">
       <div class="col-md-12">
           <div class="form-group">
-              <label for="DescricaoProblema">Descrição do problema do celular (Cliente)</label>
+              <label for="DescricaoProblema">Descrição do problema do celular (relatado pelo cliente)</label>
               <textarea class="form-control" id="DescricaoProblema" rows="4" required name="descricao_problema"></textarea>
           </div>
       </div>
   </div>
-  <hr>
+  {{-- <hr>
   <div class="row">
       <div class="col-md-12">
           <div class="form-group">
-              <label for="DescricaoServico">Descrição do serviço a ser executado (Reparador)</label>
+              <label for="DescricaoServico">Descrição do problema do celular (relatado pelo reparador)</label>
               <textarea class="form-control" id="DescricaoServico" rows="4" required name="descricao_servico"></textarea>
           </div>
       </div>
-  </div> 
-  <hr>
+  </div>  --}}
   <div class="row d-flex align-items-center">
-        <div class="col-md-3 d-flex flex-column justify-content-center">
+        {{-- <div class="col-md-3 d-flex flex-column justify-content-center">
             <label for="">Valor estimado</label>
-            <input type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_estimado" value="">
-        </div>
-        <div class="col-md-9 mt-4">
+            <input type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_estimado" value="0">
+        </div> --}}
+        <div class="col-md-12">
           <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Solicitar orçamento</button>
         </div>            
   </div>             
@@ -115,7 +114,13 @@
 
 @push('javascript')
 <script>
-  $('#solicitarOrcamento').submit(function(e){
+$(document).ready(function(){
+    $('.number').keypress(function(event) {
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) event.preventDefault();
+    });
+})
+
+$('#solicitarOrcamento').submit(function(e){
     e.preventDefault()
     // Temporariamente destrancando TODOS os campos para enviar os dados
     var disabled = $(this).find(':input:disabled').removeAttr('disabled');
@@ -123,11 +128,11 @@
     disabled.attr('disabled', 'disabled');
 
     $.ajax({
-      url: "{{ route('orcamento.solicitar') }}",
-      method: 'post',
-      dataType: 'json',
-      data: serializedData,
-      success: function (response) {
+        url: "{{ route('orcamento.solicitar') }}",
+        method: 'post',
+        dataType: 'json',
+        data: serializedData,
+        success: function (response) {
         console.log(response)
         if (response.success) {
             Swal.fire({
@@ -149,12 +154,8 @@
         } else {
             //mostrarErros(response.errors);
         }
-      }
+        }
     })
-  })
-
-  $('.number').keypress(function(event) {
-            if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
-   });
+})
 </script>
 @endpush
