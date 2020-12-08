@@ -107,7 +107,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="">Valor do Serviço (R$)</label>
-                    <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="0">
+                    <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="{{$ordem_servico->valor_servico}}">
                 </div>
                 <div class="col-md-3">
                     <label for="">Valor das Peças (R$)</label>
@@ -115,7 +115,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="">Valor total (R$)</label>
-                    <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="0">
+                    <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="{{$ordem_servico->valor_total}}">
                 </div>
             </div>
             <div class="row mt-2">
@@ -141,6 +141,7 @@
 
     function carregarPecas(){
         $.getJSON("{{ route('peca.getAll') }}", function (data){
+            console.log(data);
             if (Array.isArray(data) && data.length){
                 data.forEach(peca => {
                     $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'">'+ peca.codigo + ' - ' + peca.titulo +'</option>') )
@@ -190,6 +191,7 @@
     }
 
     $('#formOrdemServico').submit(function(e){
-    e.preventDefault()
+        e.preventDefault();
+    });
 </script>
 @endpush
