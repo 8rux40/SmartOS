@@ -62,14 +62,18 @@
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label for="">Descrição Serviço Executado</label>
+                    <label for="">Descrição do serviço executado</label>
                     <textarea class="form-control" name="teste[]" id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label for="">Termo Garantia</label>
-                    <textarea class="form-control" name="teste[]" id="" cols="30" rows="6"></textarea>
+                    <label for="">Termo de garantia</label>
+                    <textarea disabled class="form-control" name="teste[]" id="" cols="30" rows="6">O cliente tem até 90 dias para reclamar de defeitos no produto durável (Celular) de acordo com o Art. 26 inc. II no código de defesa do consumidor.
+Limpeza e conservação do aparelho não fazem parte desta garantia.
+Para acionar a garantia é necessário apresentação do cupom fiscal ou documento de identidade.
+Qualquer mau funcionamento após atualização do Sistema Operacional pós entrega do equipamento reparado não fará parte da garantia.
+A garantia é válida somente ao item descrito na ordem de serviço.</textarea>
                 </div>
             </div>
             <hr>
