@@ -6,6 +6,7 @@ use App\Models\Celular;
 use App\Models\Cliente;
 use App\Models\OrdemServico;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -37,9 +38,15 @@ class OrdemServicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        return view('ordemservico.create');
+        // Verifica se usuário tem permissões de acesso   
+
+        $orcamento = OrdemServico::with(['cliente', 'celular'])->where('id', $id)->first();
+        if (!isset($orcamento)) return abort(404);
+        if( $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO ) 
+            return abort(403);
+        return view('ordemservico.create', compact('orcamento'));
     }
 
     /**
@@ -50,7 +57,12 @@ class OrdemServicoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Verifica se usuário tem permissões de acesso   
+
+        return response()->json([
+            'date' => $request->input('data_abertura'),
+            'date_carbon' => Carbon::parse($request->input('data_abertura'))
+        ]);
     }
 
     /**

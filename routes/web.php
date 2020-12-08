@@ -23,6 +23,7 @@ Route::prefix('ordemservico')->group(function(){
     Route::get('/edit/{id}', [OrdemServicoController::class, 'edit'])->name('ordemservico.edit');
     Route::get('/getAll', [OrdemServicoController::class, 'getAll'])->name('ordemservico.getAll');
     
+    Route::post('/store', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
     Route::put('/update/{id}', [OrdemServicoController::class, 'update'])->name('ordemservico.update');
     Route::delete('/delete', [OrdemServicoController::class, 'delete'])->name('ordemservico.delete');
 });
