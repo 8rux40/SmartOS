@@ -98,15 +98,25 @@
           </div>
       </div>
   </div> 
-  <div class="row">
-      <div class="col-md-12">
-          <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Salvar alterações</button>
-      </div>            
-  </div>             
+  <hr>
+  <div class="row d-flex align-items-center">
+        <div class="col-md-3 d-flex flex-column justify-content-center">
+            <label for="">Valor estimado</label>
+            <input type="text" class="form-control number" id="valor_estimado" required="true" name="valor_estimado" value="">
+        </div>
+        <div class="col-md-9 mt-4">
+          <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Solicitar orçamento</button>
+        </div>            
+  </div>          
   </form>
 </div>
 </div>
 @endsection
 
 @push('javascript')
+<script>
+      $('.number').keypress(function(event) {
+            if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
+      });
+</script>
 @endpush
