@@ -97,8 +97,8 @@
               Swal.fire(
               {
                 title: 'Excluido!',
-              text: response.message,
-              icon: 'success'
+                text: response.message,
+                icon: 'success'
               }
             )
             }
