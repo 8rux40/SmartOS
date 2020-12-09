@@ -239,33 +239,33 @@ class OrcamentoController extends Controller
                 $orcamento->descricao_problema = $request->input('descricao_problema');        
                 $orcamento->save();
             }
-
-            // informar orçamento
-            if ( $user->can('informar orcamento') ){
-                $validator = Validator::make(
-                    $request->all(), [
-                        'descricao_problema_reparador' => 'required|string',
-                        'valor_orcamento' => 'required|numeric|min:0'
-                    ]
-                );
-                if ($validator->fails()) {
-                    return response()->json([
-                        'errors'=>$validator->errors()->toArray(),
-                        'data'=>$request->all()
-                    ])->setStatusCode(201);
-                }
-                $orcamento->descricao_problema_reparador = $request->input('descricao_problema_reparador');        
-                $orcamento->valor_orcamento = $request->input('valor_orcamento');  
-                $orcamento->status = OrdemServico::ORCAMENTO_INFORMADO;
-                $orcamento->save();
-            }
-
-            return response()->json([
-                'success' => true,
-                'message' => 'Alterações salvas com sucesso!',
-                'route' => route('orcamento.show',$orcamento->id)
-            ]);
         }
+
+        // informar orçamento
+        if ( $user->can('informar orcamento') ){
+            $validator = Validator::make(
+                $request->all(), [
+                    'descricao_problema_reparador' => 'required|string',
+                    'valor_orcamento' => 'required|numeric|min:0'
+                ]
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors'=>$validator->errors()->toArray(),
+                    'data'=>$request->all()
+                ])->setStatusCode(201);
+            }
+            $orcamento->descricao_problema_reparador = $request->input('descricao_problema_reparador');        
+            $orcamento->valor_orcamento = $request->input('valor_orcamento');  
+            $orcamento->status = OrdemServico::ORCAMENTO_INFORMADO;
+            $orcamento->save();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Alterações salvas com sucesso!',
+            'route' => route('orcamento.show',$orcamento->id)
+        ]);
     }
 
     /**

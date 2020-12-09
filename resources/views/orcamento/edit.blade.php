@@ -112,7 +112,7 @@
             <div class="col-md-12">
                 <div class="form-group">
                     <label for="DescricaoServico">Descrição do serviço a ser executado (Reparador)</label>
-                    <textarea class="form-control" id="DescricaoServico" rows="4" required name="descricao_problema_reparador"></textarea>
+                    <textarea class="form-control" id="DescricaoServico" rows="4" required name="descricao_problema_reparador">{{ $orcamento->descricao_problema_reparador }}</textarea>
                 </div>
             </div>
         </div> 
@@ -120,7 +120,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label for="">Valor estimado (R$)</label>
-                <input type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_orcamento" value="0">
+                <input type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_orcamento" value="{{ $orcamento->valor_orcamento }}">
             </div>
         </div> 
     @endcan

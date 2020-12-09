@@ -72,6 +72,8 @@
 
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
+        console.log('Array.isArray(data)', Array.isArray(data));
+        console.log('data.length',data.length);
         data.forEach(orcamento => {
           if (orcamento.status == 1){
             row = '<tr>';
