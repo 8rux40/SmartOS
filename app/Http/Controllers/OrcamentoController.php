@@ -176,11 +176,11 @@ class OrcamentoController extends Controller
     public function edit($id)
     {
         $user = User::find(auth()->user()->id);
-        if (!$user->can('gerenciar orcamento')){
-            return redirect('orcamento.index');
+        if (!$user->can('gerenciar orcamento') && !$user->can('informar orcamento')){
+            return redirect()->route('orcamento.index');
         } else {
             $orcamento = OrdemServico::with(['cliente', 'celular'])->where('id', $id)->first();
-            if (!isset($orcamento)) return redirect('orcamento.index');
+            if (!isset($orcamento)) return redirect()->route('orcamento.index');
             if(
                 $orcamento->status != OrdemServico::ORCAMENTO_PENDENTE && 
                 $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO

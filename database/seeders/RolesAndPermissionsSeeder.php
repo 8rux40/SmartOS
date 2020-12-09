@@ -36,6 +36,8 @@ class RolesAndPermissionsSeeder extends Seeder
         // outras
         Permission::create(['name' => 'gerar comprovante pagamento']);
         Permission::create(['name' => 'emitir relatorio de estoque']);
+        Permission::create(['name' => 'gerenciar clientes']);
+        Permission::create(['name' => 'gerenciar celulares']);
 
         // atores
         $role = Role::create(['name' => 'atendente'])->givePermissionTo([
@@ -45,6 +47,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'gerar comprovante pagamento',
             'cancelar os',
             'consultar os',
+            'gerenciar clientes',
+            'gerenciar celulares',
         ]);
         $role = Role::create(['name' => 'reparador'])->givePermissionTo([
             'consultar os',

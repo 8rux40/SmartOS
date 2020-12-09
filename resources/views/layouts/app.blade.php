@@ -35,35 +35,51 @@
                         @guest 
                         @else 
                             {{-- Cliente --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
-                                    <i class="fas fa-users"></i>&nbsp;Cliente
-                                </a>
-                            </li>
+                            @can('gerenciar clientes')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
+                                        <i class="fas fa-users"></i>&nbsp;Cliente
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Celular --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
-                                    <i class="fas fa-mobile-alt"></i>&nbsp;Celular
-                                </a>
-                            </li>
+                            @can('gerenciar celulares')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
+                                        <i class="fas fa-mobile-alt"></i>&nbsp;Celular
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Orçamento --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('orcamento.index') }}">
-                                    <i class="fas fa-coins"></i>&nbsp;Orçamento
-                                </a>
-                            </li>
+                            @can('gerenciar orcamento')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('orcamento.index') }}">
+                                        <i class="fas fa-coins"></i>&nbsp;Orçamento
+                                    </a>
+                                </li>
+                            @elsecan('informar orcamento')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('orcamento.index') }}">
+                                        <i class="fas fa-coins"></i>&nbsp;Orçamento
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Ordem de servico --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('ordemservico.index') }}" role="button" >
-                                    <i class="fas fa-clipboard-list"></i>&nbsp;Ordem de serviço
-                                </a>
-                            </li>
+                            @can('consultar os')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('ordemservico.index') }}" role="button" >
+                                        <i class="fas fa-clipboard-list"></i>&nbsp;Ordem de serviço
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Peca --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('peca.index') }}">
-                                    <i class="fas fa-tools"></i>&nbsp;Peça
-                                </a>
-                            </li>
+                            @can('gerenciar pecas')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('peca.index') }}">
+                                        <i class="fas fa-tools"></i>&nbsp;Peça
+                                    </a>
+                                </li>
+                            @endcan
                         @endguest
                     </ul>
 
