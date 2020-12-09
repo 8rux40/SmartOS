@@ -5,7 +5,7 @@
 <div class="container">
    <div class="row">
     <div class="col-md-9">
-         <h3><i class="fas fa-clipboard-list text-primary"></i>Nova Ordem de Serviço</h3>
+         <h3><i class="fas fa-clipboard-list text-primary"></i>&nbsp;Nova Ordem de Serviço</h3>
     </div>
    </div>
    <div class="card">
@@ -54,28 +54,24 @@
                   </div>
                 </div>
               </div>
+              
             <div class="row mt-2">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label for="">Descrição Problema (relatado pelo Cliente)</label>
-                    <textarea disabled class="form-control" name="" id="" cols="30" rows="6">{{ $orcamento->descricao_problema }} </textarea>
+                    <textarea disabled class="form-control" name="" id="" cols="30" rows="3">{{ $orcamento->descricao_problema }} </textarea>
+                </div>
+                <div class="col-md-6">
+                    <label for="">Descrição do serviço a ser executado (Reparador)</label>
+                    <textarea disabled class="form-control" name="" id="" cols="30" rows="3">{{ $orcamento->descricao_problema_reparador }} </textarea>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="">Descrição do serviço executado</label>
-                    <textarea class="form-control" name="teste[]" id="" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="teste[]" id="" cols="30" rows="5"></textarea>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Termo de garantia</label>
-                    <textarea disabled class="form-control" name="teste[]" id="" cols="30" rows="6">O cliente tem até 90 dias para reclamar de defeitos no produto durável (Celular) de acordo com o Art. 26 inc. II no código de defesa do consumidor.
-Limpeza e conservação do aparelho não fazem parte desta garantia.
-Para acionar a garantia é necessário apresentação do cupom fiscal ou documento de identidade.
-Qualquer mau funcionamento após atualização do Sistema Operacional pós entrega do equipamento reparado não fará parte da garantia.
-A garantia é válida somente ao item descrito na ordem de serviço.</textarea>
-                </div>
-            </div>
+            
             <hr>
             <div class="row mt-2">
                 <div class="col-md-9">
@@ -104,16 +100,27 @@ A garantia é válida somente ao item descrito na ordem de serviço.</textarea>
                     <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{$orcamento->valor_orcamento}}">
                 </div>
                 <div class="col-md-3">
+                    <label for="">Valor das Peças (R$)</label>
+                    <input disabled type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
+                </div>
+                <div class="col-md-3">
                     <label for="">Valor do Serviço (R$)</label>
                     <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="0">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Valor das Peças (R$)</label>
-                    <input type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
-                </div>
-                <div class="col-md-3">
                     <label for="">Valor total (R$)</label>
                     <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="0">
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label for="">Termo de garantia</label>
+                    <textarea disabled class="form-control" name="teste[]" id="" cols="30" rows="5">O cliente tem até 90 dias para reclamar de defeitos no produto durável (Celular) de acordo com o Art. 26 inc. II no código de defesa do consumidor.
+Limpeza e conservação do aparelho não fazem parte desta garantia.
+Para acionar a garantia é necessário apresentação do cupom fiscal ou documento de identidade.
+Qualquer mau funcionamento após atualização do Sistema Operacional pós entrega do equipamento reparado não fará parte da garantia.
+A garantia é válida somente ao item descrito na ordem de serviço.</textarea>
                 </div>
             </div>
             <hr>
