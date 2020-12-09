@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+@php use App\Models\User; @endphp
 <div class="container">
     <div class="row">
         <div class="col-md-9">        
@@ -42,6 +43,8 @@
   
   function carregaValores(){
     const url = "{{ route('ordemservico.getAll') }}";
+    let reparador = Boolean("{{ User::find(auth()->user()->id)->can('fechar os') }}")
+    console.log(reparador)
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
         data.forEach(ordemservico => {
@@ -57,8 +60,7 @@
                 descricao_status = 'Concluída';
             } else if (status == 5) {
                 descricao_status = 'Cancelada';
-            }  
-                           
+            }                           
                       
             row = '<tr>';
             row += '<td>'+ moment(ordemservico.created_at).format('DD/MM/yyyy') +'</td>';
@@ -68,12 +70,17 @@
             row += '<td>'+ ordemservico.valor_servico +'</td>';
             row += '<td>'+ ordemservico.data_abertura +'</td>';
             row += '<td>'+ ordemservico.data_fechamento +'</td>';
-            row += `<td class="text-center d-flex">                       
+            row += reparador ? `<td class="text-center d-flex">                       
+                      <a href="{{route('ordemservico.show',':id')}}" class="btn btn-sm btn-primary" title="Detalhes da ordem de serviço"><li class="fa fa-eye"></li></a>                     
+                      <a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-secondary ml-1" title="Editar"><li class="fa fa-edit"></li></a>                        
+                      </td>` :
+                      `<td class="text-center d-flex">                       
                       <a href="{{route('ordemservico.show',':id')}}" class="btn btn-sm btn-primary" title="Detalhes da ordem de serviço"><li class="fa fa-eye"></li></a>                     
                       <a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-secondary ml-1" title="Editar"><li class="fa fa-edit"></li></a>  
                       <a onclick="cancelar(:id)" class="btn btn-sm btn-danger ml-1" title="Cancelar"><li class="fas fa-times"></li></a>
-                      </td>`.replaceAll(':id',ordemservico.id,)
-            row += '</tr>';
+                      </td>`;
+            row += '</tr>'
+            row = row.replaceAll(':id',ordemservico.id,)            
           $('table#ordensdeservico tbody').append(row);           
                 
         });
