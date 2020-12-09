@@ -4,7 +4,10 @@
 <div class="container">
    <div class="row">
     <div class="col-md-9">
-         <h3><i class="fas fa-clipboard-list text-primary"></i>Editar Ordem de Serviço</h3>
+    <h3>
+        <i class="fas fa-clipboard-list text-primary"></i>        
+        @can('fechar os') Fechar Ordem de serviço @else Editar Ordem de serviço @endcan
+    </h3>         
     </div>
    </div>
    <div class="card">

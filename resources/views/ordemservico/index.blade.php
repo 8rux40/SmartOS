@@ -43,8 +43,7 @@
   
   function carregaValores(){
     const url = "{{ route('ordemservico.getAll') }}";
-    let reparador = Boolean("{{ User::find(auth()->user()->id)->can('fechar os') }}")
-    console.log(reparador)
+    let reparador = Boolean("{{ User::find(auth()->user()->id)->can('fechar os') }}")    
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
         data.forEach(ordemservico => {
