@@ -1,16 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+    $status = [
+        1 => 'Orçamento pendente',
+        2 => 'Aguardando OS',
+        3 => 'Aberta',
+        4 => 'Concluída',
+        5 => 'Cancelada',
+    ];
+@endphp
+
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h3><i class="fas fa-coins text-primary"></i>Orçamento</li> </h3>         
+            <h3><i class="fas fa-coins text-primary"></i>&nbsp;Orçamento</li> </h3>         
         </div>
     </div>
     <div class="card">
   <div class="card-body">
   <form action="{{ route('orcamento.solicitar') }}" method="post" id="solicitarOrcamento">
   @csrf
+  <div class="row">
+    <div class="col-md-12 form-group">
+        <h4 class="bg-dark text-light form-control">
+            Status: {{ $status[$orcamento->status] }}
+        </h4>
+    </div>
+</div>
   <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -92,26 +110,28 @@
   <div class="row">
       <div class="col-md-12">
           <div class="form-group">
-              <label for="DescricaoProblema">Descrição do problema do celular</label>
+              <label for="DescricaoProblema">Descrição do problema (relatado pelo cliente)</label>
               <textarea class="form-control" id="DescricaoProblema" rows="4" disabled="disabled" 
               required name="descricao_problema">{{$orcamento->descricao_problema}}</textarea>
           </div>
       </div>
   </div>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="form-group">
-              <label for="DescricaoServico">Descrição do serviço a ser executado (Reparador)</label>
-              <textarea class="form-control" id="DescricaoServico" rows="4" required name="descricao_servico"></textarea>
-          </div>
-      </div>
-  </div>
-  <div class="row d-flex align-items-center">
+  @if ($orcamento->status == 2)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="DescricaoServico">Descrição do problema (relatado pelo reparador)</label>
+            <textarea disabled class="form-control" id="DescricaoServico" rows="4" required name="descricao_problema_reparador">{{ $orcamento->descricao_problema_reparador }}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row d-flex align-items-center">
         <div class="col-md-3 d-flex flex-column justify-content-center">
             <label for="">Valor estimado</label>
-            <input type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_estimado" value="">
+            <input disabled type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_estimado" value="{{ $orcamento->valor_estimado }}">
         </div>         
-  </div>                  
+    </div> 
+  @endif                   
   </form>
 </div>
 </div>
@@ -119,8 +139,8 @@
 
 @push('javascript')
 <script>
-       $('.number').keypress(function(event) {
-            if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
-       });
+    $('.number').keypress(function(event) {
+        if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
+    });
 </script>
 @endpush
