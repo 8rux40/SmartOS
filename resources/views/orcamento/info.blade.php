@@ -128,7 +128,7 @@
     <div class="row d-flex align-items-center">
         <div class="col-md-3 d-flex flex-column justify-content-center">
             <label for="">Valor estimado</label>
-            <input disabled type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_estimado" value="{{ $orcamento->valor_estimado }}">
+            <input disabled type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_orcamento" value="{{ $orcamento->valor_orcamento }}">
         </div>         
     </div> 
   @endif                   
