@@ -67,6 +67,7 @@
   
   function carregaValores(){
     const url = "{{ route('orcamento.getAll') }}";
+    let admin = Boolean("{{ User::find(auth()->user()->id)->hasRole('Super Admin') }}")
     let reparador = Boolean("{{ User::find(auth()->user()->id)->can('informar orcamento') }}")
 
     $.getJSON(url, function (data){
@@ -77,16 +78,24 @@
             row += '<td>'+ moment(orcamento.created_at).format('DD/MM/yyyy') +'</td>';
             row += '<td>'+ orcamento.cliente.nome +'</td>';
             row += '<td>'+ orcamento.celular.marca + ' ' + orcamento.celular.modelo +'</td>';
-            row += reparador ? `<td class="text-center">
-                        <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-success" title="Informar orçamento"><li class="fa fa-coins"></li></a>
-                        <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
-                        <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
-                    </td>` : 
-                    `<td class="text-center">
-                        <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
-                        <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                        <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
-                    </td>`;
+            if (admin) {
+              row += `<td class="text-center">
+                          <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-success" title="Informar orçamento"><li class="fa fa-coins"></li></a>
+                          <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+                          <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
+                          <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                      </td>`
+            } else {
+              row += reparador ? `<td class="text-center">
+                          <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-success" title="Informar orçamento"><li class="fa fa-coins"></li></a>
+                          <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+                      </td>` : 
+                      `<td class="text-center">
+                          <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+                          <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
+                          <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                      </td>`;
+            }
             row += '</tr>';
             row = row.replaceAll(':id',orcamento.id,)
             $('table#orcamento-pendente tbody').append(row);
@@ -96,16 +105,25 @@
             row += '<td>'+ orcamento.cliente.nome +'</td>';
             row += '<td>'+ orcamento.celular.marca + ' ' + orcamento.celular.modelo +'</td>';
             row += '<td>'+ orcamento.valor_orcamento +'</td>';
-            row += reparador ? `<td class="text-center">
+            if (admin){
+              row += `<td class="text-center">
+                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Criar Ordem de Serviço"><li class="fa fa-clipboard-list"></li></a>
+                        <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
+                        <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
+                        <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                    </td>`
+            } else {
+              row += reparador ? `<td class="text-center">
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                     </td>` : 
                     `<td class="text-center">
-                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Criar Ordem de Serviço"><li class="fa fa-plus"></li></a>
+                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Criar Ordem de Serviço"><li class="fa fa-clipboard-list"></li></a>
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                         <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                     </td>`;
+            }
             row += '</tr>';
             row = row.replaceAll(':id',orcamento.id,)
             $('table#orcamento-informado tbody').append(row);
