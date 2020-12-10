@@ -64,11 +64,46 @@
   $(document).ready(function(){
     carregaValores()
   })
+
+  function criarOS(id){
+    $.ajax({
+      method: 'post',
+      url: "{{ route('ordemservico.store', ':id') }}".replace(':id', id),
+      dataType: 'json',
+      data: { _token: ' {{ csrf_token() }}' },
+      success: function (response) {
+        console.log(response)
+        if (response.success) {
+            Swal.fire({
+                title: 'Sucesso!',
+                text: response.message,
+                icon: 'success',
+                showCancelButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false, 
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ver OS',
+                cancelButtonText: 'Continuar em vendo orçamentos'
+            }).then((result) => {
+                if (result.value) {
+                    $(location).attr('href',response.route);
+                } else {
+                  carregaValores()
+                }
+            })
+        } else {
+            //mostrarErros(response.errors);
+        }
+      }
+    })
+  }
   
   function carregaValores(){
     const url = "{{ route('orcamento.getAll') }}";
     let admin = Boolean("{{ User::find(auth()->user()->id)->hasRole('Super Admin') }}")
     let reparador = Boolean("{{ User::find(auth()->user()->id)->can('informar orcamento') }}")
+
+    $('table#orcamento-informado tbody tr').remove();
 
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
@@ -109,7 +144,7 @@
             row += '<td>'+ orcamento.valor_orcamento +'</td>';
             if (admin){
               row += `<td class="text-center">
-                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Criar Ordem de Serviço"><li class="fa fa-clipboard-list"></li></a>
+                        <a class="btn btn-sm btn-success" title="Criar Ordem de Serviço" onclick="criarOS(':id')"><li class="fa fa-clipboard-list"></li></a>
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                         <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
@@ -120,7 +155,7 @@
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                     </td>` : 
                     `<td class="text-center">
-                        <a href="{{route('ordemservico.create',':id')}}" class="btn btn-sm btn-success" title="Criar Ordem de Serviço"><li class="fa fa-clipboard-list"></li></a>
+                        <a class="btn btn-sm btn-success" title="Criar Ordem de Serviço" onclick="criarOS(':id')"><li class="fa fa-clipboard-list"></li></a>
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
                         <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>

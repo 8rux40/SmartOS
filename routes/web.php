@@ -18,12 +18,12 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::prefix('ordemservico')->group(function(){
     Route::get('/', [OrdemServicoController::class, 'index'])->name('ordemservico.index');
-    Route::get('/create/{orcamento_id}', [OrdemServicoController::class, 'create'])->name('ordemservico.create');
+    //Route::get('/create/{orcamento_id}', [OrdemServicoController::class, 'create'])->name('ordemservico.create');
     Route::get('/show/{id}', [OrdemServicoController::class, 'show'])->name('ordemservico.show');
     Route::get('/edit/{id}', [OrdemServicoController::class, 'edit'])->name('ordemservico.edit');
     Route::get('/getAll', [OrdemServicoController::class, 'getAll'])->name('ordemservico.getAll');
     
-    Route::post('/store', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
+    Route::post('/store/{orcamento_id}', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
     Route::put('/update/{id}', [OrdemServicoController::class, 'update'])->name('ordemservico.update');
     Route::delete('/delete', [OrdemServicoController::class, 'delete'])->name('ordemservico.delete');
 });

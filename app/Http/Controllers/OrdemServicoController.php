@@ -44,31 +44,50 @@ class OrdemServicoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
-    {
-        // Verifica se usuário tem permissões de acesso   
+    // public function create($id)
+    // {
+    //     // Verifica se usuário tem permissões de acesso   
 
-        $orcamento = OrdemServico::with(['cliente', 'celular'])->where('id', $id)->first();
-        if (!isset($orcamento)) return abort(404);
-        if( $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO ) 
-            return abort(403);
-        return view('ordemservico.create', compact('orcamento'));
-    }
+    //     $orcamento = OrdemServico::with(['cliente', 'celular'])->where('id', $id)->first();
+    //     if (!isset($orcamento)) return abort(404);
+    //     if( $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO ) 
+    //         return abort(403);
+    //     return view('ordemservico.create', compact('orcamento'));
+    // }
 
     /**
-     * Store a newly created resource in storage.
+     * Cria uma ordem de servico a partir de um orçamento aguardando OS
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         // Verifica se usuário tem permissões de acesso   
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerar os')) 
+        return response()->json([
+            'success' => false,
+            'errors' => ['Você não possui permissão para realizar essa ação.'],
+            'route' => route('ordemservico.index')
+        ])->setStatusCode(201);
+
+        // Verifica se o orcamento existe
+        $os = OrdemServico::find($id);
+        if (!isset($os)) return abort(404);
+
+        // Verifica se o orçamento está aguardando OS
+        if( $os->status != OrdemServico::ORCAMENTO_INFORMADO ) return abort(403);
+
+        // Converte orçamento em uma OS
+        $os->status = OrdemServico::ABERTA;
+        $os->save();
 
         return response()->json([
-            'date' => $request->input('data_abertura'),
-            'date_carbon' => Carbon::parse($request->input('data_abertura')),
-            'teste' => $request->input('teste')
+            'success' => true,
+            'message' => 'Ordem de servico aberta com sucesso!',
+            'route' => route('ordemservico.show',$os->id)
         ]);
     }
 
