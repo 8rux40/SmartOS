@@ -27,3 +27,7 @@ th {
     font-size: 16px;
     color: #333 !important;
 }
+
+.status {
+    padding: 15px 40px; margin-right:5px;  font-size: 12pt; border-radius: 10px 10px 0px 0px; font-weight:bold;
+}

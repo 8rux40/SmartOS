@@ -106,31 +106,48 @@
           </div>
       </div> 
     </div>
-  <hr>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="form-group">
-              <label for="DescricaoProblema">Descrição do problema (relatado pelo cliente)</label>
-              <textarea class="form-control" id="DescricaoProblema" rows="4" disabled="disabled" 
-              required name="descricao_problema">{{$orcamento->descricao_problema}}</textarea>
-          </div>
-      </div>
-  </div>
-  @if ($orcamento->status == 2)
+    <hr>
+    
+  @if ($orcamento->status == 1)
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label for="DescricaoServico">Descrição do problema (relatado pelo reparador)</label>
-            <textarea disabled class="form-control" id="DescricaoServico" rows="4" required name="descricao_problema_reparador">{{ $orcamento->descricao_problema_reparador }}</textarea>
+                <label for="DescricaoProblema"><strong>Descrição do problema (relatado pelo cliente)</strong></label>
+                <p>
+                    {{$orcamento->descricao_problema}}
+                </p>
             </div>
         </div>
     </div>
-    <div class="row d-flex align-items-center">
-        <div class="col-md-3 d-flex flex-column justify-content-center">
-            <label for="">Valor estimado</label>
-            <input disabled type="text" class="form-control number" id="ValorEstimado" required="true" name="valor_orcamento" value="{{ $orcamento->valor_orcamento }}">
-        </div>         
-    </div> 
+  @endif
+  @if ($orcamento->status == 2)
+  <div class="row">
+    <div class="col-md-12">
+        <p>
+            <strong>Valor estimado:</strong> R$ {{ $orcamento->valor_orcamento }}
+        </p>
+    </div>
+</div> 
+<hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="DescricaoProblema"><strong>Descrição do problema (relatado pelo cliente)</strong></label>
+                <p>
+                    {{$orcamento->descricao_problema}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="DescricaoProblema"><strong>Descrição do problema (relatado pelo reparador)</strong></label>
+                <p>
+                    {{ $orcamento->descricao_problema_reparador }}
+                </p>
+            </div>
+        </div>
+    </div>
+    
   @endif                   
   </form>
 </div>

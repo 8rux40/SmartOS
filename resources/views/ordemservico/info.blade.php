@@ -19,8 +19,11 @@
 
 <div class="container">
    <div class="row">
-    <div class="col-md-9">
-         <h3><i class="fas fa-clipboard-list text-primary"></i>&nbsp;Ordem de Serviço</h3>
+    <div class="col-md-12">
+         <h3>
+             <i class="fas fa-clipboard-list text-primary"></i>&nbsp;Ordem de Serviço
+             <span class="status bg-secondary text-light text-md float-right">{{ $status[$ordem_servico->status] }}</span>
+        </h3>
     </div>
    </div>
    <div class="card">
@@ -28,13 +31,6 @@
         <form action="" method="post" id="formOrdemServico">
             @csrf 
             <input type="hidden" name="ordemservico_id" value="">
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <h4 class="bg-dark text-light form-control">
-                        Status: {{ $status[$ordem_servico->status] }}
-                    </h4>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
