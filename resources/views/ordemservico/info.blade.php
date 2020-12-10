@@ -3,14 +3,20 @@
 @section('content')
 
 @php
+    use App\Models\OrdemServico;
+    use App\Models\User;
+
+    $user = User::find(auth()->user()->id);
+
     $status = [
-        1 => 'Orçamento pendente',
-        2 => 'Aguardando OS',
-        3 => 'Aberta',
-        4 => 'Concluída',
-        5 => 'Cancelada',
+        OrdemServico::ORCAMENTO_PENDENTE => 'Orçamento pendente',
+        OrdemServico::ORCAMENTO_INFORMADO => 'Aguardando OS',
+        OrdemServico::ABERTA => 'Aberta',
+        OrdemServico::CONCLUIDA => 'Concluída',
+        OrdemServico::CANCELADA => 'Cancelada',
     ];
 @endphp
+
 <div class="container">
    <div class="row">
     <div class="col-md-9">
@@ -73,85 +79,106 @@
             
             <hr>
             <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Descrição Problema (relatado pelo Cliente)</label>
-                    <textarea disabled class="form-control" name="" id="" cols="30" rows="5">{{ $ordem_servico->descricao_problema }} </textarea>
+                <div class="col-md-6">
+                    <label for=""><strong>Descrição Problema (relatado pelo Cliente)</strong></label>
+                    <p>
+                        {{ $ordem_servico->descricao_problema }} 
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <label for=""><strong>Descrição do serviço a ser executado (Reparador)</strong></label>
+                    <p>
+                        {{ $ordem_servico->descricao_problema_reparador }}
+                    </p>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Descrição Problema (Reparador)</label>
-                    <textarea disabled class="form-control" name="descricao_problema_reparador" id="DescProblemaReparador" cols="30" rows="5">{{$ordem_servico->descricao_problema_reparador}}</textarea>
+            @if ($ordem_servico->status == OrdemServico::CONCLUIDA)
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <label for="">Descrição do serviço executado</label>
+                        <textarea class="form-control" name="teste[]" id="" cols="30" rows="5"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Descrição do serviço executado</label>
-                    <textarea disabled class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="5">{{$ordem_servico->descricao_servico_executado}}</textarea>
-                </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Termo de garantia</label>
-                    <textarea disabled class="form-control" name="termo_garantia" id="TermoGarantia" cols="30" rows="10">{{$ordem_servico->termo_garantia}}</textarea>
-                </div>
-            </div>
-            <hr>
-            <h4>Peças utilizadas</h4>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Peça</th>
-                                <th>Qtde. utilizada</th>
-                                <th>Vl. Unitário</th>
-                                <th>Vl. Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (count($ordem_servico->pecasUtilizadas) < 1)
+                <hr>
+                <h4>Peças utilizadas</h4>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table table-striped">
+                            <thead>
                                 <tr>
-                                    <td colspan="4">Nenhuma peça utilizada</td>
+                                    <th>Peça</th>
+                                    <th>Qtde. utilizada</th>
+                                    <th>Vl. Unitário</th>
+                                    <th>Vl. Total</th>
                                 </tr>
-                            @else
-                                @foreach ($ordem_servico->pecasUtilizadas as $peca_utilizada)
+                            </thead>
+                            <tbody>
+                                @if (count($ordem_servico->pecasUtilizadas) < 1)
                                     <tr>
-                                        <td>{{ $peca_utilizada->peca->codigo ." - ". $peca_utilizada->peca->titulo}}</td>
-                                        <td>{{ $peca_utilizada->quantidade_utilizada }}</td>
-                                        <td>{{ $peca_utilizada->peca->preco * 1.0 }}</td>
-                                        <td>{{ $peca_utilizada->peca->preco * $peca_utilizada->quantidade_utilizada * 1.0}}</td>
+                                        <td colspan="4">Nenhuma peça utilizada</td>
                                     </tr>
-                                @endforeach  
-                            @endif     
-                        </tbody>
-                    </table>
+                                @else
+                                    @foreach ($ordem_servico->pecasUtilizadas as $peca_utilizada)
+                                        <tr>
+                                            <td>{{ $peca_utilizada->peca->codigo ." - ". $peca_utilizada->peca->titulo}}</td>
+                                            <td>{{ $peca_utilizada->quantidade_utilizada }}</td>
+                                            <td>{{ $peca_utilizada->peca->preco * 1.0 }}</td>
+                                            <td>{{ $peca_utilizada->peca->preco * $peca_utilizada->quantidade_utilizada * 1.0}}</td>
+                                        </tr>
+                                    @endforeach  
+                                @endif     
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <hr>
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <label for="">Valor Orçamento (R$)</label>
+                        <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{$ordem_servico->valor_orcamento}}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Valor das Peças (R$)</label>
+                        <input disabled type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Valor do Serviço (R$)</label>
+                        <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="{{$ordem_servico->valor_servico}}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="">Valor total (R$)</label>
+                        <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="{{$ordem_servico->valor_total}}">
+                    </div>
+                </div>
+            @endif
+            <hr>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label for=""><strong>Valor orçado: </strong></label> R$ {{ $ordem_servico->valor_orcamento }}
                 </div>
             </div>
             <hr>
             <div class="row mt-2">
-                <div class="col-md-3">
-                    <label for="">Valor Orçamento (R$)</label>
-                    <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{$ordem_servico->valor_orcamento}}">
-                </div>
-                <div class="col-md-3">
-                    <label for="">Valor do Serviço (R$)</label>
-                    <input disabled type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="{{$ordem_servico->valor_servico}}">
-                </div>
-                <div class="col-md-3">
-                    <label for="">Valor das Peças (R$)</label>
-                    <input disabled type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
-                </div>
-                <div class="col-md-3">
-                    <label for="">Valor total (R$)</label>
-                    <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="{{$ordem_servico->valor_total}}">
-                </div>
-            </div>
-            <div class="row mt-2">
                 <div class="col-md-12">
-                    <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Salvar</button>
-                </div>            
+                    <label for=""><strong>Termo de garantia</strong></label>
+                    <p class="text-justify">
+                        {{$ordem_servico->termo_garantia}}
+                    </p>
+                </div>
             </div>
+            @if ($ordem_servico->status == OrdemServico::ABERTA)
+                <hr>
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                    @if ($user->can('fechar os'))
+                        <a href="{{ route('ordemservico.edit', $ordem_servico->id) }}" style="margin-left:5px;" class="btn btn-primary float-right"><i class="fas fa-check"></i>&nbsp;Finalizar OS</a>
+                    @endif
+                    @if ($user->can('cancelar os'))
+                        <a onclick="cancelarOS({{$ordem_servico->id}})" class="btn btn-danger float-right"><i class="fas fa-times-circle"></i>&nbsp;Cancelar OS</a>
+                    @endif
+                    </div>            
+                </div>
+            @endif
         </form>
     </div>
    </div>
@@ -167,6 +194,10 @@
         });
         carregarPecas()
     })
+
+    function cancelarOS(){
+        // Janela de confirmação pra prevenir engano ao cancelar
+    }
 
     function carregarPecas(){
         $.getJSON("{{ route('peca.getAll') }}", function (data){
