@@ -14,8 +14,10 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-9">
-            <h3><i class="fas fa-coins text-primary"></i>&nbsp;Orçamento</li> </h3>         
+        <div class="col-md-12">
+            <h3><i class="fas fa-coins text-primary"></i>&nbsp;Orçamento</li> 
+                <span class="status bg-secondary text-light text-md float-right">{{ $status[$orcamento->status] }}</span>
+            </h3>         
         </div>
     </div>
     <div class="card">
