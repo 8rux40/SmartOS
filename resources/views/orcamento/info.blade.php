@@ -3,12 +3,17 @@
 @section('content')
 
 @php
+    use App\Models\OrdemServico;
+    use App\Models\User;
+
+    $user = User::find(auth()->user()->id);
+
     $status = [
-        1 => 'Orçamento pendente',
-        2 => 'Aguardando OS',
-        3 => 'Aberta',
-        4 => 'Concluída',
-        5 => 'Cancelada',
+        OrdemServico::ORCAMENTO_PENDENTE => 'Orçamento pendente',
+        OrdemServico::ORCAMENTO_INFORMADO => 'Aguardando OS',
+        OrdemServico::ABERTA => 'Aberta',
+        OrdemServico::CONCLUIDA => 'Concluída',
+        OrdemServico::CANCELADA => 'Cancelada',
     ];
 @endphp
 
@@ -25,11 +30,6 @@
   <form action="{{ route('orcamento.solicitar') }}" method="post" id="solicitarOrcamento">
   @csrf
   <div class="row">
-    <div class="col-md-12 form-group">
-        <h4 class="bg-dark text-light form-control">
-            Status: {{ $status[$orcamento->status] }}
-        </h4>
-    </div>
 </div>
   <div class="row">
     <div class="col-md-6">
@@ -110,7 +110,7 @@
     </div>
     <hr>
     
-  @if ($orcamento->status == 1)
+  @if ($orcamento->status == OrdemServico::ORCAMENTO_PENDENTE)
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
@@ -122,7 +122,7 @@
         </div>
     </div>
   @endif
-  @if ($orcamento->status == 2)
+  @if ($orcamento->status == OrdemServico::ORCAMENTO_INFORMADO)
   <div class="row">
     <div class="col-md-12">
         <p>
@@ -149,8 +149,21 @@
             </div>
         </div>
     </div>
-    
-  @endif                   
+@endif 
+
+    @if ($orcamento->status == OrdemServico::ORCAMENTO_PENDENTE)
+        <hr>
+        <div class="row mt-2">
+            <div class="col-md-12">
+            @if ($user->can('informar orcamento'))
+                <a href="{{ route('orcamento.edit', $orcamento->id) }}" style="margin-left:5px;" class="btn btn-primary float-right"><i class="fas fa-coins"></i>&nbsp;Informar Orçamento</a>
+            @endif
+            @if ($user->can('gerenciar orcamento'))
+                <a onclick="cancelarOrcamento({{$orcamento->id}})" class="btn btn-danger float-right"><i class="fas fa-times-circle"></i>&nbsp;Cancelar Orçamento</a>
+            @endif
+            </div>            
+        </div>
+    @endif                  
   </form>
 </div>
 </div>
