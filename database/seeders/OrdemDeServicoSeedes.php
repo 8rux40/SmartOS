@@ -26,10 +26,7 @@ class OrdemDeServicoSeedes extends Seeder
             'valor_total' => 229.9,
             'valor_servico' => 80,
             'valor_orcamento' => 229.90,
-            'data_abertura' => '2020-10-10',
-            'data_fechamento' => '2020-10-10',
-
-
+            'data_abertura' =>Carbon::now(),
             'created_at' => Carbon::now()
         ]);
 
@@ -44,10 +41,7 @@ class OrdemDeServicoSeedes extends Seeder
             'valor_total' =>300,
             'valor_servico' => 100,
             'valor_orcamento' => 400,
-            'data_abertura' => '2020-10-10',
-            'data_fechamento' => '2020-10-10',
-
-
+            'data_abertura' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
 
@@ -62,10 +56,7 @@ class OrdemDeServicoSeedes extends Seeder
             'valor_total' => 229.9,
             'valor_servico' => 80,
             'valor_orcamento' => 229.90,
-            'data_abertura' => '2020-10-10',
-            'data_fechamento' => '2020-10-10',
-
-
+            'data_abertura' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
 
@@ -80,10 +71,7 @@ class OrdemDeServicoSeedes extends Seeder
             'valor_total' => 229.9,
             'valor_servico' => 80,
             'valor_orcamento' => 229.90,
-            'data_abertura' => '2020-10-10',
-            'data_fechamento' => '2020-10-10',
-
-
+            'data_abertura' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
     }

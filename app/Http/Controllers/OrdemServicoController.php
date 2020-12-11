@@ -24,9 +24,21 @@ class OrdemServicoController extends Controller
     }
 
     public function getAll(Request $request){
-        return response()->json(
-            OrdemServico::where('status', '>',2)->get()
-        );
+        //Verifica permissão
+        
+        return response()->json( OrdemServico::where('status', '>=', OrdemServico::ABERTA)->get() );
+    }
+
+    public function getAbertas(Request $request){
+        // Verifica permissão
+        
+        return response()->json( OrdemServico::with(['celular', 'cliente'])->where('status', OrdemServico::ABERTA)->get() );
+    }
+
+    public function getConcluidas(Request $request){
+        // Verifica permissão
+        
+        return response()->json( OrdemServico::with(['celular', 'cliente'])->where('status', OrdemServico::CONCLUIDA)->get() );
     }
 
     /**

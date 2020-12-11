@@ -34,6 +34,29 @@
 
 .status {
     padding: 15px 40px; margin-right:5px;  font-size: 12pt; border-radius: 10px 10px 0px 0px; font-weight:bold;
+}
+
+.nav-tabs li {
+    padding: .3rem 2rem;
+    font-size: 12pt;
+    background-color: #3490dc;
+    border: 1px solid#3490dc !important;
+}
+
+.nav-tabs li a {
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.nav-tabs li.active a {
+    color: #3490dc !important;
+    text-decoration: none !important;
+    font-weight: bold;
+}
+
+.nav-tabs li.active {
+    background: white;
+    border: 1px solid#3490dc !important;
 }@charset "UTF-8";
 
 /*!
