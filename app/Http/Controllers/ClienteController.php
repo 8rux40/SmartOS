@@ -166,7 +166,43 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cliente = Cliente::find($id);
+        if (!isset($cliente)) return abort(404);
+        
+        $validator = Validator::make(
+            $request->all(), [
+                'nome' => 'required|string',
+                'cpf' => 'required|string',
+                'numero_cel'=> 'string',
+                'numero_tel' => 'string',
+                'endereco' => 'required|string',
+                'email' => 'required|string',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $cliente->fill($request->only([
+            'nome',
+            'cpf',
+            'numero_cel',
+            'numero_tel',
+            'endereco',
+            'email'
+        ]));
+
+        $cliente->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cliente alterado com sucesso',
+            'route' => route('cliente.index')
+        ]);
     }
 
     /**

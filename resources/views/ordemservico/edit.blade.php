@@ -195,6 +195,40 @@
 
     $('#formOrdemServico').submit(function(e){
         e.preventDefault();
+
+        var disabled = $(this).find(':input:disabled').removeAttr('disabled');
+        var serializedData = $(this).serialize();
+        disabled.attr('disabled', 'disabled');
+
+        $.ajax({
+            url: "{{ route('ordemservico.update', $ordemservico->id) }}",
+            method: 'put',
+            dataType: 'json',
+            data: serializedData,
+            success: function (response) {
+            console.log(response)
+            if (response.success) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: response.message,
+                    icon: 'success',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#888',
+                    confirmButtonText: 'Ver este orçamento',
+                    cancelButtonText: 'Voltar aos orçamentos'
+                }).then((result) => {
+                    if (result.value) {
+                        $(location).attr('href',response.route);
+                    } else {
+                        $(location).attr('href', "{{ route('orcamento.index') }}")
+                    }
+                })
+            } else {
+                //mostrarErros(response.errors);
+            }
+            }
+        })
     });
 </script>
 @endpush

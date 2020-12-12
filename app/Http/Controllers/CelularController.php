@@ -154,9 +154,40 @@ class CelularController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json(['success'=> true]);
-    }
+        $celular = Celular::find($id);
+        if (!isset($celular)) return abort(404);
+        
+        $validator = Validator::make(
+            $request->all(), [
+                'imei' => 'string',
+                'imei2' => 'string',
+                'marca'=> 'required|string',
+                'modelo' => 'string',
+            ]
+        );
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $celular->fill($request->only([
+            'imei',
+            'imei2',
+            'marca',
+            'modelo',
+        ]));
+
+        $celular->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Celular alterado com sucesso',
+            'route' => route('celular.index')
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
