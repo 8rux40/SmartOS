@@ -201,7 +201,7 @@
         disabled.attr('disabled', 'disabled');
 
         $.ajax({
-            url: "{{ route('ordemservico.update', $ordemservico->id) }}",
+            url: "{{ route('ordemservico.update', $ordem_servico->id) }}",
             method: 'put',
             dataType: 'json',
             data: serializedData,

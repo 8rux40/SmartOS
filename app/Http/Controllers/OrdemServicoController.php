@@ -141,7 +141,51 @@ class OrdemServicoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $os = OrdemServico::find($id);
+        if (!isset($os)) return abort(404);
+
+        $validator = Validator::make(
+            $request->all(), [
+                'status' => 'numeric',
+                'descricao_problema' => 'string',
+                'descricao_problema_reparador'=> 'string',
+                'descricao_servico_executado'=> 'string',
+                'valor_total' => 'numeric',
+                'valor_servico' => 'numeric',
+                'valor_orcamento' => 'numeric',
+                'data_abertura' => 'date',
+                'data_fechamento' => 'date',
+                'termo_garantia' => 'string',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $os->fill($request->only([
+            'status',
+            'descricao_problema',
+            'descricao_problema_reparador',
+            'descricao_servico_executado',
+            'valor_total',
+            'valor_servico',
+            'valor_orcamento',
+            'data_abertura',
+            'data_fechamento',
+            'termo_garantia'
+        ]));
+
+        $os->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'OS alterado com sucesso',
+            'route' => route('ordemservico.index')
+        ]);
     }
 
     /**
