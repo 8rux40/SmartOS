@@ -146,13 +146,13 @@ class OrdemServicoController extends Controller
 
         $validator = Validator::make(
             $request->all(), [
-                'status' => 'numeric',
+                'status' => 'numeric|min:0',
                 'descricao_problema' => 'string',
                 'descricao_problema_reparador'=> 'string',
                 'descricao_servico_executado'=> 'string',
-                'valor_total' => 'numeric',
-                'valor_servico' => 'numeric',
-                'valor_orcamento' => 'numeric',
+                'valor_total' => 'numeric|min:0',
+                'valor_servico' => 'numeric|min:0',
+                'valor_orcamento' => 'numeric|min:0',
                 'data_abertura' => 'date',
                 'data_fechamento' => 'date',
                 'termo_garantia' => 'string',
