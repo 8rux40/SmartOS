@@ -172,7 +172,7 @@ class ClienteController extends Controller
         $validator = Validator::make(
             $request->all(), [
                 'nome' => 'required|string',
-                'cpf' => 'required|numeric|digits:11|unique:clientes',
+                'cpf' => 'required|numeric|digits:11',
                 'numero_cel'=> 'string|nullable',
                 'numero_tel' => 'string|nullable',
                 'endereco' => 'required|string',
