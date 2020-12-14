@@ -17,7 +17,7 @@ class ClienteSeeder extends Seeder
     {
         DB::table('clientes')->insert([
             'nome' => 'Bruno Rocha Tardin',
-            'cpf' => '444.555.666-12',
+            'cpf' => '44455566612',
             'numero_cel' => '2298653212',
             'numero_tel' => '2238243824',
             'endereco' => 'Rua Valao da Cehab, Cehab',
@@ -26,7 +26,7 @@ class ClienteSeeder extends Seeder
 
         DB::table('clientes')->insert([
             'nome' => 'Joao Paulo ',
-            'cpf' => '412.525.466-52',
+            'cpf' => '41252546652',
             'numero_cel' => '2255887799',
             'numero_tel' => '2238386633',
             'endereco' => 'Em algum Lugar Distante',
@@ -35,7 +35,7 @@ class ClienteSeeder extends Seeder
 
         DB::table('clientes')->insert([
             'nome' => 'Aroldo Rezende',
-            'cpf' => '443.554.566-12',
+            'cpf' => '44355456612',
             'numero_cel' => '2277441122',
             'numero_tel' => '2234444444',
             'endereco' => 'Perto daquele lugar la',
@@ -44,7 +44,7 @@ class ClienteSeeder extends Seeder
 
         DB::table('clientes')->insert([
             'nome' => 'Caio Trócilo',
-            'cpf' => '443.554.566-68',
+            'cpf' => '44355456668',
             'numero_cel' => '2269896969',
             'numero_tel' => '2233556688',
             'endereco' => 'Perto do centro',
@@ -53,7 +53,7 @@ class ClienteSeeder extends Seeder
 
         DB::table('clientes')->insert([
             'nome' => 'Samir Assad',
-            'cpf' => '123.434.546-12',
+            'cpf' => '12343454612',
             'numero_cel' => '2274852652',
             'numero_tel' => '2238444458',
             'endereco' => 'Exatamente onde você está pensando',
@@ -61,12 +61,12 @@ class ClienteSeeder extends Seeder
         ]);
 
         DB::table('clientes')->insert([
-            'nome' => 'Alberto Roberto',
-            'cpf' => '222.333.511-12',
+            'nome' => 'Astolfo',
+            'cpf' => '22233351112',
             'numero_cel' => '2223334445',
             'numero_tel' => '2233445566',
             'endereco' => 'RDV BR 356 KM 02, S/N',
-            'email' => 'albertoRoberto@gmail.com'
+            'email' => 'astolfo@gmail.com'
         ]);
     }
 }
