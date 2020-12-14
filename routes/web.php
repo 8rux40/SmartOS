@@ -74,5 +74,5 @@ Route::prefix('cliente')->group(function(){
 
     Route::post('/store', [ClienteController::class, 'store'])->name('cliente.store');
     Route::put('/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
-    Route::delete('/delete', [ClienteController::class, 'delete'])->name('cliente.delete');
+    Route::delete('/delete/{id}', [ClienteController::class, 'destroy'])->name('cliente.delete');
 });

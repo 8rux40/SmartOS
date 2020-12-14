@@ -223,5 +223,7 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
 
         $cliente->delete();
+
+        return view('cliente.index');
     }
 }

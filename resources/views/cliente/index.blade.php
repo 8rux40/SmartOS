@@ -86,11 +86,12 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "{{ route('cliente.delete') }}",
+          url: "{{ route('cliente.delete', ':id') }}".replaceAll(':id', id),
           method: 'delete',
           dataType: 'json',
           data: {
-            id: id
+            id: id,
+            _token: '{{ csrf_token() }}'
           },
           success: function(response){
             if(response.success){
@@ -105,6 +106,7 @@
           }
         })
       }
+      document.location.reload(true);
     })
   }
 </script>

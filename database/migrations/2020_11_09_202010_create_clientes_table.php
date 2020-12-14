@@ -32,7 +32,7 @@ class CreateClientesTable extends Migration
      * @return void
      */
     public function down()    {
-        Schema::table("pecas", function ($table) {
+        Schema::table("clientes", function ($table) {
             $table->dropSoftDeletes();            
         });
     }
