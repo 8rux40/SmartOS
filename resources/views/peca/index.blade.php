@@ -41,6 +41,7 @@
     })
   
     function carregaValores(){
+      $('table#pecas tbody tr').remove();
       const url = "{{ route('peca.getAll') }}";
       $.getJSON(url, function (data){
         if (Array.isArray(data) && data.length){
@@ -74,6 +75,7 @@
     }
   
     function excluir(id){
+      
       Swal.fire({
         title: 'Tem certeza?',
         text: "Não será possível reverter essa ação!",
@@ -84,9 +86,12 @@
         confirmButtonText: 'Sim, excluir!'
       }).then((result) => {
         if (result.isConfirmed) {
+          // $.ajaxSetup({ 
+          //   headers: { 'X-CSRF-TOKEN': "{‌{csrf_token()}}" } 
+          // });
           $.ajax({
             url: "{{ route('peca.delete',':id') }}".replaceAll(':id',id),
-            method: 'delete',
+            method: 'post',
             dataType: 'json',
             data: {
               id: id,
@@ -94,18 +99,17 @@
             },
             success: function(response){
               if(response.success){
-                Swal.fire(
-                {
+                Swal.fire({
                   title: 'Excluido!',
-                text: response.message,
-                icon: 'success'
-                }
-              )
+                  text: response.message,
+                  icon: 'success'
+                })
               }
+              carregaValores()
             }
           })
         }
-        document.location.reload(true);
+        //document.location.reload(true);
       })
     }
   </script>
