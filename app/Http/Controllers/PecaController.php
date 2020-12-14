@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PecaController extends Controller
 {
+    
     /**
      * Create a new controller instance.
      *
@@ -167,9 +168,7 @@ class PecaController extends Controller
     public function destroy($id)
     {
         $peca = Peca::find($id);
-
         $peca->delete();
-
         return view('peca.index');
     }
 }

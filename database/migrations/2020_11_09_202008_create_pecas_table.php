@@ -21,6 +21,7 @@ class CreatePecasTable extends Migration
             $table->float('preco');
             $table->integer('quantidade_pecas');
             $table->string('codigo');
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +32,8 @@ class CreatePecasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pecas');
+        Schema::table("pecas", function ($table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

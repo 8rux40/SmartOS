@@ -105,6 +105,7 @@
             }
           })
         }
+        document.location.reload(true);
       })
     }
   </script>
