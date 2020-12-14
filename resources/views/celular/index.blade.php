@@ -103,6 +103,7 @@
           }
         })
       }
+      document.location.realod(true);
     })
   }
 </script>
