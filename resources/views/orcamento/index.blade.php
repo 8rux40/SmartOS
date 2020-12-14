@@ -141,7 +141,7 @@
             row += '<td>'+ moment(orcamento.created_at).format('DD/MM/yyyy') +'</td>';
             row += '<td>'+ orcamento.cliente.nome +'</td>';
             row += '<td>'+ orcamento.celular.marca + ' ' + orcamento.celular.modelo +'</td>';
-            row += '<td>'+ orcamento.valor_orcamento +'</td>';
+            row += '<td> R$ '+ orcamento.valor_orcamento.toLocaleString('pt-br', {minimumFractionDigits: 2}) +'</td>';
             if (admin){
               row += `<td class="text-center">
                         <a class="btn btn-sm btn-success" title="Criar Ordem de Serviço" onclick="criarOS(':id')"><li class="fa fa-clipboard-list"></li></a>

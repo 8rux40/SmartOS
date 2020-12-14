@@ -126,7 +126,7 @@
   <div class="row">
     <div class="col-md-12">
         <p>
-            <strong>Valor estimado:</strong> R$ {{ $orcamento->valor_orcamento }}
+            <strong>Valor estimado:</strong> R$ {{ number_format($orcamento->valor_orcamento, 2, ',', '.') }}
         </p>
     </div>
 </div> 

@@ -51,7 +51,7 @@
             row += '<td>'+ peca.codigo +'</td>';
             row += '<td>'+ peca.titulo +'</td>';
             row += '<td>'+ peca.descricao +'</td>';
-            row += '<td>'+ peca.preco +'</td>';
+            row += '<td> R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) +'</td>';
             row += '<td>'+ peca.quantidade_pecas +'</td>';
             row += `<td class="text-center">                        
                         <a href="{{route('peca.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>

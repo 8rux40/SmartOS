@@ -23,6 +23,7 @@ Route::prefix('ordemservico')->group(function(){
     Route::get('/edit/{id}', [OrdemServicoController::class, 'edit'])->name('ordemservico.edit');
     Route::get('/getAll', [OrdemServicoController::class, 'getAll'])->name('ordemservico.getAll');
     Route::get('/getAbertas', [OrdemServicoController::class, 'getAbertas'])->name('ordemservico.getAbertas');
+    Route::get('/getConcluidas', [OrdemServicoController::class, 'getConcluidas'])->name('ordemservico.getConcluidas');
     
     Route::post('/store/{orcamento_id}', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
     Route::put('/update/{id}', [OrdemServicoController::class, 'update'])->name('ordemservico.update');

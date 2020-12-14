@@ -145,7 +145,7 @@
   
   function carregaValores(){
     carregaAbertas()
-    const url = "{{ route('ordemservico.getAll') }}";
+    const url = "{{ route('ordemservico.getConcluidas') }}";
     let reparador = Boolean("{{ User::find(auth()->user()->id)->can('fechar os') }}")    
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
@@ -168,10 +168,10 @@
             row += '<td>'+ moment(ordemservico.created_at).format('DD/MM/yyyy') +'</td>';
             row += '<td>'+ descricao_status +'</td>';
             row += '<td>'+ ordemservico.descricao_problema_reparador +'</td>';
-            row += '<td>'+ ordemservico.valor_total +'</td>';
-            row += '<td>'+ ordemservico.valor_servico +'</td>';
-            row += '<td>'+ ordemservico.data_abertura +'</td>';
-            row += '<td>'+ ordemservico.data_fechamento +'</td>';
+            row += '<td> R$ '+ ordemservico.valor_total.toLocaleString('pt-br', {minimumFractionDigits: 2}) +'</td>';
+            row += '<td> R$ '+ ordemservico.valor_servico.toLocaleString('pt-br', {minimumFractionDigits: 2}) +'</td>';
+            row += '<td>'+ moment(ordemservico.data_abertura).format('DD/MM/yyyy') +'</td>';
+            row += '<td>'+ moment(ordemservico.data_fechamento).format('DD/MM/yyyy') +'</td>';
             row += reparador ? `<td class="text-right d-flex">                       
                       <a href="{{route('ordemservico.show',':id')}}" class="btn btn-sm btn-primary" title="Detalhes da ordem de serviço"><li class="fa fa-eye"></li></a>                     
                       <a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-secondary ml-1" title="Editar"><li class="fa fa-edit"></li></a>                        
