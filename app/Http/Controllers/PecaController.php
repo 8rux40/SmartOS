@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class PecaController extends Controller
 {
+    
     /**
      * Create a new controller instance.
      *
@@ -86,7 +87,7 @@ class PecaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Peça cadastrada com sucesso.',
-            'route' => route('peca.edit',$peca->id)
+            'route' => route('peca.index')
         ]);
     }
 
@@ -167,9 +168,7 @@ class PecaController extends Controller
     public function destroy($id)
     {
         $peca = Peca::find($id);
-
         $peca->delete();
-
         return view('peca.index');
     }
 }

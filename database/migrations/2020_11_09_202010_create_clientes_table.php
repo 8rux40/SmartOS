@@ -14,6 +14,7 @@ class CreateClientesTable extends Migration
     public function up()
     {
         Schema::create('clientes', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->timestamps();
             $table->string('nome');
@@ -30,8 +31,9 @@ class CreateClientesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::dropIfExists('clientes');
+    public function down()    {
+        Schema::table("pecas", function ($table) {
+            $table->dropSoftDeletes();            
+        });
     }
 }

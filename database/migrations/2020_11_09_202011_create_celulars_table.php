@@ -22,7 +22,7 @@ class CreateCelularsTable extends Migration
             $table->string('imei2')->nullable();
             $table->string('marca');
             $table->string('modelo');
-
+            $table->softDeletes();
             $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
@@ -34,6 +34,8 @@ class CreateCelularsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('celulares');
+        Schema::table("celulares", function ($table) {
+            $table->dropSoftDeletes();
+        });
     }
 }
