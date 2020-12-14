@@ -87,11 +87,11 @@ class ClienteController extends Controller
         $validator = Validator::make(
             $request->all(), [
                 'nome' => 'required|string',
-                'cpf' => 'string|unique:clientes|required',
+                'cpf' => 'numeric|digits:11|unique:clientes|required',
                 'numero_tel' => 'string|nullable',
                 'numero_cel' => 'string|nullable',
-                'email' => 'required|string|email',
-                'endereco' => 'string',
+                'email' => 'required|email',
+                'endereco' => 'string|required',
             ]
         );
 
@@ -172,11 +172,11 @@ class ClienteController extends Controller
         $validator = Validator::make(
             $request->all(), [
                 'nome' => 'required|string',
-                'cpf' => 'required|string',
-                'numero_cel'=> 'string',
-                'numero_tel' => 'string',
+                'cpf' => 'required|numeric|digits:11|unique:clientes',
+                'numero_cel'=> 'string|nullable',
+                'numero_tel' => 'string|nullable',
                 'endereco' => 'required|string',
-                'email' => 'required|string',
+                'email' => 'required|email',
             ]
         );
 

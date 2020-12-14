@@ -35,7 +35,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="EmailCliente">Email</label>
-          <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email" value= "{{ $cliente->email}}">
+          <input required type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email" value= "{{ $cliente->email}}">
           <small id="emailHelp" class="form-text text-muted">Nós nunca iremos compartilhar o seu e-mail.</small>         
         </div>
       </div>      
