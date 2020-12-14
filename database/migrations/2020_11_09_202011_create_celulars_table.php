@@ -23,7 +23,7 @@ class CreateCelularsTable extends Migration
             $table->string('marca');
             $table->string('modelo');
             $table->softDeletes();
-            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 

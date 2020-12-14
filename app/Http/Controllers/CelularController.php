@@ -160,7 +160,7 @@ class CelularController extends Controller
         $validator = Validator::make(
             $request->all(), [
                 'imei' => 'string',
-                'imei2' => 'string',
+                'imei2' => 'string|nullable',
                 'marca'=> 'required|string',
                 'modelo' => 'string',
             ]
