@@ -61,7 +61,7 @@ Route::prefix('celular')->group(function(){
     
     Route::post('/store', [CelularController::class, 'store'])->name('celular.store');
     Route::put('/update/{id}', [CelularController::class, 'update'])->name('celular.update');
-    Route::delete('/delete', [CelularController::class, 'delete'])->name('celular.delete');
+    Route::delete('/delete/{id}', [CelularController::class, 'destroy'])->name('celular.delete');
 });
 
 Route::prefix('cliente')->group(function(){

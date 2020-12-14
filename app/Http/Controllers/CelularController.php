@@ -196,6 +196,8 @@ class CelularController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $celular = Celular::find($id);
+        $celular->delete();
+        return view('celular.index');
     }
 }

@@ -84,11 +84,12 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "{{ route('celular.delete') }}",
+          url: "{{ route('celular.delete', ':id') }}".replaceAll(':id', id),
           method: 'delete',
           dataType: 'json',
           data: {
-            id: id
+            id: id,
+            _token: '{{ csrf_token() }}'
           },
           success: function(response){
             if(response.success){
@@ -103,7 +104,7 @@
           }
         })
       }
-      document.location.realod(true);
+      document.location.reload(true);
     })
   }
 </script>
