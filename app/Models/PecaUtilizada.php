@@ -17,6 +17,6 @@ class PecaUtilizada extends Model
         return $this->belongsTo(OrdemServico::class);
     }
     public function peca(){
-        return $this->belongsTo(Peca::class);
+        return $this->belongsTo(Peca::class)->withTrashed();
     }
 }

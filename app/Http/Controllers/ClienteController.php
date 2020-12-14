@@ -213,17 +213,23 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar clientes')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+        
         $cliente = Cliente::find($id);
-        $cliente->delete();
-        return view('cliente.index');
-    }
-
-    public function delete($id)
-    {
-        $cliente = Cliente::find($id);
+        if (!isset($cliente)) return abort(404);
 
         $cliente->delete();
-
-        return view('cliente.index');
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Cliente excluído com sucesso',
+        ]);
     }
 }

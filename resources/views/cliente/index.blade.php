@@ -42,6 +42,7 @@
   })
 
   function carregaValores(){
+    $('table#clientes tbody tr').remove();
     const url = "{{ route('cliente.getAll') }}";
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
@@ -86,8 +87,8 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "{{ route('cliente.delete', ':id') }}".replaceAll(':id', id),
-          method: 'delete',
+          url: "{{ route('cliente.delete', ':id') }}".replace(':id', id),
+          method: 'post',
           dataType: 'json',
           data: {
             id: id,
@@ -103,10 +104,11 @@
               }
             )
             }
+            carregaValores()
           }
         })
       }
-      document.location.reload(true);
+      //document.location.reload(true);
     })
   }
 </script>
