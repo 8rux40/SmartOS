@@ -96,20 +96,34 @@
           },
           success: function(response){
             if(response.success){
-              Swal.fire(
-              {
+              Swal.fire({
                 title: 'Excluido!',
                 text: response.message,
                 icon: 'success'
-              }
-            )
+              })
+              carregaValores()
+            } else {
+              mostraErros(response.errors)
             }
-            carregaValores()
           }
         })
       }
       //document.location.reload(true);
     })
   }
+  
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
+    })
+}
 </script>
 @endpush

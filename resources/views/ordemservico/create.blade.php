@@ -227,10 +227,23 @@ A garantia é válida somente ao item descrito na ordem de serviço.</textarea>
                 }
             })
         } else {
-            //mostrarErros(response.errors);
+            mostrarErros(response.errors);
         }
       }
     })
   })
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
+    })
+}
 </script>
 @endpush

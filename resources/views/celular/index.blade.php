@@ -38,6 +38,7 @@
   })
 
   function carregaValores(){
+    $('table#celulares tbody tr').remove();
     const url = "{{ route('celular.getAll') }}";
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
@@ -93,18 +94,33 @@
           },
           success: function(response){
             if(response.success){
-              Swal.fire(
-              {
+              Swal.fire({
                 title: 'Excluido!',
-              text: response.message,
-              icon: 'success'
-              }
-            )
+                text: response.message,
+                icon: 'success'
+              })
+              carregaValores()
+            } else {
+              mostrarErros(response.errors);
             }
           }
         })
       }
-      document.location.reload(true);
+      // document.location.reload(true);
+    })
+  }
+
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+      errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+      title: 'Erro ao editar',
+      html: errors,
+      icon: 'error',
     })
   }
 </script>
