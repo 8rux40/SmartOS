@@ -75,6 +75,7 @@
       })
 
       function carregaValores(){
+        $('table#celulares tbody tr').remove();
         const url = "{{ route('cliente.getCelulares', $cliente->id) }}";
         $.getJSON(url, function (data){
             if (Array.isArray(data) && data.length){
@@ -118,23 +119,28 @@
       confirmButtonText: 'Sim, excluir!'
     }).then((result) => {
       if (result.isConfirmed) {
+        // $.ajaxSetup({ 
+        //     headers: { 'X-CSRF-TOKEN': "{‌{csrf_token()}}" } 
+        //   });
         $.ajax({
-          url: "{{ route('celular.delete') }}",
-          method: 'delete',
+          url: "{{ route('celular.delete', ':id') }}".replace(':id', id),
+          method: 'post',
           dataType: 'json',
           data: {
-            id: id
+            id: id,
+            _token: '{{ csrf_token() }}'
           },
           success: function(response){
             if(response.success){
               Swal.fire(
               {
                 title: 'Excluido!',
-              text: response.message,
-              icon: 'success'
+                text: response.message,
+                icon: 'success'
               }
             )
             }
+            carregaValores();
           }
         })
       }

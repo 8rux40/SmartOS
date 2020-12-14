@@ -85,7 +85,7 @@
       if (result.isConfirmed) {
         $.ajax({
           url: "{{ route('celular.delete', ':id') }}".replaceAll(':id', id),
-          method: 'delete',
+          method: 'post',
           dataType: 'json',
           data: {
             id: id,
