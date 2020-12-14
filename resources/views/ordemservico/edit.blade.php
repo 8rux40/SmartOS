@@ -57,16 +57,14 @@
                 </div>
             </div>
             <hr>
-            <div class="row mt-2">
-                <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
                     <label for="">Descrição Problema (relatado pelo Cliente)</label>
                     <textarea disabled class="form-control" name="" id="" cols="30" rows="6">{{ $ordem_servico->descricao_problema }} </textarea>
                 </div>
-            </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <label for="">Descrição Problema (Reparador)</label>
-                    <textarea class="form-control" name="descricao_problema_reparador" id="DescProblemaReparador" cols="30" rows="10">{{$ordem_servico->descricao_problema_reparador}}</textarea>
+                    <textarea disabled class="form-control" name="descricao_problema_reparador" id="DescProblemaReparador" cols="30" rows="6">{{$ordem_servico->descricao_problema_reparador}}</textarea>
                 </div>
             </div>
             <div class="row mt-2">
@@ -75,12 +73,7 @@
                     <textarea class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="10">{{$ordem_servico->descricao_servico_executado}}</textarea>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-12">
-                    <label for="">Termo Garantia</label>
-                    <textarea class="form-control" name="termo_garantia" id="TermoGarantia" cols="30" rows="10">{{$ordem_servico->termo_garantia}}</textarea>
-                </div>
-            </div>
+            
             <hr>
             <div class="row mt-2">
                 <div class="col-md-9">
@@ -90,7 +83,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Qtde. Utilizada</label>
-                    <input type="number" id="qtde_utilizada" class="form-control" min="1" value="1" name="quantidade_utilizada[]">
+                    <input type="number" id="qtde_utilizada" class="form-control" min="1" value="1">
                 </div>
                 <div class="col-md-1">
                     <label>&nbsp;</label>
@@ -119,6 +112,12 @@
                 <div class="col-md-3">
                     <label for="">Valor total (R$)</label>
                     <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="{{$ordem_servico->valor_total}}">
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12">
+                    <label for="">Termo Garantia</label>
+                    <textarea @cannot('editar termo de garantia') disabled @endcannot class="form-control" name="termo_garantia" id="TermoGarantia" cols="30" rows="6">{{$ordem_servico->termo_garantia}}</textarea>
                 </div>
             </div>
             <div class="row mt-2">
