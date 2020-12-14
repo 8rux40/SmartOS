@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Celular;
 use App\Models\Cliente;
 use App\Models\OrdemServico;
+use App\Models\Peca;
+use App\Models\PecaUtilizada;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
+use function PHPUnit\Framework\isNull;
 
 class OrdemServicoController extends Controller
 {
@@ -141,21 +145,30 @@ class OrdemServicoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Verifica se usuário tem permissões de acesso   
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('fechar os')) 
+        return response()->json([
+            'success' => false,
+            'errors' => ['Você não possui permissão para realizar essa ação.'],
+            'route' => route('ordemservico.index')
+        ])->setStatusCode(201);
+
+        // Verifica se a OS existe
         $os = OrdemServico::find($id);
         if (!isset($os)) return abort(404);
 
+        // Restringe fechar OS apenas para OS que estão abertas
+        if ($os->status != OrdemServico::ABERTA) {
+            return redirect()->route('ordemservico.index');
+        }
+
         $validator = Validator::make(
             $request->all(), [
-                'status' => 'numeric|min:0',
-                'descricao_problema' => 'string',
-                'descricao_problema_reparador'=> 'string',
                 'descricao_servico_executado'=> 'string',
                 'valor_total' => 'numeric|min:0',
                 'valor_servico' => 'numeric|min:0',
-                'valor_orcamento' => 'numeric|min:0',
-                'data_abertura' => 'date',
-                'data_fechamento' => 'date',
-                'termo_garantia' => 'string',
+                'termo_garantia' => 'string|nullable',
             ]
         );
 
@@ -166,25 +179,51 @@ class OrdemServicoController extends Controller
             ])->setStatusCode(201);
         }
 
-        $os->fill($request->only([
-            'status',
-            'descricao_problema',
-            'descricao_problema_reparador',
-            'descricao_servico_executado',
-            'valor_total',
-            'valor_servico',
-            'valor_orcamento',
-            'data_abertura',
-            'data_fechamento',
-            'termo_garantia'
-        ]));
+        // Zera os valores para iniciar os cálculos
+        $valor_pecas = 0.0;
+        $valor_total = 0.0;
+        $valor_servico = $request->input('valor_servico') * 1.0;
 
+        // Peças utilizadas no serviço
+        foreach ($request->input('peca_utilizada_id') as $peca_index => $value) {
+            $peca = Peca::find($value);
+            if(!isset($peca)) return response()->json([
+                'errors'=> ['Ocorreu um erro ao tentar encontrar uma das peças. Atualize a página e tente novamente.'],
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+            $peca_utilizada = new PecaUtilizada();
+            $peca_utilizada->quantidade_utilizada = $request->input('quantidade_utilizada')[$peca_index];
+            $peca_utilizada->peca()->associate($peca);
+            $peca_utilizada->ordemServico()->associate($os);
+            $peca_utilizada->save();
+            
+            // Contabiliza o valor da peça no total de peças utilizadas
+            $valor_pecas += $peca->preco * $peca_utilizada->quantidade_utilizada * 1.0;
+        }
+
+        // Contabiliza o valor das peças utilizadas no total da OS
+        $valor_total += $valor_pecas; 
+        // Contabiliza o valor dos servico informado
+        $valor_total += $valor_servico;
+
+        // Grava os valores no BD
+        $os->status = OrdemServico::CONCLUIDA;
+        $os->valor_pecas = $valor_pecas;
+        $os->valor_total = $valor_total;
+        $os->valor_servico = $valor_servico;
+        $os->data_fechamento = Carbon::now();
+        
+        if ( $user->can('editar termo de garantia') ) {
+            $os->termo_garantia = $request->input('termo_garantia');
+        }
+
+        $os->descricao_servico_executado = $request->input('descricao_servico_executado');
         $os->save();
 
         return response()->json([
             'success' => true,
             'message' => 'OS alterado com sucesso',
-            'route' => route('ordemservico.index')
+            'route' => route('ordemservico.show', $id)
         ]);
     }
 

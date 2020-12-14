@@ -17,6 +17,7 @@ class OrdemServico extends Model
         'descricao_problema_reparador',
         'descricao_servico_executado',
         'valor_total',
+        'valor_pecas',
         'valor_orcamento',
         'valor_servico',
         'data_abertura',

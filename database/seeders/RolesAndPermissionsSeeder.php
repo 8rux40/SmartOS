@@ -38,6 +38,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'emitir relatorio de estoque']);
         Permission::create(['name' => 'gerenciar clientes']);
         Permission::create(['name' => 'gerenciar celulares']);
+        Permission::create(['name' => 'editar termo de garantia']);
 
         // atores
         $role = Role::create(['name' => 'atendente'])->givePermissionTo([

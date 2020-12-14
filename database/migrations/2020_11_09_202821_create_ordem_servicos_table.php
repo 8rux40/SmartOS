@@ -32,6 +32,7 @@ class CreateOrdemServicosTable extends Migration
             $table->longText('descricao_servico_executado')->nullable();
             $table->float('valor_total')->nullable();
             $table->float('valor_servico')->nullable();
+            $table->float('valor_pecas')->nullable();
             $table->float('valor_orcamento')->nullable();
             $table->date('data_abertura')->nullable();
             $table->date('data_fechamento')->nullable();

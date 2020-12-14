@@ -11,6 +11,7 @@ class PecaUtilizada extends Model
     protected $table = 'pecas_utilizadas';
     //protected $primarykey = 'peca_utilizada_id';
     protected $with = ['peca'];
+    protected $fillable = ['peca_id','ordem_servico_id','quantidade_utilizada'];
 
     public function ordemServico(){
         return $this->belongsTo(OrdemServico::class);
