@@ -154,9 +154,40 @@ class CelularController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json(['success'=> true]);
-    }
+        $celular = Celular::find($id);
+        if (!isset($celular)) return abort(404);
+        
+        $validator = Validator::make(
+            $request->all(), [
+                'imei' => 'string',
+                'imei2' => 'string|nullable',
+                'marca'=> 'required|string',
+                'modelo' => 'string',
+            ]
+        );
 
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $celular->fill($request->only([
+            'imei',
+            'imei2',
+            'marca',
+            'modelo',
+        ]));
+
+        $celular->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Celular alterado com sucesso',
+            'route' => route('celular.index')
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -165,6 +196,23 @@ class CelularController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar celulares')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+        
+        $celular = Celular::find($id);
+        if (!isset($celular)) return abort(404);
+
+        $celular->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Celular excluído com sucesso',
+        ]);
     }
 }

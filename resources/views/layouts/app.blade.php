@@ -35,39 +35,51 @@
                         @guest 
                         @else 
                             {{-- Cliente --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
-                                    Cliente
-                                </a>
-                            </li>
+                            @can('gerenciar clientes')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('cliente.index') }}" role="button" >
+                                        <i class="fas fa-users"></i>&nbsp;Cliente
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Celular --}}
-                            <li class="nav-item ">
-                                <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
-                                    Celular
-                                </a>
-                            </li>
+                            @can('gerenciar celulares')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('celular.index') }}" role="button" >
+                                        <i class="fas fa-mobile-alt"></i>&nbsp;Celular
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Orçamento --}}
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    Orçamento
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('orcamento.index') }}">
-                                        Gerenciar orçamento
+                            @can('gerenciar orcamento')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('orcamento.index') }}">
+                                        <i class="fas fa-coins"></i>&nbsp;Orçamento
                                     </a>
-                                </div>
-                            </li>
+                                </li>
+                            @elsecan('informar orcamento')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('orcamento.index') }}">
+                                        <i class="fas fa-coins"></i>&nbsp;Orçamento
+                                    </a>
+                                </li>
+                            @endcan
+                            {{-- Ordem de servico --}}
+                            @can('consultar os')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('ordemservico.index') }}" role="button" >
+                                        <i class="fas fa-clipboard-list"></i>&nbsp;Ordem de serviço
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- Peca --}}
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Peça
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('peca.index') }}">
-                                        Gerenciar peça
+                            @can('gerenciar pecas')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('peca.index') }}">
+                                        <i class="fas fa-tools"></i>&nbsp;Peça
                                     </a>
-                                </div>
-                            </li>
+                                </li>
+                            @endcan
                         @endguest
                     </ul>
 

@@ -35,7 +35,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <label for="EmailCliente">Email</label>
-          <input  type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email" value= "{{ $cliente->email}}">
+          <input required type="email" class="form-control" id="EmailCliente" aria-describedby="emailHelp" name="email" value= "{{ $cliente->email}}">
           <small id="emailHelp" class="form-text text-muted">Nós nunca iremos compartilhar o seu e-mail.</small>         
         </div>
       </div>      
@@ -87,10 +87,24 @@
           }
         })
       } else {
-        //mostrarErros(response.errors);
+        mostrarErros(response.errors);
       }
     }
   });
  });
+
+ function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
+    })
+}
 </script>
 @endpush

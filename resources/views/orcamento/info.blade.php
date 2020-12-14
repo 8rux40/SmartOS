@@ -1,16 +1,36 @@
 @extends('layouts.app')
 
 @section('content')
+
+@php
+    use App\Models\OrdemServico;
+    use App\Models\User;
+
+    $user = User::find(auth()->user()->id);
+
+    $status = [
+        OrdemServico::ORCAMENTO_PENDENTE => 'Orçamento pendente',
+        OrdemServico::ORCAMENTO_INFORMADO => 'Aguardando OS',
+        OrdemServico::ABERTA => 'Aberta',
+        OrdemServico::CONCLUIDA => 'Concluída',
+        OrdemServico::CANCELADA => 'Cancelada',
+    ];
+@endphp
+
 <div class="container">
     <div class="row">
-        <div class="col-md-9">
-            <h3><i class="fas fa-coins text-primary"></i>Orçamento</li> </h3>         
+        <div class="col-md-12">
+            <h3><i class="fas fa-coins text-primary"></i>&nbsp;Orçamento</li> 
+                <span class="status bg-secondary text-light text-md float-right">{{ $status[$orcamento->status] }}</span>
+            </h3>         
         </div>
     </div>
     <div class="card">
   <div class="card-body">
   <form action="{{ route('orcamento.solicitar') }}" method="post" id="solicitarOrcamento">
   @csrf
+  <div class="row">
+</div>
   <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -88,30 +108,62 @@
           </div>
       </div> 
     </div>
-  <hr>
+    <hr>
+    
+  @if ($orcamento->status == OrdemServico::ORCAMENTO_PENDENTE)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="DescricaoProblema"><strong>Descrição do problema (relatado pelo cliente)</strong></label>
+                <p>
+                    {{$orcamento->descricao_problema}}
+                </p>
+            </div>
+        </div>
+    </div>
+  @endif
+  @if ($orcamento->status == OrdemServico::ORCAMENTO_INFORMADO)
   <div class="row">
-      <div class="col-md-12">
-          <div class="form-group">
-              <label for="DescricaoProblema">Descrição do problema do celular</label>
-              <textarea class="form-control" id="DescricaoProblema" rows="4" disabled="disabled" 
-              required name="descricao_problema">{{$orcamento->descricao_problema}}</textarea>
-          </div>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="form-group">
-              <label for="DescricaoServico">Descrição do serviço a ser executado (Reparador)</label>
-              <textarea class="form-control" id="DescricaoServico" rows="4" required name="descricao_servico"></textarea>
-          </div>
-      </div>
-  </div>
-  <div class="row d-flex align-items-center">
-        <div class="col-md-3 d-flex flex-column justify-content-center">
-            <label for="">Valor estimado</label>
-            <input type="text" class="form-control number" id="valor_estimado" required="true" name="valor_estimado" value="">
-        </div>         
-  </div>                  
+    <div class="col-md-12">
+        <p>
+            <strong>Valor estimado:</strong> R$ {{ number_format($orcamento->valor_orcamento, 2, ',', '.') }}
+        </p>
+    </div>
+</div> 
+<hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="DescricaoProblema"><strong>Descrição do problema (relatado pelo cliente)</strong></label>
+                <p>
+                    {{$orcamento->descricao_problema}}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="DescricaoProblema"><strong>Descrição do problema (relatado pelo reparador)</strong></label>
+                <p>
+                    {{ $orcamento->descricao_problema_reparador }}
+                </p>
+            </div>
+        </div>
+    </div>
+@endif 
+
+    @if ($orcamento->status == OrdemServico::ORCAMENTO_PENDENTE)
+        <hr>
+        <div class="row mt-2">
+            <div class="col-md-12">
+            @if ($user->can('informar orcamento'))
+                <a href="{{ route('orcamento.edit', $orcamento->id) }}" style="margin-left:5px;" class="btn btn-primary float-right"><i class="fas fa-coins"></i>&nbsp;Informar Orçamento</a>
+            @endif
+            @if ($user->can('gerenciar orcamento'))
+                <a onclick="cancelarOrcamento({{$orcamento->id}})" class="btn btn-danger float-right"><i class="fas fa-times-circle"></i>&nbsp;Cancelar Orçamento</a>
+            @endif
+            </div>            
+        </div>
+    @endif                  
   </form>
 </div>
 </div>
@@ -119,8 +171,8 @@
 
 @push('javascript')
 <script>
-       $('.number').keypress(function(event) {
-            if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
-       });
+    $('.number').keypress(function(event) {
+        if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
+    });
 </script>
 @endpush

@@ -176,11 +176,11 @@ class OrcamentoController extends Controller
     public function edit($id)
     {
         $user = User::find(auth()->user()->id);
-        if (!$user->can('gerenciar orcamento')){
-            return redirect('orcamento.index');
+        if (!$user->can('gerenciar orcamento') && !$user->can('informar orcamento')){
+            return redirect()->route('orcamento.index');
         } else {
             $orcamento = OrdemServico::with(['cliente', 'celular'])->where('id', $id)->first();
-            if (!isset($orcamento)) return redirect('orcamento.index');
+            if (!isset($orcamento)) return redirect()->route('orcamento.index');
             if(
                 $orcamento->status != OrdemServico::ORCAMENTO_PENDENTE && 
                 $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO
@@ -198,22 +198,74 @@ class OrcamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $user = User::find(auth()->user()->id);
-        // if (!$user->can('gerenciar orcamento')){
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Você não possui permissão para realizar essa ação.',
-        //         'route' => route('orcamento.info', $id)
-        //     ]);
-        // } else {
-        //     $orcamento = OrdemServico::find($id);
-        //     if (!isset($orcamento)) 
-        //         return response()->json([
-        //             'success' => false,
-        //             'message' => 'Erro no cadastro. Registro não encontrado! (ID: '.$id.')',
-        //             'route' => route('orcamento.create')
-        //         ]);
-        // }
+        // Checa permissões do usuário
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento') && !$user->can('informar orcamento')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+                'route' => route('orcamento.show', $id)
+            ])->setStatusCode(201);
+        } 
+
+        // Verifica se existe o orçamento ou OS
+        $orcamento = OrdemServico::find($id);
+        if (!isset($orcamento)) 
+            return response()->json([
+                'success' => false,
+                'errors' => ['Erro ao salvar. Registro não encontrado! (ID: '.$id.')'],
+                'route' => route('orcamento.create')
+            ])->setStatusCode(201);
+
+        // Verifica se é um orçamento ou OS
+        if( $orcamento->status != OrdemServico::ORCAMENTO_PENDENTE && 
+            $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO ) 
+            return redirect('ordemservico.edit', compact('orcamento'));
+            
+        if ( $orcamento->status == OrdemServico::ORCAMENTO_PENDENTE ){
+            // editar orçamento pendente
+            if ( $user->can('gerenciar orcamento') ){
+                $validator = Validator::make(
+                    $request->all(), [
+                        'descricao_problema' => 'required|string',
+                    ]
+                );
+                if ($validator->fails()) {
+                    return response()->json([
+                        'errors'=>$validator->errors()->toArray(),
+                        'data'=>$request->all()
+                    ])->setStatusCode(201);
+                }
+                $orcamento->descricao_problema = $request->input('descricao_problema');        
+                $orcamento->save();
+            }
+        }
+
+        // informar orçamento
+        if ( $user->can('informar orcamento') ){
+            $validator = Validator::make(
+                $request->all(), [
+                    'descricao_problema_reparador' => 'required|string',
+                    'valor_orcamento' => 'required|numeric|min:0'
+                ]
+            );
+            if ($validator->fails()) {
+                return response()->json([
+                    'errors'=>$validator->errors()->toArray(),
+                    'data'=>$request->all()
+                ])->setStatusCode(201);
+            }
+            $orcamento->descricao_problema_reparador = $request->input('descricao_problema_reparador');        
+            $orcamento->valor_orcamento = $request->input('valor_orcamento');  
+            $orcamento->status = OrdemServico::ORCAMENTO_INFORMADO;
+            $orcamento->save();
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Alterações salvas com sucesso!',
+            'route' => route('orcamento.show',$orcamento->id)
+        ]);
     }
 
     /**

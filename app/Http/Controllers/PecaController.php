@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Peca;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PecaController extends Controller
 {
+    
     /**
      * Create a new controller instance.
      *
@@ -86,7 +88,7 @@ class PecaController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Peça cadastrada com sucesso.',
-            'route' => route('peca.edit',$peca->id)
+            'route' => route('peca.index')
         ]);
     }
 
@@ -166,6 +168,23 @@ class PecaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar pecas')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+        
+        $peca = Peca::find($id);
+        if (!isset($peca)) return abort(404);
+
+        $peca->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Peça desativda com sucesso',
+        ]);
     }
 }

@@ -75,6 +75,7 @@
       })
 
       function carregaValores(){
+        $('table#celulares tbody tr').remove();
         const url = "{{ route('cliente.getCelulares', $cliente->id) }}";
         $.getJSON(url, function (data){
             if (Array.isArray(data) && data.length){
@@ -82,7 +83,7 @@
                     console.log(celular)
                     row = '<tr>';
                     row += '<td>'+ celular.imei +'</td>';
-                    row += '<td>'+ celular.imei2 +'</td>';
+                    row += '<td>'+ ((celular.imei2 !== null && celular.imei2 !== undefined)?celular.imei2:'-') +'</td>';
                     row += '<td>'+ celular.marca +'</td>';
                     row += '<td>'+ celular.modelo +'</td>';
                     row += `<td class="text-center">                      
@@ -118,26 +119,45 @@
       confirmButtonText: 'Sim, excluir!'
     }).then((result) => {
       if (result.isConfirmed) {
+        // $.ajaxSetup({ 
+        //     headers: { 'X-CSRF-TOKEN': "{‌{csrf_token()}}" } 
+        //   });
         $.ajax({
-          url: "{{ route('celular.delete') }}",
-          method: 'delete',
+          url: "{{ route('celular.delete', ':id') }}".replace(':id', id),
+          method: 'post',
           dataType: 'json',
           data: {
-            id: id
+            id: id,
+            _token: '{{ csrf_token() }}'
           },
           success: function(response){
             if(response.success){
-              Swal.fire(
-              {
+              Swal.fire({
                 title: 'Excluido!',
-              text: response.message,
-              icon: 'success'
-              }
-            )
+                text: response.message,
+                icon: 'success'
+              })
+              carregaValores();
+            } else {
+              mostraErros(response.errors)
             }
           }
         })
       }
+    })
+  }
+
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
     })
   }
   </script>  

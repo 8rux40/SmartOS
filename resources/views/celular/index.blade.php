@@ -38,6 +38,7 @@
   })
 
   function carregaValores(){
+    $('table#celulares tbody tr').remove();
     const url = "{{ route('celular.getAll') }}";
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
@@ -84,25 +85,42 @@
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "{{ route('celular.delete') }}",
-          method: 'delete',
+          url: "{{ route('celular.delete', ':id') }}".replaceAll(':id', id),
+          method: 'post',
           dataType: 'json',
           data: {
-            id: id
+            id: id,
+            _token: '{{ csrf_token() }}'
           },
           success: function(response){
             if(response.success){
-              Swal.fire(
-              {
+              Swal.fire({
                 title: 'Excluido!',
-              text: response.message,
-              icon: 'success'
-              }
-            )
+                text: response.message,
+                icon: 'success'
+              })
+              carregaValores()
+            } else {
+              mostrarErros(response.errors);
             }
           }
         })
       }
+      // document.location.reload(true);
+    })
+  }
+
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+      errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+      title: 'Erro ao editar',
+      html: errors,
+      icon: 'error',
     })
   }
 </script>

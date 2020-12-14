@@ -121,5 +121,19 @@
     }
   });
  });
+ 
+ function mostrarErros(erros){
+  let errors = '<ul>';
+  $.each(erros, function(index, value){
+    errors += '<li>'+ value +'</li';
+  })
+  errors += '</ul>';
+
+  Swal.fire({
+    title: 'Erro ao editar',
+    html: errors,
+    icon: 'error',
+  })
+ }
 </script>
 @endpush

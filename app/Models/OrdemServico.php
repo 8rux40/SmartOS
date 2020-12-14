@@ -13,10 +13,11 @@ class OrdemServico extends Model
     protected $fillable = [
         'status',
         'termo_garantia',
-        'descricao_problema',
+        'descricao_problema', 
         'descricao_problema_reparador',
         'descricao_servico_executado',
         'valor_total',
+        'valor_pecas',
         'valor_orcamento',
         'valor_servico',
         'data_abertura',
@@ -30,13 +31,13 @@ class OrdemServico extends Model
     public const CANCELADA = 5;
 
     public function cliente(){
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class)->withTrashed();
     }
     public function fotosCelulares(){
         return $this->hasMany(FotoCelular::class);
     }
     public function celular(){
-        return $this->belongsTo(Celular::class);
+        return $this->belongsTo(Celular::class)->withTrashed();
     }
     public function pecasUtilizadas(){
         return $this->hasMany(PecaUtilizada::class);

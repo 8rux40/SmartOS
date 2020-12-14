@@ -3,22 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-6 float-left">
             <h3><i class="fas fa-tools text-primary"></i> Peças </li> </h3> 
         </div>
-        <div class="col-md-8">
-                <form class="form-inline" method="POST" id="formPesquisarPeca">
-                @csrf
-                    <select class="custom-select mr-2">
-                        <option selected>Selecione um filtro</option>
-                        <option value="1">Título da peça</option>
-                        <option value="2">Código da peça</option>               
-                    </select>
-                    <input type="text" class="form-control mr-2" id="PesquisaPeca" required="true" placeholder="Pesquisar peça...">
-                    <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-search"></i></button>
-                </form>   
-        </div>     
-        <div class="col-md-2">
+        <div class="col-md-6 float-right">
           <a href="{{ route('peca.create') }}" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Nova peça</a>
         </div> 
     </div>
@@ -53,6 +41,7 @@
     })
   
     function carregaValores(){
+      $('table#pecas tbody tr').remove();
       const url = "{{ route('peca.getAll') }}";
       $.getJSON(url, function (data){
         if (Array.isArray(data) && data.length){
@@ -62,7 +51,7 @@
             row += '<td>'+ peca.codigo +'</td>';
             row += '<td>'+ peca.titulo +'</td>';
             row += '<td>'+ peca.descricao +'</td>';
-            row += '<td>'+ peca.preco +'</td>';
+            row += '<td> R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) +'</td>';
             row += '<td>'+ peca.quantidade_pecas +'</td>';
             row += `<td class="text-center">                        
                         <a href="{{route('peca.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
@@ -86,6 +75,7 @@
     }
   
     function excluir(id){
+      
       Swal.fire({
         title: 'Tem certeza?',
         text: "Não será possível reverter essa ação!",
@@ -96,27 +86,47 @@
         confirmButtonText: 'Sim, excluir!'
       }).then((result) => {
         if (result.isConfirmed) {
+          // $.ajaxSetup({ 
+          //   headers: { 'X-CSRF-TOKEN': "{‌{csrf_token()}}" } 
+          // });
           $.ajax({
-            url: "{{ route('peca.delete') }}",
-            method: 'delete',
+            url: "{{ route('peca.delete',':id') }}".replaceAll(':id',id),
+            method: 'post',
             dataType: 'json',
             data: {
-              id: id
+              id: id,
+              _token: '{{ csrf_token() }}'
             },
             success: function(response){
               if(response.success){
-                Swal.fire(
-                {
+                Swal.fire({
                   title: 'Excluido!',
-                text: response.message,
-                icon: 'success'
-                }
-              )
+                  text: response.message,
+                  icon: 'success'
+                })
+                carregaValores()
+              } else {
+                mostrarErros(response.errors)
               }
             }
           })
         }
+        //document.location.reload(true);
       })
     }
+
+    function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
+    })
+}
   </script>
 @endpush

@@ -87,11 +87,11 @@ class ClienteController extends Controller
         $validator = Validator::make(
             $request->all(), [
                 'nome' => 'required|string',
-                'cpf' => 'string|unique:clientes|required',
+                'cpf' => 'numeric|digits:11|unique:clientes|required',
                 'numero_tel' => 'string|nullable',
                 'numero_cel' => 'string|nullable',
-                'email' => 'required|string|email',
-                'endereco' => 'string',
+                'email' => 'required|email',
+                'endereco' => 'string|required',
             ]
         );
 
@@ -152,7 +152,7 @@ class ClienteController extends Controller
         if (!$user->can('gerenciar orcamento')) return abort(403);
     
         // Verifica se cliente existe
-        $cliente = cliente::find($id);
+        $cliente = Cliente::find($id);
         if (!isset($cliente)) return abort(404);    
             return view('cliente.edit', compact('cliente'));        
     }
@@ -166,7 +166,43 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cliente = Cliente::find($id);
+        if (!isset($cliente)) return abort(404);
+        
+        $validator = Validator::make(
+            $request->all(), [
+                'nome' => 'required|string',
+                'cpf' => 'required|numeric|digits:11|unique:clientes',
+                'numero_cel'=> 'string|nullable',
+                'numero_tel' => 'string|nullable',
+                'endereco' => 'required|string',
+                'email' => 'required|email',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return response()->json([
+                'errors'=>$validator->errors()->toArray(),
+                'data'=>$request->all()
+            ])->setStatusCode(201);
+        }
+
+        $cliente->fill($request->only([
+            'nome',
+            'cpf',
+            'numero_cel',
+            'numero_tel',
+            'endereco',
+            'email'
+        ]));
+
+        $cliente->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cliente alterado com sucesso',
+            'route' => route('cliente.index')
+        ]);
     }
 
     /**
@@ -177,6 +213,23 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar clientes')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+        
+        $cliente = Cliente::find($id);
+        if (!isset($cliente)) return abort(404);
+
+        $cliente->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Cliente excluído com sucesso',
+        ]);
     }
 }

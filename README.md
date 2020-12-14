@@ -6,5 +6,5 @@ Desenvolver um sistema web orientado a objetos que possibilite a gerência de or
 ### Configurações de Ambiente
 - PHP 7.3.20
 - Laravel 8.12
-- React.js 
+- jQuery
 - MariaDB 10.4.13

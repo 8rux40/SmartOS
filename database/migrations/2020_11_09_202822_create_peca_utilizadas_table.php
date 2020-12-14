@@ -17,11 +17,11 @@ class CreatePecaUtilizadasTable extends Migration
         Schema::create('pecas_utilizadas', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('peca_id')->unsigned();
-            $table->bigInteger('ordem_de_servico_id')->unsigned();
+            $table->bigInteger('ordem_servico_id')->unsigned();
             $table->timestamps();
             $table->integer('quantidade_utilizada');
             $table->foreign('peca_id')->references('id')->on('pecas');
-            $table->foreign('ordem_de_servico_id')->references('id')->on('ordens_de_servico');
+            $table->foreign('ordem_servico_id')->references('id')->on('ordens_de_servico');
         });
     }
 

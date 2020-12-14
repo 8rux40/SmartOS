@@ -5,7 +5,7 @@
 <div class="container">
    <div class="row">
     <div class="col-md-9">
-         <h3><i class="fas fa-coins text-primary"></i>Nova Ordem de Serviço</h3>
+         <h3><i class="fas fa-clipboard-list text-primary"></i>&nbsp;Nova Ordem de Serviço</h3>
     </div>
    </div>
    <div class="card">
@@ -20,16 +20,11 @@
                         <input type="date" name="data_abertura" id="DataOrcamento" class="form-control" disabled required>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <div class="form-group">
                         <label for="">Cliente</label>
-                        <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="{{ $orcamento->cliente->nome }}">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="">Celular</label>
-                        <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
+                        <input disabled="disabled" type="text" class="form-control" id="CpfCliente" name="cpf" 
+                            value="{{ $orcamento->cliente->nome . ' - ' .$orcamento->cliente->cpf }}">
                     </div>
                 </div>
             </div>
@@ -59,50 +54,76 @@
                   </div>
                 </div>
               </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="">Status</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
+              
+            <div class="row mt-2">
+                <div class="col-md-6">
+                    <label for="">Descrição Problema (relatado pelo Cliente)</label>
+                    <textarea disabled class="form-control" name="" id="" cols="30" rows="3">{{ $orcamento->descricao_problema }} </textarea>
                 </div>
-                <div class="col-md-4">
-                    <label for="">Horas Trabalhadas</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
-                <div class="col-md-4">
-                    <label for="">Termo Garantia</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
+                <div class="col-md-6">
+                    <label for="">Descrição do serviço a ser executado (Reparador)</label>
+                    <textarea disabled class="form-control" name="" id="" cols="30" rows="3">{{ $orcamento->descricao_problema_reparador }} </textarea>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label for="">Descrição Problema</label>
-                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                    <label for="">Descrição do serviço executado</label>
+                    <textarea class="form-control" name="teste[]" id="" cols="30" rows="5"></textarea>
                 </div>
             </div>
+            
+            <hr>
+            <div class="row mt-2">
+                <div class="col-md-9">
+                    <label for="">Peça</label>
+                    <select name="peca_id[]" id="pecas" class="form-control" >
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="">Qtde. Utilizada</label>
+                    <input type="number" id="qtde_utilizada" class="form-control" min="1" value="1" name="quantidade_utilizada[]">
+                </div>
+                <div class="col-md-1">
+                    <label>&nbsp;</label>
+                    <button type="button" class="form-control btn btn-primary" onclick="adicionarPeca()"><i class="fas fa-plus"></i>&nbsp;</button>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12" id="pecas_utilizadas">
+                    
+                </div>
+            </div>
+            <hr>
+            <div class="row mt-2">
+                <div class="col-md-3">
+                    <label for="">Valor Orçamento (R$)</label>
+                    <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{$orcamento->valor_orcamento}}">
+                </div>
+                <div class="col-md-3">
+                    <label for="">Valor das Peças (R$)</label>
+                    <input disabled type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
+                </div>
+                <div class="col-md-3">
+                    <label for="">Valor do Serviço (R$)</label>
+                    <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="0">
+                </div>
+                <div class="col-md-3">
+                    <label for="">Valor total (R$)</label>
+                    <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="0">
+                </div>
+            </div>
+            <hr>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <label for="">Descrição Serviço Executado</label>
-                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                    <label for="">Termo de garantia</label>
+                    <textarea disabled class="form-control" name="teste[]" id="" cols="30" rows="5">O cliente tem até 90 dias para reclamar de defeitos no produto durável (Celular) de acordo com o Art. 26 inc. II no código de defesa do consumidor.
+Limpeza e conservação do aparelho não fazem parte desta garantia.
+Para acionar a garantia é necessário apresentação do cupom fiscal ou documento de identidade.
+Qualquer mau funcionamento após atualização do Sistema Operacional pós entrega do equipamento reparado não fará parte da garantia.
+A garantia é válida somente ao item descrito na ordem de serviço.</textarea>
                 </div>
             </div>
-            <div class="row mt-2">
-                <div class="col-md-3">
-                    <label for="">Valor total</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
-                <div class="col-md-3">
-                    <label for="">Valor Orçamento</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
-                <div class="col-md-3">
-                    <label for="">Valor Hora</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
-                <div class="col-md-3">
-                    <label for="">Data Fechamento</label>
-                    <input disabled="disabled" type="text" class="form-control" id="CpfCliente" required="true" name="cpf" value="">
-                </div>
-            </div>
+            <hr>
             <div class="row mt-2">
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-success float-right"><i class="fas fa-check"></i>&nbsp;Salvar</button>
@@ -118,7 +139,62 @@
 <script>
     $(document).ready(function(){
         $('#DataOrcamento').val(moment().format('yyyy-MM-DD'));
+        $('.number').keypress(function(event) {
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) event.preventDefault();
+        });
+        carregarPecas()
     })
+
+    function carregarPecas(){
+        $.getJSON("{{ route('peca.getAll') }}", function (data){
+            if (Array.isArray(data) && data.length){
+                data.forEach(peca => {
+                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'">'+ peca.codigo + ' - ' + peca.titulo +'</option>') )
+                }) 
+            } 
+        })
+        $('#pecas option').first().attr('selected','selected')
+    }
+    
+    function adicionarPeca(){
+
+        let valor_pecas = parseFloat($('#pecas option:selected').attr('valor')) * 1.0 * parseInt($('#qtde_utilizada').val());
+        let row = 
+            `<div class="row" id="peca_peca_rand" style="margin-bottom: 5px;"><div class="col-md-7">
+                <input type="hidden" name="peca_utilizada_id[]" value="peca_id">
+                <input disabled type="text" class="form-control" value="peca_titulo">
+            </div>
+            <div class="col-md-2">
+                <input disabled type="number" class="form-control" min="1" value="peca_qtde" name="quantidade_utilizada[]">
+            </div>
+            <div class="col-md-2">
+                <input disabled type="text" class="form-control number" id="valor_peca_peca_rand" value="peca_valor">
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="form-control btn btn-danger" onclick="removerPeca('peca_rand')"><i class="fas fa-minus"></i>&nbsp;</button>
+            </div></div>`
+            .replaceAll( 'peca_id', $('#pecas option:selected').val() )
+            .replaceAll( 'peca_rand', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 7) )
+            .replace( 'peca_titulo', $('#pecas option:selected').text() )
+            .replace( 'peca_qtde', $('#qtde_utilizada').val())
+            .replace( 'peca_valor', valor_pecas) 
+        $('#pecas_utilizadas').append( row )
+        atualizaValorTotal(valor_pecas)
+    }
+
+    function atualizaValorTotal(valor){
+        let valor_total = parseFloat($('#valor_pecas').val())
+        valor_total += valor
+        valor_total = (valor_total < 0) ? 0 : valor_total;
+        $('#valor_pecas').val( valor_total )
+    }
+
+    function removerPeca(id){
+        let valor_removido = parseFloat($('#valor_peca_'+id).val())
+        $('#peca_'+id).remove()
+        atualizaValorTotal( (0.0 - valor_removido ) )
+    }
+
     $('#formOrdemServico').submit(function(e){
     e.preventDefault()
     // Temporariamente destrancando TODOS os campos para enviar os dados
@@ -151,10 +227,23 @@
                 }
             })
         } else {
-            //mostrarErros(response.errors);
+            mostrarErros(response.errors);
         }
       }
     })
   })
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
+    })
+}
 </script>
 @endpush
