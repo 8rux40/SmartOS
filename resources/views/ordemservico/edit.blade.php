@@ -70,7 +70,7 @@
             <div class="row mt-2">
                 <div class="col-md-12">
                     <label for="">Descrição do serviço executado</label>
-                    <textarea class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="10">{{$ordem_servico->descricao_servico_executado}}</textarea>
+                    <textarea required class="form-control" name="descricao_servico_executado" id="DescServicoExecutado" cols="30" rows="10">{{$ordem_servico->descricao_servico_executado}}</textarea>
                 </div>
             </div>
             
