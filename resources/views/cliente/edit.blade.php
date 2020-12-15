@@ -77,7 +77,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#888',
-                confirmButtonText: 'Ver cliente editado',
+                confirmButtonText: 'Seguir para a página de clientes',
                 cancelButtonText: 'Cadastrar outro cliente'
         }).then((result) => {
           if(result.value) {
