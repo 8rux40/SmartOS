@@ -83,7 +83,7 @@
           if(result.value) {
             $(location).attr('href', response.route);
           } else {
-            //limparFormulario()
+            $(location).attr('href', "{{ route('cliente.create') }}");
           }
         })
       } else {
