@@ -139,14 +139,14 @@
         $('.number').keypress(function(event) {
             if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) event.preventDefault();
         });
-        carregarPecas()
-
         // muda o limite da quantidade utilizada conforme a disponibilidade em estoque
         $('#pecas').change(function(){
+            console.log('mudou');
             let quantidade_pecas = parseInt($('#pecas option:selected').attr('quantidade_pecas'))
             let foraDeEstoque = Boolean(quantidade_pecas == 0)
             $('#qtde_utilizada').attr('max', quantidade_pecas).attr('min', (foraDeEstoque ? 0 : 1)).val((foraDeEstoque ? 0 : 1))
         })
+        carregarPecas()
     })
 
     function carregarPecas(){
@@ -158,14 +158,19 @@
                     $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'" quantidade_pecas="'+ peca.quantidade_pecas+'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+'un.) R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + (foraDeEstoque ? ' - FORA DE ESTOQUE':'') +'</option>') )
                 }) 
             } 
+        }).then(function(){
+            $('#pecas option').first().attr('selected','selected')
+            $('#pecas').val($('#pecas').val()).trigger('change');
         })
-        $('#pecas option').first().attr('selected','selected').change()
+        // console.log($('#pecas'));
+        // $('#pecas option').first().attr('selected','selected')
+        // $('#pecas').val($('#pecas option').first().attr('selected','selected').val()).trigger('change')
     }
     
     function adicionarPeca(){
-        let qtde_utilizada = $('#qtde_utilizada').val()
+        let qtde_utilizada = parseInt($('#qtde_utilizada').val())
         
-        if (qtde_utilizada <= $('#qtde_utilizada').attr('max') && qtde_utilizada > 0){
+        if (qtde_utilizada <= parseInt($('#qtde_utilizada').attr('max')) && qtde_utilizada > 0){
             let valor_pecas = parseFloat($('#pecas option:selected').attr('valor')) * 1.0 * parseInt($('#qtde_utilizada').val());
             let row = 
                 `<div class="row" id="peca_peca_rand" style="margin-bottom: 5px;"><div class="col-md-7">
@@ -188,16 +193,14 @@
                 .replace( 'peca_valor', valor_pecas) 
             $('#pecas_utilizadas').append( row )
             atualizaValorTotal(valor_pecas)
-
         }
-
     }
 
     function atualizaValorTotal(valor){
         let valor_total = parseFloat($('#valor_pecas').val())
         valor_total += valor
         valor_total = (valor_total < 0) ? 0 : valor_total;
-        $('#valor_pecas').val( valor_total )
+        $('#valor_pecas').val( valor_total.toFixed(2) )
     }
 
     function removerPeca(id){
