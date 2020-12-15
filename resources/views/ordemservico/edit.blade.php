@@ -146,7 +146,7 @@
             console.log(data);
             if (Array.isArray(data) && data.length){
                 data.forEach(peca => {
-                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'">'+ peca.codigo + ' - ' + peca.titulo +'</option>') )
+                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+') R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + '</option>') )
                 }) 
             } 
         })
