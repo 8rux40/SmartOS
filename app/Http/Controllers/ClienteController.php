@@ -225,6 +225,8 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         if (!isset($cliente)) return abort(404);
 
+        $cliente->celulares()->delete();
+
         $cliente->delete();
         
         return response()->json([

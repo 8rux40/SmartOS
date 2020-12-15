@@ -30,7 +30,7 @@ class OrdemDeServicoSeedes extends Seeder
         DB::table('ordens_de_servico')->insert([
             'celular_id' => 2,
             'cliente_id' => 1,
-            'status' => 3,
+            'status' => 4,
             'termo_garantia' => 'Ta Garantido',
             'descricao_problema' => 'Bateria Explodiu',
             'descricao_problema_reparador' => 'Bateria com defeito',

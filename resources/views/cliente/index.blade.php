@@ -78,11 +78,12 @@
   function excluir(id){
     Swal.fire({
       title: 'Tem certeza?',
-      text: "Não será possível reverter essa ação!",
+      text: "Os celulares cadastrados para este cliente também serão removidos do sistema. Não será possível reverter essa ação!",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
       confirmButtonText: 'Sim, excluir!'
     }).then((result) => {
       if (result.isConfirmed) {

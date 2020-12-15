@@ -37,19 +37,20 @@ Route::prefix('orcamento')->group(function(){
     Route::get('/edit/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
     Route::get('/getAll', [OrcamentoController::class, 'getAll'])->name('orcamento.getAll');
     
-    Route::post('/solicitar', [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
-    Route::put('/update/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
+    Route::post('/solicitar',   [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
+    Route::put ('/update/{id}', [OrcamentoController::class, 'update'            ])->name('orcamento.update');
+    Route::post('/delete/{id}', [OrcamentoController::class, 'destroy'           ])->name('orcamento.delete');
 });
 
 Route::prefix('peca')->group(function(){
-    Route::get('/', [PecaController::class, 'index'])->name('peca.index');
-    Route::get('/show/{id}', [PecaController::class, 'show'])->name('peca.show');
-    Route::get('/create', [PecaController::class, 'create'])->name('peca.create');     
-    Route::get('/show/{id}', [PecaController::class, 'show'])->name('peca.show');
-    Route::get('/getAll', [PecaController::class, 'getAll'])->name('peca.getAll');
-    Route::get('/edit/{id}', [PecaController::class, 'edit'])->name('peca.edit');
-    Route::post('/store', [PecaController::class, 'store'])->name('peca.store');
-    Route::put('/update/{id}', [PecaController::class, 'update'])->name('peca.update');
+    Route::get('/',             [PecaController::class, 'index'  ])->name('peca.index');
+    Route::get('/show/{id}',    [PecaController::class, 'show'   ])->name('peca.show');
+    Route::get('/create',       [PecaController::class, 'create' ])->name('peca.create');     
+    Route::get('/show/{id}',    [PecaController::class, 'show'   ])->name('peca.show');
+    Route::get('/getAll',       [PecaController::class, 'getAll' ])->name('peca.getAll');
+    Route::get('/edit/{id}',    [PecaController::class, 'edit'   ])->name('peca.edit');
+    Route::post('/store',       [PecaController::class, 'store'  ])->name('peca.store');
+    Route::put('/update/{id}',  [PecaController::class, 'update' ])->name('peca.update');
     Route::post('/delete/{id}', [PecaController::class, 'destroy'])->name('peca.delete');
 });
 
