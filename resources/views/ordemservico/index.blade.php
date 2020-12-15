@@ -13,6 +13,7 @@
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#abertas">Abertas</a></li>
         <li><a data-toggle="tab" href="#concluidas">Concluídas</a></li>
+        <li><a data-toggle="tab" href="#canceladas">Canceladas</a></li>
       </ul>
     </div>
   </div>
@@ -65,7 +66,30 @@
                 </table>
             </div>
         </div>          
-    </div> 
+     </div> 
+    </div>
+    <div id="canceladas" class="tab-pane fade">
+      {{-- CANCELADAS --}}
+      <div class="row">
+        <div class="col-md-12">
+          <br>
+          <p>Mostrando ordens de serviço canceladas</p>
+          <div class="responsive-table">
+            <table class="table table-striped" id="ordensdeservico">
+              <thead class="thead-dark">
+                <tr>
+                 <th scope="col">Data de abertura</th>
+                 <th scope="col">Celular</th>
+                 <th scope="col">Cliente</th>
+                 <th scope="col">Valor do orçamento</th>
+                 <th></th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
     <div id="menu2" class="tab-pane fade">
       <h3>Menu 2</h3>
