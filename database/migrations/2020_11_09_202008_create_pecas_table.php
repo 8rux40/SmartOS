@@ -18,7 +18,7 @@ class CreatePecasTable extends Migration
             $table->timestamps();
             $table->string('titulo');
             $table->string('descricao');
-            $table->float('preco');
+            $table->unsignedFloat('preco', 8, 2);
             $table->integer('quantidade_pecas');
             $table->string('codigo');
             $table->softDeletes();

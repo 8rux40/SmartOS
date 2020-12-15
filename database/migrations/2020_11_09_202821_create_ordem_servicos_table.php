@@ -30,10 +30,10 @@ class CreateOrdemServicosTable extends Migration
             $table->longText('descricao_problema');
             $table->longText('descricao_problema_reparador')->nullable();
             $table->longText('descricao_servico_executado')->nullable();
-            $table->float('valor_total')->nullable();
-            $table->float('valor_servico')->nullable();
-            $table->float('valor_pecas')->nullable();
-            $table->float('valor_orcamento')->nullable();
+            $table->unsignedFloat('valor_total', 8, 2)->nullable();
+            $table->unsignedFloat('valor_servico', 8, 2)->nullable();
+            $table->unsignedFloat('valor_pecas', 8, 2)->nullable();
+            $table->unsignedFloat('valor_orcamento', 8, 2)->nullable();
             $table->date('data_abertura')->nullable();
             $table->date('data_fechamento')->nullable();
             $table->date('data_cancelamento')->nullable();
