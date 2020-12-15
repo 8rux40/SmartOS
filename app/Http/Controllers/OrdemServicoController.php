@@ -208,6 +208,10 @@ class OrdemServicoController extends Controller
             $peca_utilizada->peca()->associate($peca);
             $peca_utilizada->ordemServico()->associate($os);
             $peca_utilizada->save();
+
+            // Retirando as peças utilizadas do estoque
+            $peca->quantidade_pecas -= $peca_utilizada->quantidade_utilizada;
+            $peca->save();
             
             // Contabiliza o valor da peça no total de peças utilizadas
             $valor_pecas += $peca->preco * $peca_utilizada->quantidade_utilizada * 1.0;
