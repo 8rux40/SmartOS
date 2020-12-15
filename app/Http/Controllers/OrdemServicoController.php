@@ -139,10 +139,7 @@ class OrdemServicoController extends Controller
         // Verifica se usuário tem permissões de acesso
         $user = User::find(auth()->user()->id);
         if (!$user->can('fechar os')){
-            return response()->json([
-                'success' => false,
-                'errors' => ['Você não possui permissão para realizar essa ação.'],
-            ])->setStatusCode(201);
+            return abort(403);
         }
 
         // Verifica se ordem de serviço existe

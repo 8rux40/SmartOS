@@ -132,20 +132,20 @@
                 <hr>
                 <div class="row mt-2">
                     <div class="col-md-3">
-                        <label for="">Valor Orçamento (R$)</label>
-                        <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{number_format($ordem_servico->valor_orcamento, 2, ',', '.')}}">
+                        <label for=""><strong>Valor Orçamento (R$)</strong></label>
+                        <p>{{number_format($ordem_servico->valor_orcamento, 2, ',', '.')}}</p>
                     </div>
                     <div class="col-md-3">
-                        <label for="">Valor das Peças (R$)</label>
-                        <input disabled type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="{{ number_format($ordem_servico->valor_pecas, 2, ',', '.') }}">
+                        <label for=""><strong>Valor das Peças (R$)</strong></label>
+                        <p>{{ number_format($ordem_servico->valor_pecas, 2, ',', '.') }}</p>
                     </div>
                     <div class="col-md-3">
-                        <label for="">Valor do Serviço (R$)</label>
-                        <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="{{number_format($ordem_servico->valor_servico, 2, ',', '.')}}">
+                        <label for=""><strong>Valor do Serviço (R$)</strong></label>
+                        <p>{{number_format($ordem_servico->valor_servico, 2, ',', '.')}}</p>
                     </div>
                     <div class="col-md-3">
-                        <label for="">Valor total (R$)</label>
-                        <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="{{number_format($ordem_servico->valor_total, 2, ',', '.')}}">
+                        <label for=""><strong>Valor total (R$)</strong></label>
+                        <p>{{number_format($ordem_servico->valor_total, 2, ',', '.')}}</p>
                     </div>
                 </div>
             @endif
