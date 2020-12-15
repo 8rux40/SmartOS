@@ -140,6 +140,12 @@
             if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) event.preventDefault();
         });
         carregarPecas()
+
+        // muda o limite da quantidade utilizada conforme a disponibilidade em estoque
+        $('#pecas').change(function(){
+            console.log('valor de pecas alterado', $('#pecas option:selected').attr('quantidade_pecas'));
+            $('#qtde_utilizada').attr('max', $('#pecas option:selected').attr('quantidade_pecas'))
+        })
     })
 
     function carregarPecas(){
@@ -147,11 +153,11 @@
             console.log(data);
             if (Array.isArray(data) && data.length){
                 data.forEach(peca => {
-                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+') R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + '</option>') )
+                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'" quantidade_pecas="'+ peca.quantidade_pecas+'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+'un.) R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + '</option>') )
                 }) 
             } 
         })
-        $('#pecas option').first().attr('selected','selected')
+        $('#pecas option').first().attr('selected','selected').change()
     }
     
     function adicionarPeca(){
