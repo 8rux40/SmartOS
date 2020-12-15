@@ -45,6 +45,12 @@ class OrdemServicoController extends Controller
         return response()->json( OrdemServico::with(['celular', 'cliente'])->where('status', OrdemServico::CONCLUIDA)->get() );
     }
 
+    public function getCanceladas(Request $request){
+        // Verifica permissão
+        
+        return response()->json( OrdemServico::with(['celular', 'cliente'])->where('status', OrdemServico::CANCELADA)->get() );
+    }
+
     /**
      * Display a listing of the resource.
      *

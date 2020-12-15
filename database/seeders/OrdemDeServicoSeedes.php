@@ -23,6 +23,7 @@ class OrdemDeServicoSeedes extends Seeder
             'descricao_problema' => 'Tela trincada',
             'descricao_problema_reparador' => 'Tela estilhaçada',
             'descricao_servico_executado' => 'Troca da do Painel e Display Frontal',
+            'valor_orcamento' => 400,
             'data_abertura' =>Carbon::now(),
             'created_at' => Carbon::now()
         ]);
@@ -37,7 +38,10 @@ class OrdemDeServicoSeedes extends Seeder
             'descricao_servico_executado' => 'Troca da bateria',
             'valor_servico' => 100,
             'valor_orcamento' => 400,
+            'valor_pecas' => 0,
+            'valor_total' => 500,
             'data_abertura' => Carbon::now(),
+            'data_fechamento' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
 
@@ -49,6 +53,7 @@ class OrdemDeServicoSeedes extends Seeder
             'descricao_problema' => 'Tela trincada',
             'descricao_problema_reparador' => 'Tela estilhaçada',
             'descricao_servico_executado' => 'Troca da do Painel e Display Frontal',
+            'valor_orcamento' => 400,
             'data_abertura' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
@@ -61,6 +66,7 @@ class OrdemDeServicoSeedes extends Seeder
             'descricao_problema' => 'Tela trincada',
             'descricao_problema_reparador' => 'Tela estilhaçada',
             'descricao_servico_executado' => 'Troca da do Painel e Display Frontal',
+            'valor_orcamento' => 400,
             'data_abertura' => Carbon::now(),
             'created_at' => Carbon::now()
         ]);
