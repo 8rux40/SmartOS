@@ -177,7 +177,7 @@
               </td>
             </tr>
           `;
-        $('table#orcamentos tbody').append(row);
+        $('table#orcamento-informado tbody').append(row);
       }
     })
   }

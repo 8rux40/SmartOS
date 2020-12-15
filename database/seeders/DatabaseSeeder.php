@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
             PecasSeeder::class,
             ClienteSeeder::class,
             CelularSeeder::class,
-            OrcamentoSeeder::class,
-            PecasUtilizadasSeeder::class,
-            OrdemDeServicoSeedes::class
+            // OrcamentoSeeder::class,
+            // PecasUtilizadasSeeder::class,
+            // OrdemDeServicoSeedes::class
         ]);
     }
 }
