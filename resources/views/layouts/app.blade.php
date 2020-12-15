@@ -20,6 +20,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+
+    @php
+        use App\Models\User;
+    @endphp
+
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
             <div class="container">
@@ -100,7 +105,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                   <i class="fas fa-user"></i> &nbsp; {{ Auth::user()->name }}
+                                   <i class="fas fa-user"></i> &nbsp; {{ Auth::user()->name }} ( {{ User::with('roles')->where('id', Auth::user()->id)->first()->roles[0]->name }} )
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

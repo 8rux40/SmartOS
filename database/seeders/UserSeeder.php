@@ -17,32 +17,39 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'Administrador',
-            'username' => 'admin',
-            'email' => 'admin@localhost',
+            'name' => 'Bruno Tardin',
+            'username' => 'btardin',
+            'email' => 'btardin@smartos.com.br',
             'password' => Hash::make('teste123'),
         ]);
         DB::table('users')->insert([
-            'name' => 'Atendente',
-            'username' => 'atendente',
-            'email' => 'atendente@localhost',
+            'name' => 'Aroldo Rezende',
+            'username' => 'arezende',
+            'email' => 'arezende@smartos.com.br',
             'password' => Hash::make('teste123'),
         ]);
         DB::table('users')->insert([
-            'name' => 'Técnico Reparador',
-            'username' => 'reparador',
-            'email' => 'reparador@localhost',
+            'name' => 'Caio Trócilo',
+            'username' => 'ctrocilo',
+            'email' => 'ctrocilo@smartos.com.br',
             'password' => Hash::make('teste123'),
         ]);
         DB::table('users')->insert([
-            'name' => 'Auxiliar de Estoque',
-            'username' => 'auxiliar',
-            'email' => 'auxiliar@localhost',
+            'name' => 'João Paulo Alves',
+            'username' => 'jalves',
+            'email' => 'jalves@smartos.com.br',
             'password' => Hash::make('teste123'),
         ]);
-        User::where('username','admin')->first()->assignRole('Super Admin');
-        User::where('username','atendente')->first()->assignRole('atendente');
-        User::where('username','reparador')->first()->assignRole('reparador');
-        User::where('username','auxiliar')->first()->assignRole('auxiliar de estoque');
+        DB::table('users')->insert([
+            'name' => 'Samir Assad',
+            'username' => 'sassad',
+            'email' => 'sassad@smartos.com.br',
+            'password' => Hash::make('teste123'),
+        ]);
+        User::where('username','btardin' )->first()->assignRole('Super Admin');
+        User::where('username','arezende')->first()->assignRole('atendente');
+        User::where('username','ctrocilo')->first()->assignRole('reparador');
+        User::where('username','jalves'  )->first()->assignRole('reparador');
+        User::where('username','sassad'  )->first()->assignRole('auxiliar de estoque');
     }
 }
