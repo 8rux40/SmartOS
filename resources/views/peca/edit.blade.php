@@ -76,7 +76,7 @@
         }).then((result) => {
           if(result.value) {
             $(location).attr('href', "{{ route('peca.index') }}");
-          } 
+          }
         })
       } else {
         mostrarErros(response.errors);
