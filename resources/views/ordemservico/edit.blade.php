@@ -155,7 +155,7 @@
             if (Array.isArray(data) && data.length){
                 data.forEach(peca => {
                     let foraDeEstoque = Boolean(peca.quantidade_pecas == 0)
-                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'" quantidade_pecas="'+ peca.quantidade_pecas+'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+'un.) R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + (foraDeEstoque ? ' - FORA DE ESTOQUE':'') +'</option>') )
+                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'" quantidade_pecas="'+ peca.quantidade_pecas+'">'+ peca.codigo + ' - ' + peca.titulo +' - ' + peca.descricao + ' ('+ peca.quantidade_pecas+'un.) R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + (foraDeEstoque ? ' - FORA DE ESTOQUE':'') +'</option>') )
                 }) 
             } 
         }).then(function(){
