@@ -22,12 +22,15 @@ Route::prefix('ordemservico')->group(function(){
     Route::get('/show/{id}', [OrdemServicoController::class, 'show'])->name('ordemservico.show');
     Route::get('/edit/{id}', [OrdemServicoController::class, 'edit'])->name('ordemservico.edit');
     Route::get('/getAll', [OrdemServicoController::class, 'getAll'])->name('ordemservico.getAll');
+
     Route::get('/getAbertas', [OrdemServicoController::class, 'getAbertas'])->name('ordemservico.getAbertas');
     Route::get('/getConcluidas', [OrdemServicoController::class, 'getConcluidas'])->name('ordemservico.getConcluidas');
+    Route::get('/getCanceladas', [OrdemServicoController::class, 'getCanceladas'])->name('ordemservico.getCanceladas');
     
     Route::post('/store/{orcamento_id}', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
     Route::put('/update/{id}', [OrdemServicoController::class, 'update'])->name('ordemservico.update');
     Route::post('/delete', [OrdemServicoController::class, 'delete'])->name('ordemservico.delete');
+    Route::post('/cancelar/{id}', [OrdemServicoController::class, 'cancelar'])->name('ordemservico.cancelar');
 });
 
 Route::prefix('orcamento')->group(function(){
@@ -37,19 +40,20 @@ Route::prefix('orcamento')->group(function(){
     Route::get('/edit/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
     Route::get('/getAll', [OrcamentoController::class, 'getAll'])->name('orcamento.getAll');
     
-    Route::post('/solicitar', [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
-    Route::put('/update/{id}', [OrcamentoController::class, 'update'])->name('orcamento.update');
+    Route::post('/solicitar',   [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
+    Route::put ('/update/{id}', [OrcamentoController::class, 'update'            ])->name('orcamento.update');
+    Route::post('/delete/{id}', [OrcamentoController::class, 'destroy'           ])->name('orcamento.delete');
 });
 
 Route::prefix('peca')->group(function(){
-    Route::get('/', [PecaController::class, 'index'])->name('peca.index');
-    Route::get('/show/{id}', [PecaController::class, 'show'])->name('peca.show');
-    Route::get('/create', [PecaController::class, 'create'])->name('peca.create');     
-    Route::get('/show/{id}', [PecaController::class, 'show'])->name('peca.show');
-    Route::get('/getAll', [PecaController::class, 'getAll'])->name('peca.getAll');
-    Route::get('/edit/{id}', [PecaController::class, 'edit'])->name('peca.edit');
-    Route::post('/store', [PecaController::class, 'store'])->name('peca.store');
-    Route::put('/update/{id}', [PecaController::class, 'update'])->name('peca.update');
+    Route::get('/',             [PecaController::class, 'index'  ])->name('peca.index');
+    Route::get('/show/{id}',    [PecaController::class, 'show'   ])->name('peca.show');
+    Route::get('/create',       [PecaController::class, 'create' ])->name('peca.create');     
+    Route::get('/show/{id}',    [PecaController::class, 'show'   ])->name('peca.show');
+    Route::get('/getAll',       [PecaController::class, 'getAll' ])->name('peca.getAll');
+    Route::get('/edit/{id}',    [PecaController::class, 'edit'   ])->name('peca.edit');
+    Route::post('/store',       [PecaController::class, 'store'  ])->name('peca.store');
+    Route::put('/update/{id}',  [PecaController::class, 'update' ])->name('peca.update');
     Route::post('/delete/{id}', [PecaController::class, 'destroy'])->name('peca.delete');
 });
 

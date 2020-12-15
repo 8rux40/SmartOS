@@ -97,22 +97,23 @@
             </div>
             <hr>
             <div class="row mt-2">
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="">Valor Orçamento (R$)</label>
-                    <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{$ordem_servico->valor_orcamento}}">
+                    <input disabled="disabled" type="text" class="form-control number" id="valor_orcamento" name="valor_orcamento" value="{{ number_format($ordem_servico->valor_orcamento, 2, ',', '.') }}">
                 </div>
-                <div class="col-md-3">
-                    <label for="">Valor do Serviço (R$)</label>
-                    <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="{{$ordem_servico->valor_servico}}">
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <label for="">Valor das Peças (R$)</label>
-                    <input type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
+                    <input disabled type="text" class="form-control number" id="valor_pecas" required="true" name="valor_pecas" value="0">
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
+                    <label for="">Valor do Serviço (R$)</label>
+                    <input type="text" class="form-control number" id="valor_servico" required="true" name="valor_servico" value="0">
+                </div>
+                <input type="hidden" id="valor_total" name="valor_total" value="0">
+                {{-- <div class="col-md-3">
                     <label for="">Valor total (R$)</label>
                     <input disabled type="text" class="form-control number" id="valor_total" required="true" name="valor_total" value="{{$ordem_servico->valor_total}}">
-                </div>
+                </div> --}}
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
@@ -195,39 +196,56 @@
     $('#formOrdemServico').submit(function(e){
         e.preventDefault();
 
+        let valor_total_os = $('#valor_pecas').val() * 1.0 + $('#valor_servico').val() * 1.0;
+        $('#valor_total').val( valor_total_os )
+
         var disabled = $(this).find(':input:disabled').removeAttr('disabled');
         var serializedData = $(this).serialize();
         disabled.attr('disabled', 'disabled');
 
-        $.ajax({
-            url: "{{ route('ordemservico.update', $ordem_servico->id) }}",
-            method: 'put',
-            dataType: 'json',
-            data: serializedData,
-            success: function (response) {
-            console.log(response)
-            if (response.success) {
-                Swal.fire({
-                    title: 'Sucesso!',
-                    text: response.message,
-                    icon: 'success',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#888',
-                    confirmButtonText: 'Ver este orçamento',
-                    cancelButtonText: 'Voltar aos orçamentos'
-                }).then((result) => {
-                    if (result.value) {
-                        $(location).attr('href',response.route);
-                    } else {
-                        $(location).attr('href', "{{ route('orcamento.index') }}")
+        Swal.fire({
+            title: 'Confirmação',
+            html: '<p> Deseja confirmar o fechamento desta OS por <strong>R$ '+ valor_total_os.toLocaleString('pt-br', {minimumFractionDigits: 2}) +'</strong> </p>',
+            icon: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'Não',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Sim, fechar OS'
+        }).then(result => {
+            if(result.value){
+                $.ajax({
+                    url: "{{ route('ordemservico.update', $ordem_servico->id) }}",
+                    method: 'put',
+                    dataType: 'json',
+                    data: serializedData,
+                    success: function (response) {
+                        //console.log(response)
+                        if (response.success) {
+                            Swal.fire({
+                                title: 'Sucesso!',
+                                text: response.message,
+                                icon: 'success',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#888',
+                                confirmButtonText: 'Ver esta OS',
+                                cancelButtonText: 'Voltar às OS'
+                            }).then((result) => {
+                                if (result.value) {
+                                    $(location).attr('href',response.route);
+                                } else {
+                                    $(location).attr('href', "{{ route('ordemservico.index') }}")
+                                }
+                            })
+                        } else {
+                            mostrarErros(response.errors);
+                        }
                     }
                 })
-            } else {
-                mostrarErros(response.errors);
-            }
             }
         })
+
+        
     });
     function mostrarErros(erros){
     let errors = '<ul>';

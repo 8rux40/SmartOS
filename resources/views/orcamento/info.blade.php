@@ -159,7 +159,7 @@
                 <a href="{{ route('orcamento.edit', $orcamento->id) }}" style="margin-left:5px;" class="btn btn-primary float-right"><i class="fas fa-coins"></i>&nbsp;Informar Orçamento</a>
             @endif
             @if ($user->can('gerenciar orcamento'))
-                <a onclick="cancelarOrcamento({{$orcamento->id}})" class="btn btn-danger float-right"><i class="fas fa-times-circle"></i>&nbsp;Cancelar Orçamento</a>
+                <a onclick="excluirOrcamento('{{$orcamento->id}}')" class="btn btn-danger float-right"><i class="fas fa-times-circle"></i>&nbsp;Excluir Orçamento</a>
             @endif
             </div>            
         </div>
@@ -171,8 +171,53 @@
 
 @push('javascript')
 <script>
-    $('.number').keypress(function(event) {
-        if ((event.which != 46  $(this).val().indexOf('.') != -1) && (event.which < 48  event.which > 57)) event.preventDefault();
-    });
+    $(document).ready(function(){
+        $('.number').keypress(function(event) {
+            if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) event.preventDefault();
+        });
+    })
+
+
+
+function excluirOrcamento(id){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Não será possível reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "{{ route('orcamento.delete', ':id') }}".replace(':id', id),
+          method: 'post',
+          dataType: 'json',
+          data: {
+            id: id,
+            _token: '{{ csrf_token() }}'
+          },
+          success: function(response){
+            if(response.success){
+              Swal.fire({
+                title: 'Excluido!',
+                text: response.message,
+                icon: 'success'
+              }).then(function(){
+                $(location).attr('href', '{{ route("orcamento.index") }}')
+              })
+              
+            } else {
+              mostraErros(response.errors)
+            }
+          }
+        })
+      }
+      //document.location.reload(true);
+    })
+  }
+
+  
 </script>
 @endpush
