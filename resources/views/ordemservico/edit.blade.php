@@ -143,8 +143,9 @@
 
         // muda o limite da quantidade utilizada conforme a disponibilidade em estoque
         $('#pecas').change(function(){
-            console.log('valor de pecas alterado', $('#pecas option:selected').attr('quantidade_pecas'));
-            $('#qtde_utilizada').attr('max', $('#pecas option:selected').attr('quantidade_pecas'))
+            let quantidade_pecas = parseInt($('#pecas option:selected').attr('quantidade_pecas'))
+            let foraDeEstoque = Boolean(quantidade_pecas == 0)
+            $('#qtde_utilizada').attr('max', quantidade_pecas).attr('min', (foraDeEstoque ? 0 : 1)).val((foraDeEstoque ? 0 : 1))
         })
     })
 
@@ -153,7 +154,8 @@
             console.log(data);
             if (Array.isArray(data) && data.length){
                 data.forEach(peca => {
-                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'" quantidade_pecas="'+ peca.quantidade_pecas+'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+'un.) R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + '</option>') )
+                    let foraDeEstoque = Boolean(peca.quantidade_pecas == 0)
+                    $('#pecas').append( $('<option value="'+ peca.id +'" valor="'+ peca.preco +'" quantidade_pecas="'+ peca.quantidade_pecas+'">'+ peca.codigo + ' - ' + peca.titulo + ' ('+ peca.quantidade_pecas+'un.) R$ '+ peca.preco.toLocaleString('pt-br', {minimumFractionDigits: 2}) + (foraDeEstoque ? ' - FORA DE ESTOQUE':'') +'</option>') )
                 }) 
             } 
         })
@@ -161,29 +163,34 @@
     }
     
     function adicionarPeca(){
+        let qtde_utilizada = $('#qtde_utilizada').val()
+        
+        if (qtde_utilizada <= $('#qtde_utilizada').attr('max') && qtde_utilizada > 0){
+            let valor_pecas = parseFloat($('#pecas option:selected').attr('valor')) * 1.0 * parseInt($('#qtde_utilizada').val());
+            let row = 
+                `<div class="row" id="peca_peca_rand" style="margin-bottom: 5px;"><div class="col-md-7">
+                    <input type="hidden" name="peca_utilizada_id[]" value="peca_id">
+                    <input disabled type="text" class="form-control" value="peca_titulo">
+                </div>
+                <div class="col-md-2">
+                    <input disabled type="number" class="form-control" min="1" value="peca_qtde" name="quantidade_utilizada[]">
+                </div>
+                <div class="col-md-2">
+                    <input disabled type="text" class="form-control number" id="valor_peca_peca_rand" value="peca_valor">
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="form-control btn btn-danger" onclick="removerPeca('peca_rand')"><i class="fas fa-minus"></i>&nbsp;</button>
+                </div></div>`
+                .replaceAll( 'peca_id', $('#pecas option:selected').val() )
+                .replaceAll( 'peca_rand', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 7) )
+                .replace( 'peca_titulo', $('#pecas option:selected').text() )
+                .replace( 'peca_qtde', $('#qtde_utilizada').val())
+                .replace( 'peca_valor', valor_pecas) 
+            $('#pecas_utilizadas').append( row )
+            atualizaValorTotal(valor_pecas)
 
-        let valor_pecas = parseFloat($('#pecas option:selected').attr('valor')) * 1.0 * parseInt($('#qtde_utilizada').val());
-        let row = 
-            `<div class="row" id="peca_peca_rand" style="margin-bottom: 5px;"><div class="col-md-7">
-                <input type="hidden" name="peca_utilizada_id[]" value="peca_id">
-                <input disabled type="text" class="form-control" value="peca_titulo">
-            </div>
-            <div class="col-md-2">
-                <input disabled type="number" class="form-control" min="1" value="peca_qtde" name="quantidade_utilizada[]">
-            </div>
-            <div class="col-md-2">
-                <input disabled type="text" class="form-control number" id="valor_peca_peca_rand" value="peca_valor">
-            </div>
-            <div class="col-md-1">
-                <button type="button" class="form-control btn btn-danger" onclick="removerPeca('peca_rand')"><i class="fas fa-minus"></i>&nbsp;</button>
-            </div></div>`
-            .replaceAll( 'peca_id', $('#pecas option:selected').val() )
-            .replaceAll( 'peca_rand', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 7) )
-            .replace( 'peca_titulo', $('#pecas option:selected').text() )
-            .replace( 'peca_qtde', $('#qtde_utilizada').val())
-            .replace( 'peca_valor', valor_pecas) 
-        $('#pecas_utilizadas').append( row )
-        atualizaValorTotal(valor_pecas)
+        }
+
     }
 
     function atualizaValorTotal(valor){
