@@ -92,7 +92,7 @@
                 }
             })
         } else {
-            //mostrarErros(response.errors);
+            mostrarErros(response.errors);
         }
       }
     })
@@ -104,6 +104,7 @@
     let reparador = Boolean("{{ User::find(auth()->user()->id)->can('informar orcamento') }}")
 
     $('table#orcamento-informado tbody tr').remove();
+    $('table#orcamento-pendente tbody tr').remove();
 
     $.getJSON(url, function (data){
       if (Array.isArray(data) && data.length){
@@ -120,7 +121,7 @@
                           <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-success" title="Informar orçamento"><li class="fa fa-coins"></li></a>
                           <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                           <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                          <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                          <a onclick="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                       </td>`
             } else {
               row += reparador ? `<td class="text-center">
@@ -130,7 +131,7 @@
                       `<td class="text-center">
                           <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                           <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                          <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                          <a onclick="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                       </td>`;
             }
             row += '</tr>';
@@ -147,7 +148,7 @@
                         <a class="btn btn-sm btn-success" title="Criar Ordem de Serviço" onclick="criarOS(':id')"><li class="fa fa-clipboard-list"></li></a>
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                        <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                        <a onclick="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                     </td>`
             } else {
               row += reparador ? `<td class="text-center">
@@ -158,7 +159,7 @@
                         <a class="btn btn-sm btn-success" title="Criar Ordem de Serviço" onclick="criarOS(':id')"><li class="fa fa-clipboard-list"></li></a>
                         <a href="{{route('orcamento.show',':id')}}" class="btn btn-sm btn-primary" title="Ver Detalhes"><li class="fa fa-eye"></li></a>
                         <a href="{{route('orcamento.edit',':id')}}" class="btn btn-sm btn-secondary" title="Editar"><li class="fa fa-edit"></li></a>
-                        <a href="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
+                        <a onclick="excluirOrcamento(:id)" class="btn btn-sm btn-danger" title="Excluir"><li class="fa fa-trash"></li></a>
                     </td>`;
             }
             row += '</tr>';
@@ -180,5 +181,56 @@
       }
     })
   }
+
+  function excluirOrcamento(id){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Não será possível reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sim, excluir!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "{{ route('orcamento.delete', ':id') }}".replace(':id', id),
+          method: 'post',
+          dataType: 'json',
+          data: {
+            id: id,
+            _token: '{{ csrf_token() }}'
+          },
+          success: function(response){
+            if(response.success){
+              Swal.fire({
+                title: 'Excluido!',
+                text: response.message,
+                icon: 'success'
+              })
+              carregaValores()
+            } else {
+              mostraErros(response.errors)
+            }
+          }
+        })
+      }
+      //document.location.reload(true);
+    })
+  }
+
+  function mostrarErros(erros){
+    let errors = '<ul>';
+    $.each(erros, function(index, value){
+        errors += '<li>'+ value +'</li';
+    })
+    errors += '</ul>';
+
+    Swal.fire({
+        title: 'Erro ao tentar realizar operação',
+        html: errors,
+        icon: 'error',
+    })
+}
 </script>
 @endpush

@@ -276,6 +276,27 @@ class OrcamentoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('gerenciar orcamento')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+        
+        // Verifica se o orçamento existe
+        $orcamento = OrdemServico::find($id);
+        if (!isset($orcamento)) return abort(404);
+
+        // Certifica que o orçamento não é uma OS
+        if ($orcamento->status != OrdemServico::ORCAMENTO_PENDENTE && $orcamento->status != OrdemServico::ORCAMENTO_INFORMADO) return abort(404);
+        
+        $orcamento->delete();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Orçamento excluído com sucesso',
+        ]);
     }
 }
