@@ -36,6 +36,7 @@ class CreateOrdemServicosTable extends Migration
             $table->float('valor_orcamento')->nullable();
             $table->date('data_abertura')->nullable();
             $table->date('data_fechamento')->nullable();
+            $table->date('data_cancelamento')->nullable();
             $table->longText('termo_garantia')->default('O cliente tem até 90 dias para reclamar de defeitos no produto durável (Celular) de acordo com o Art. 26 inc. II no código de defesa do consumidor. Limpeza e conservação do aparelho não fazem parte desta garantia. Para acionar a garantia é necessário apresentação do cupom fiscal ou documento de identidade. Qualquer mau funcionamento após atualização do Sistema Operacional pós entrega do equipamento reparado não fará parte da garantia. A garantia é válida somente ao item descrito na ordem de serviço.');
 
             $table->foreign('celular_id')->references('id')->on('celulares');
