@@ -30,6 +30,7 @@ Route::prefix('ordemservico')->group(function(){
     Route::post('/store/{orcamento_id}', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
     Route::put('/update/{id}', [OrdemServicoController::class, 'update'])->name('ordemservico.update');
     Route::post('/delete', [OrdemServicoController::class, 'delete'])->name('ordemservico.delete');
+    Route::post('/cancelar/{id}', [OrdemServicoController::class, 'cancelar'])->name('ordemservico.cancelar');
 });
 
 Route::prefix('orcamento')->group(function(){

@@ -178,10 +178,10 @@
             if (fecharOs){
               row += `<a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-success ml-1" title="Fechar"><li class="fa fa-check"></li></a>`;
             }
-            row += `<a href="{{route('ordemservico.show',':id')}}" class="btn btn-sm btn-primary" title="Detalhes da ordem de serviço"><li class="fa fa-eye"></li></a>`;
-            if (editarOs){
-              row += `<a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-secondary ml-1" title="Editar"><li class="fa fa-edit"></li></a>`;
-            }
+            row += `<a href="{{route('ordemservico.show',':id')}}" class="btn btn-sm btn-primary ml-1" title="Detalhes da ordem de serviço"><li class="fa fa-eye"></li></a>`;
+            // if (editarOs){
+            //   row += `<a href="{{route('ordemservico.edit',':id')}}" class="btn btn-sm btn-secondary ml-1" title="Editar"><li class="fa fa-edit"></li></a>`;
+            // }
             if (cancelarOs){
               row += `<a onclick="cancelar(:id)" class="btn btn-sm btn-danger ml-1" title="Cancelar"><li class="fas fa-times"></li></a>`;
             }
@@ -239,7 +239,44 @@
         $('table#ordensdeservico tbody').append(row);
       }
     })
+  }
 
+  function cancelar(id){
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Deseja cancelar esta OS? Não será possível reverter essa ação!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Não',
+      confirmButtonText: 'Sim, cancelar OS!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "{{ route('ordemservico.cancelar', ':id') }}".replace(':id', id),
+          method: 'post',
+          dataType: 'json',
+          data: {
+            id: id,
+            _token: '{{ csrf_token() }}'
+          },
+          success: function(response){
+            if(response.success){
+              Swal.fire({
+                title: 'OS cancelada!',
+                text: response.message,
+                icon: 'success'
+              })
+              carregaCanceladas()
+              carregaAbertas()
+            } else {
+              mostraErros(response.errors)
+            }
+          }
+        })
+      }
+    })
   }
 </script>
 @endpush

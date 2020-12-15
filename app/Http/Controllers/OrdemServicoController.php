@@ -136,6 +136,15 @@ class OrdemServicoController extends Controller
      */
     public function edit($id)
     {
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('fechar os')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+
         // Verifica se ordem de serviço existe
         $ordem_servico = OrdemServico::find($id);
         if (!isset($ordem_servico)) return abort(404);
@@ -242,5 +251,32 @@ class OrdemServicoController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cancelar($id){
+        // Verifica se usuário tem permissões de acesso
+        $user = User::find(auth()->user()->id);
+        if (!$user->can('cancelar os')){
+            return response()->json([
+                'success' => false,
+                'errors' => ['Você não possui permissão para realizar essa ação.'],
+            ])->setStatusCode(201);
+        }
+        
+        // Verifica se o orçamento existe
+        $os = OrdemServico::find($id);
+        if (!isset($os)) return abort(404);
+
+        // Certifica que o OS está ABERTA
+        if ( $os->status != OrdemServico::ABERTA ) return abort(404);
+        
+        $os->status = OrdemServico::CANCELADA;
+        $os->data_cancelamento = Carbon::now();
+        $os->save();
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Orçamento cancelada com sucesso',
+        ]);
     }
 }
