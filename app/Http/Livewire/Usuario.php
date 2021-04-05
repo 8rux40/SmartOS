@@ -3,11 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Usuario extends Component
 {
-    public $users, $name, $email, $user_id, $username; 
+    public $users, $name, $email, $user_id, $username, $password; 
     public $updateMode = false;
 
     public function render()
@@ -20,8 +21,10 @@ class Usuario extends Component
         $validatedData = $this->validate([
             'name' => 'required',
             'username' => 'unique:users',
-            'email' => 'required|email'
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|max:64'
         ]);
+        $validatedData['password'] = Hash::make($validatedData['password']);
 
         User::create($validatedData);
         session()->flash('message', 'Usuário criado com sucesso!');
@@ -73,10 +76,11 @@ class Usuario extends Component
         }
     }
 
-    private function resetInputFields(){
+    public function resetInputFields(){
         $this->name = '';
         $this->username = '';
         $this->email = '';
+        $this->password = '';
     }
 
 }
