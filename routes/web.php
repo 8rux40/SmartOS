@@ -81,3 +81,9 @@ Route::prefix('cliente')->group(function(){
     Route::put('/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
     Route::post('/delete/{id}', [ClienteController::class, 'destroy'])->name('cliente.delete');
 });
+
+Route::prefix('usuario')->group(function(){
+    Route::get('/', function(){
+        return view('usuario.index');
+    })->name('usuario.index');
+});

@@ -18,6 +18,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 </head>
 <body>
 
@@ -85,6 +86,13 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('gerenciar usuarios')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('usuario.index') }}">
+                                        <i class="fas fa-users"></i>&nbsp;Usuários
+                                    </a>
+                                </li>
+                            @endcan
                         @endguest
                     </ul>
 
@@ -139,6 +147,7 @@
         </main>
 
         <script src="{{ asset('js/app.js') }}"></script>
+        @livewireScripts
         @stack('javascript')
     </div>
 </body>
