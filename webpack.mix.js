@@ -17,5 +17,6 @@ mix.scripts([
         // 'node_modules/datatables.net-select-bs4/js/select.bootstrap4.js',
         'node_modules/gsap/dist/gsap.js'
     ], 'public/js/app.js')
+    .scripts('resources/js/sweetalert.js', 'public/js/sweetalert.js')
     .sass('resources/sass/app.scss', 'public/css')
     .sourceMaps();

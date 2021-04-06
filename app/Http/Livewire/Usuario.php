@@ -8,8 +8,10 @@ use Livewire\Component;
 
 class Usuario extends Component
 {
-    public $users, $name, $email, $user_id, $username, $password; 
+    public $users, $name, $email, $user_id, $username, $password;
     public $updateMode = false;
+
+    protected $listeners = ['usuario:delete' => 'delete'];
 
     public function render()
     {
@@ -25,11 +27,14 @@ class Usuario extends Component
             'password' => 'required|min:6|max:64'
         ]);
         $validatedData['password'] = Hash::make($validatedData['password']);
-
         User::create($validatedData);
-        session()->flash('message', 'Usuário criado com sucesso!');
         $this->resetInputFields();
         $this->emit('userStore');
+        $this->emit('swal:alert', [
+            'type'  => 'success',
+            'title'  => "Usuário criado com sucesso!",
+            'timeout' => 3000,
+        ]);
     }
 
     public function edit($id){
@@ -56,12 +61,17 @@ class Usuario extends Component
             $user = User::find($this->user_id);
             $user->update([
                 'name' => $this->name,
+                'username' => $this->username,
                 'email' => $this->email,
             ]);
             $this->updateMode = false;
-            session()->flash('message', 'Usuário alterado com sucesso.');
             $this->resetInputFields();
             $this->emit('userUpdate');
+            $this->emit('swal:alert', [
+                'type'  => 'success',
+                'title'  => "Usuário alterado com sucesso!",
+                'timeout' => 3000,
+            ]);
         }
     }
 
@@ -69,10 +79,26 @@ class Usuario extends Component
         //
     }
 
+    public function confirmDelete($id){
+        $this->emit("swal:confirm", [
+            'type'        => 'warning',
+            'title'       => 'Tem certeza?',
+            'text'        => "Você não poderá reverter isso!",
+            'confirmText' => 'Sim, desativar!',
+            'method'      => 'usuario:delete',
+            'params'      => $id, // optional, send params to success confirmation
+            'callback'    => '', // optional, fire event if no confirmed
+        ]);
+    }
+
     public function delete($id) {
         if ($id){
             User::find($id)->delete();
-            session()->flash('message', 'Usuário inativado com sucesso.');
+            $this->emit('swal:alert', [
+                'type'  => 'success',
+                'title'  => "Usuário desativado com sucesso!",
+                'timeout' => 3000,
+            ]);
         }
     }
 
