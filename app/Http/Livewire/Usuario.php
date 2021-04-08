@@ -28,10 +28,11 @@ class Usuario extends Component
             'name' => 'required',
             'username' => 'unique:users',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|max:64'
+            'password' => 'required|min:6|max:64',
+            'role' => 'required'
         ]);
         $validatedData['password'] = Hash::make($validatedData['password']);
-        User::create($validatedData);
+        User::create($validatedData)->syncRoles([$this->role]);
         $this->resetInputFields();
         $this->emit('userStore');
         $this->emit('swal:alert', [

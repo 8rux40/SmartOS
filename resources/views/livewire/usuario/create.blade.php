@@ -22,6 +22,15 @@
                             @error('email') <span class="text-danger">{{ $message }}</span>@enderror
                         </div>
                         <div class="form-group">
+                            <label for="user_role">Grupo</label>
+                            <select id="user_role" class="form-control" aria-label="Grupo do usuário" wire:model="role">
+                                @foreach($roles as $role)
+                                    <option value="{{ $role }}">{{ $role }}</option>
+                                @endforeach
+                            </select>
+                            @error('role') <span class="text-danger">{{ $message }}</span>@enderror
+                        </div>
+                        <div class="form-group">
                             <input type="hidden" wire:model="user_id">
                             <label for="user_username">Login</label>
                             <input type="text" class="form-control" wire:model="username" id="user_username" placeholder="Login no sistema">
@@ -41,4 +50,4 @@
                 </div>
         </div>
     </div>
-</div> 
+</div>
