@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Role;
 
 class Usuario extends Component
 {
-    public $users, $name, $email, $user_id, $username, $password, $role;
+    public $users, $name, $email, $user_id, $username, $password, $password_confirmation, $role;
     public $updateMode = false;
 
     protected $listeners = ['usuario:delete' => 'delete'];
@@ -42,6 +42,11 @@ class Usuario extends Component
         ]);
     }
 
+    public function cancel(){
+        $this->updateMode = false;
+        $this->resetInputFields();
+    }
+
     public function edit($id){
         $this->updateMode = true;
         $user = User::find($id);
@@ -50,11 +55,6 @@ class Usuario extends Component
         $this->name = $user->name;
         $this->username = $user->username;
         $this->email = $user->email;
-    }
-
-    public function cancel(){
-        $this->updateMode = false;
-        $this->resetInputFields();
     }
 
     public function update(){
@@ -83,8 +83,24 @@ class Usuario extends Component
         }
     }
 
+    public function changePasswordModal($user_id){
+        $this->user_id = $user_id;
+    }
+
     public function changePassword(){
-        //
+        $validatedData = $this->validate([
+            'password' => 'required|confirmed|min:6|max:64',
+        ]);
+        if ($this->user_id){
+            User::find($this->user_id)->update(['password' => Hash::make($validatedData['password'])]);
+            $this->resetInputFields();
+            $this->emit('userPasswordReset');
+            $this->emit('swal:alert', [
+                'type'  => 'success',
+                'title'  => "Senha redefinida com sucesso!",
+                'timeout' => 3000,
+            ]);
+        }
     }
 
     public function confirmDelete($id){
@@ -115,6 +131,8 @@ class Usuario extends Component
         $this->username = '';
         $this->email = '';
         $this->password = '';
+        $this->password_confirmation = '';
+        $this->role = '';
     }
 
 }

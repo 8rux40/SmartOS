@@ -1,6 +1,7 @@
 <div class="container">
     @include('livewire.usuario.create')
     @include('livewire.usuario.edit')
+    @include('livewire.usuario.reset_password')
 
     @if (session()->has('message'))
         <div class="alert alert-success" style="margin-top:30px;">
@@ -40,9 +41,10 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->getRoleNames()->get(0) }}</td>
                             <td>
-{{--                                <button class="btn btn-sm btn-dark" wire:click="changePassword({{$user}})"><i--}}
-{{--                                        class="fas fa-key"></i> Redefinir senha--}}
-{{--                                </button>--}}
+                                <button data-toggle="modal" data-target="#resetPasswordModal" class="btn btn-sm btn-dark"
+                                        wire:click="changePasswordModal({{ $user->id }})">
+                                    <i class="fas fa-key"></i> Redefinir senha
+                                </button>
                                 <button data-toggle="modal" data-target="#updateModal"
                                         wire:click="edit({{ $user->id }})" class="btn btn-primary btn-sm">
                                     <i class="fas fa-edit"></i> Alterar
