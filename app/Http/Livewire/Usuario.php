@@ -5,10 +5,11 @@ namespace App\Http\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Spatie\Permission\Models\Role;
 
 class Usuario extends Component
 {
-    public $users, $name, $email, $user_id, $username, $password;
+    public $users, $name, $email, $user_id, $username, $password, $role;
     public $updateMode = false;
 
     protected $listeners = ['usuario:delete' => 'delete'];
@@ -16,7 +17,10 @@ class Usuario extends Component
     public function render()
     {
         $this->users = User::with('roles')->get();
-        return view('livewire.usuario', ['users' => $this->users]);
+        return view('livewire.usuario', [
+            'users' => $this->users,
+            'roles' => Role::all()->pluck('name')
+        ]);
     }
 
     public function store(){
@@ -41,6 +45,7 @@ class Usuario extends Component
         $this->updateMode = true;
         $user = User::find($id);
         $this->user_id = $user->id;
+        $this->role = $user->getRoleNames()->get(0);
         $this->name = $user->name;
         $this->username = $user->username;
         $this->email = $user->email;
@@ -55,7 +60,8 @@ class Usuario extends Component
         $validatedData = $this->validate([
             'name' => 'required',
             'username' => 'required',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            'role' => 'required'
         ]);
         if ($this->user_id){
             $user = User::find($this->user_id);
@@ -64,6 +70,7 @@ class Usuario extends Component
                 'username' => $this->username,
                 'email' => $this->email,
             ]);
+            $user->syncRoles([$this->role]);
             $this->updateMode = false;
             $this->resetInputFields();
             $this->emit('userUpdate');
