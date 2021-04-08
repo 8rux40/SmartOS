@@ -15,7 +15,7 @@ class Usuario extends Component
 
     public function render()
     {
-        $this->users = User::all();
+        $this->users = User::with('roles')->get();
         return view('livewire.usuario', ['users' => $this->users]);
     }
 

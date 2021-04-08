@@ -16,7 +16,6 @@
             <button wire:click="resetInputFields()" data-toggle="modal" data-target="#createModal"
                     class="btn btn-md bg-success text-light float-right"><i class="fas fa-plus"></i>&nbsp;&nbsp;Novo
             </button>
-            {{-- <a href="#usuario.create" class="btn btn-md bg-success text-light float-right"> <i class="fas fa-plus"></i>&nbsp;&nbsp;Novo</a> --}}
         </div>
     </div>
     <div class="mt-2"></div>
@@ -29,6 +28,7 @@
                         <th scope="col">Nome</th>
                         <th scope="col">Login</th>
                         <th scope="col">E-mail</th>
+                        <th scope="col">Grupo</th>
                         <th scope="col"></th>
                     </tr>
                     </thead>
@@ -38,6 +38,7 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->getRoleNames()->get(0) }}</td>
                             <td>
 {{--                                <button class="btn btn-sm btn-dark" wire:click="changePassword({{$user}})"><i--}}
 {{--                                        class="fas fa-key"></i> Redefinir senha--}}
