@@ -18,12 +18,15 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 </head>
 <body>
 
     @php
         use App\Models\User;
     @endphp
+
+    @include('sweetalert::alert')
 
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-dark bg-primary">
@@ -37,8 +40,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        @guest 
-                        @else 
+                        @guest
+                        @else
                             {{-- Cliente --}}
                             @can('gerenciar clientes')
                                 <li class="nav-item ">
@@ -82,6 +85,13 @@
                                 <li class="nav-item ">
                                     <a class="nav-link text-light" href="{{ route('peca.index') }}">
                                         <i class="fas fa-tools"></i>&nbsp;Peça
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('gerenciar usuarios')
+                                <li class="nav-item ">
+                                    <a class="nav-link text-light" href="{{ route('usuario.index') }}">
+                                        <i class="fas fa-users"></i>&nbsp;Usuários
                                     </a>
                                 </li>
                             @endcan
@@ -134,11 +144,13 @@
             </div>
         </div>
         <main class="py-4">
-            
+
             @yield('content')
         </main>
 
         <script src="{{ asset('js/app.js') }}"></script>
+        @livewireScripts
+        <script src="{{ asset('js/sweetalert.js') }}"></script>
         @stack('javascript')
     </div>
 </body>

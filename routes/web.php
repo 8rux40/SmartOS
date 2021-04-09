@@ -26,7 +26,7 @@ Route::prefix('ordemservico')->group(function(){
     Route::get('/getAbertas', [OrdemServicoController::class, 'getAbertas'])->name('ordemservico.getAbertas');
     Route::get('/getConcluidas', [OrdemServicoController::class, 'getConcluidas'])->name('ordemservico.getConcluidas');
     Route::get('/getCanceladas', [OrdemServicoController::class, 'getCanceladas'])->name('ordemservico.getCanceladas');
-    
+
     Route::post('/store/{orcamento_id}', [OrdemServicoController::class, 'store'])->name('ordemservico.store');
     Route::put('/update/{id}', [OrdemServicoController::class, 'update'])->name('ordemservico.update');
     Route::post('/delete', [OrdemServicoController::class, 'delete'])->name('ordemservico.delete');
@@ -39,7 +39,7 @@ Route::prefix('orcamento')->group(function(){
     Route::get('/show/{id}', [OrcamentoController::class, 'show'])->name('orcamento.show');
     Route::get('/edit/{id}', [OrcamentoController::class, 'edit'])->name('orcamento.edit');
     Route::get('/getAll', [OrcamentoController::class, 'getAll'])->name('orcamento.getAll');
-    
+
     Route::post('/solicitar',   [OrcamentoController::class, 'solicitarOrcamento'])->name('orcamento.solicitar');
     Route::put ('/update/{id}', [OrcamentoController::class, 'update'            ])->name('orcamento.update');
     Route::post('/delete/{id}', [OrcamentoController::class, 'destroy'           ])->name('orcamento.delete');
@@ -48,7 +48,7 @@ Route::prefix('orcamento')->group(function(){
 Route::prefix('peca')->group(function(){
     Route::get('/',             [PecaController::class, 'index'  ])->name('peca.index');
     Route::get('/show/{id}',    [PecaController::class, 'show'   ])->name('peca.show');
-    Route::get('/create',       [PecaController::class, 'create' ])->name('peca.create');     
+    Route::get('/create',       [PecaController::class, 'create' ])->name('peca.create');
     Route::get('/show/{id}',    [PecaController::class, 'show'   ])->name('peca.show');
     Route::get('/getAll',       [PecaController::class, 'getAll' ])->name('peca.getAll');
     Route::get('/edit/{id}',    [PecaController::class, 'edit'   ])->name('peca.edit');
@@ -59,11 +59,11 @@ Route::prefix('peca')->group(function(){
 
 Route::prefix('celular')->group(function(){
     Route::get('/', [CelularController::class, 'index'])->name('celular.index');
-    Route::get('/create/{id}', [CelularController::class, 'create'])->name('celular.create'); 
+    Route::get('/create/{id}', [CelularController::class, 'create'])->name('celular.create');
     Route::get('/show/{id}', [CelularController::class, 'show'])->name('celular.show');
     Route::get('/getAll', [CelularController::class, 'getAll'])->name('celular.getAll');
     Route::get('/edit/{id}', [CelularController::class, 'edit'])->name('celular.edit');
-    
+
     Route::post('/store', [CelularController::class, 'store'])->name('celular.store');
     Route::put('/update/{id}', [CelularController::class, 'update'])->name('celular.update');
     Route::post('/delete/{id}', [CelularController::class, 'destroy'])->name('celular.delete');
@@ -80,4 +80,10 @@ Route::prefix('cliente')->group(function(){
     Route::post('/store', [ClienteController::class, 'store'])->name('cliente.store');
     Route::put('/update/{id}', [ClienteController::class, 'update'])->name('cliente.update');
     Route::post('/delete/{id}', [ClienteController::class, 'destroy'])->name('cliente.delete');
+});
+
+Route::prefix('usuario')->group(function(){
+    Route::get('/', function(){
+        return view('usuario');
+    })->name('usuario.index');
 });
