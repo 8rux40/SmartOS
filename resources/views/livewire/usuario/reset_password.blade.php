@@ -17,7 +17,7 @@
                         <input type="password" class="form-control" wire:model="password" id="user_password"
                                placeholder="Digite a nova senha aqui" aria-describedby="passwordHelpBlock">
                         <small id="passwordHelpBlock" class="form-text text-muted">
-                            A senha deve conter no mínimo 6 caracteres e no máximo 64.
+                            A senha deve conter no mínimo 6 e no máximo 64 caracteres.
                         </small>
                         @error('password') <span class="text-danger">{{ $message }}</span>@enderror
                     </div>

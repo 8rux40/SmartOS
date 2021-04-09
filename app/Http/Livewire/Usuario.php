@@ -9,7 +9,8 @@ use Spatie\Permission\Models\Role;
 
 class Usuario extends Component
 {
-    public $users, $name, $email, $user_id, $username, $password, $password_confirmation, $role;
+    public $users, $name, $email, $user_id, $username, $password, $password_confirmation;
+    public $role;
     public $updateMode = false;
 
     protected $listeners = ['usuario:delete' => 'delete'];
@@ -17,6 +18,7 @@ class Usuario extends Component
     public function render()
     {
         $this->users = User::with('roles')->get();
+        $this->role = Role::all()->first();
         return view('livewire.usuario', [
             'users' => $this->users,
             'roles' => Role::all()->pluck('name')
@@ -28,7 +30,7 @@ class Usuario extends Component
             'name' => 'required',
             'username' => 'unique:users',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6|max:64',
+            'password' => 'required|confirmed|min:6|max:64',
             'role' => 'required'
         ]);
         $validatedData['password'] = Hash::make($validatedData['password']);
@@ -132,7 +134,6 @@ class Usuario extends Component
         $this->email = '';
         $this->password = '';
         $this->password_confirmation = '';
-        $this->role = '';
     }
 
 }
